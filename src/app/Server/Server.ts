@@ -27,11 +27,11 @@ export class Server {
     });
   }
 
-  static init(port: number): Server {
+  public static init(port: number): Server {
     return new Server(port);
   }
 
-  listen(callback: Function): void {
+  public listen(callback: Function): void {
     this._app.listen(this.port, callback());
   }
 }

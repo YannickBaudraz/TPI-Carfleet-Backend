@@ -2,12 +2,12 @@
   "name": "tpicarfleet_backend",
   "version": "1.0.0",
   "description": "Car fleet management back-end",
-  "main": "index.js",
+  "main": "main.js",
   "repository": "git@github.com:/NicolasGlassey/TPICarfleet_Backend.git",
   "author": "yannick.baudraz@cpnv.ch",
   "scripts": {
     "build": "tsc",
-    "start": "npm run build && node dist/index.js",
+    "start": "npm run build && node dist/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

@@ -3,7 +3,7 @@
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
- * Project      :   tpicarfleet_backend - index.ts
+ * Project      :   tpicarfleet_backend - main.ts
  *
  * Created      :   12.02.2021
  *
@@ -13,7 +13,7 @@
  * Created with WebStorm.
  */
 
-import { Server } from './Server';
+import { Server } from './app/Server/Server';
 
 const PORT = 3000;
 
