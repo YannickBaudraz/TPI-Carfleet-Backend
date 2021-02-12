@@ -5,10 +5,17 @@
     "sourceMap": true,
     "outDir": "dist"
   },
+
   "include": [
     "src/**/*.ts"
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+
+  "typedocOptions": {
+    "entryPoints": "src",
+    "out": "doc/documentation",
+    "excludePrivate": true
+  }
 }
