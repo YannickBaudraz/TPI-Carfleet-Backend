@@ -1,0 +1,8 @@
+{
+  "name": "tpicarfleet_backend",
+  "version": "1.0.0",
+  "description": "Car fleet management back-end",
+  "main": "server.js",
+  "repository": "git@github.com:/NicolasGlassey/TPICarfleet_Backend.git",
+  "author": "yannick.baudraz@cpnv.ch"
+}
