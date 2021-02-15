@@ -1,4 +1,4 @@
-/**
+/*
  * Description  :   Manage the application
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
@@ -17,7 +17,7 @@ import { Express } from 'express';
 import express = require('express');
 
 /**
- * This class manages the application
+ * This class manages the application.
  */
 export class Server {
 
@@ -33,7 +33,7 @@ export class Server {
 
   /**
    *
-   * Initialize the application
+   * Initialize the application.
    *
    * @param {number} port - The port of the server.
    *
@@ -48,7 +48,7 @@ export class Server {
   }
 
   /**
-   * Start listening for connection
+   * Start listening for connection.
    *
    * @param callback
    */

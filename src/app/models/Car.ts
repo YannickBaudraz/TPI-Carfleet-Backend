@@ -1,4 +1,4 @@
-/**
+/*
  * Description  :   This file represents a car model
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch

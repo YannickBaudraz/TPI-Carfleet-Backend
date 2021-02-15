@@ -1,4 +1,4 @@
-/**
+/*
  * Description  :   Entry point of the application
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
@@ -16,16 +16,16 @@
 import { Server } from './app/Server/Server';
 
 /**
- * This class is the application entry point
+ * This class is the application entry point.
  */
 export class Program {
 
   private constructor() {}
 
   /**
-   * Entry point method
+   * Entry point method.
    *
-   * @param port - The port on which the application will run
+   * @param port - The port on which the application will run.
    */
   public static main(port: number): void {
     const server = Server.init(port);
