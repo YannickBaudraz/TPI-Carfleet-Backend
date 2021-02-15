@@ -13,7 +13,7 @@
  * Created with WebStorm.
  */
 
-import {Server} from './app/Server/Server';
+import { Server } from './app/Server/Server';
 
 /**
  * This class is the application entry point.

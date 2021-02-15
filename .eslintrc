@@ -5,13 +5,15 @@
     "node": true
   },
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "prettier"
   ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "google"
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint"
   ],
   "parser": "@typescript-eslint/parser",
   "rules": {
@@ -27,12 +29,15 @@
       "error",
       "always"
     ],
-    "require-jsdoc": ["error", {
-      "require": {
-        // Remove accessors
-        "MethodDefinition": false
+    "require-jsdoc": [
+      "error",
+      {
+        "require": {
+          // Remove accessors
+          "MethodDefinition": false
+        }
       }
-    }],
+    ],
     "valid-jsdoc": [
       "error",
       {

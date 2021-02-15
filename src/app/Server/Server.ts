@@ -13,7 +13,7 @@
  * Created with WebStorm.
  */
 
-import {Express} from 'express';
+import { Express } from 'express';
 import express = require('express');
 
 /**
