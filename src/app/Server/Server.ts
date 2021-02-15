@@ -52,7 +52,7 @@ export class Server {
    *
    * @param callback
    */
-  public listen(callback: Function): void {
+  public listen(callback: () => string): void {
     this._app.listen(this.port, callback());
   }
 }

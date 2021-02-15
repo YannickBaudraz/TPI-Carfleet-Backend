@@ -20,6 +20,8 @@ import { Server } from './app/Server/Server';
  */
 export class Program {
 
+  private static _instance: Program;
+
   private constructor() {}
 
   /**
@@ -28,8 +30,10 @@ export class Program {
    * @param port - The port on which the application will run.
    */
   public static main(port: number): void {
-    const server = Server.init(port);
-    server.listen(() => console.log(`Example app listening at http://localhost:${port}`));
+    if (!this._instance) {
+      this._instance = new Program()
+      Server.init(port);
+    }
   }
 }
 
