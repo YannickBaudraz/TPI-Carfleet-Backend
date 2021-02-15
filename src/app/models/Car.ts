@@ -17,16 +17,14 @@
  * This class represents a car.
  */
 export class Car {
-
-  //region Fields
+  // region Fields
 
   private _id?: number;
   private readonly _registrationNumber: string;
   private readonly _chassisNumber: number;
+  // endregion
 
-  //endregion
-
-  //region Constructor
+  // region Constructor
 
   constructor(id: number, registrationNumber: string, chassisNumber: number) {
     this._id = id;
@@ -34,15 +32,15 @@ export class Car {
     this._chassisNumber = chassisNumber;
   }
 
-  //endregion
+  // endregion
 
-  //region Accessors
+  // region Accessors
 
-  get id(): number {
+  get id(): number | undefined {
     return this._id;
   }
 
-  set id(value: number) {
+  set id(value: number | undefined) {
     this._id = value;
   }
 
@@ -54,5 +52,5 @@ export class Car {
     return this._chassisNumber;
   }
 
-  //endregion
+  // endregion
 }

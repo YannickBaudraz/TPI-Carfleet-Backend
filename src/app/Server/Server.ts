@@ -13,14 +13,13 @@
  * Created with WebStorm.
  */
 
-import { Express } from 'express';
+import {Express} from 'express';
 import express = require('express');
 
 /**
  * This class manages the application.
  */
 export class Server {
-
   private static _instance: Server;
   private _app: Express;
 
@@ -50,7 +49,7 @@ export class Server {
   /**
    * Start listening for connection.
    *
-   * @param callback
+   * @param callback - Function to call when the server is listening.
    */
   public listen(callback: () => string): void {
     this._app.listen(this.port, callback());

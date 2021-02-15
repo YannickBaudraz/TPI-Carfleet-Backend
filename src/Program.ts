@@ -13,13 +13,12 @@
  * Created with WebStorm.
  */
 
-import { Server } from './app/Server/Server';
+import {Server} from './app/Server/Server';
 
 /**
  * This class is the application entry point.
  */
 export class Program {
-
   private static _instance: Program;
 
   private constructor() {}
@@ -31,7 +30,7 @@ export class Program {
    */
   public static main(port: number): void {
     if (!this._instance) {
-      this._instance = new Program()
+      this._instance = new Program();
       Server.init(port);
     }
   }

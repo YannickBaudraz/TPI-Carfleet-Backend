@@ -9,8 +9,38 @@
   ],
   "extends": [
     "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/eslint-recommended"
+    "google"
   ],
-  "parser": "@typescript-eslint/parser"
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "@typescript-eslint/no-empty-function": [
+      "off",
+      {
+        "allow": [
+          "constructors"
+        ]
+      }
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "require-jsdoc": ["error", {
+      "require": {
+        // Remove accessors
+        "MethodDefinition": false
+      }
+    }],
+    "valid-jsdoc": [
+      "error",
+      {
+        // Typescript with compodoc doesn't need this
+        "requireParamType": false,
+        "requireReturn": false,
+        "requireReturnType": false
+      }
+    ]
+  }
 }
