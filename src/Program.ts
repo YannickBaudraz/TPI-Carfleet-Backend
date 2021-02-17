@@ -13,7 +13,9 @@
  * Created with WebStorm.
  */
 
-import { Server } from './app/Server/Server';
+import { Router } from 'express';
+import { Server } from './app/server/Server';
+import express = require('express');
 
 /**
  * This class is the application entry point.
@@ -25,15 +27,14 @@ export class Program {
 
   /**
    * Entry point method.
-   *
-   * @param port - The port on which the application will run.
    */
-  public static main(port: number): void {
+  public static main(): void {
     if (!this._instance) {
       this._instance = new Program();
-      Server.init(port);
+
+      Server.init(express(), Router(), 3000);
     }
   }
 }
 
-Program.main(3000);
+Program.main();

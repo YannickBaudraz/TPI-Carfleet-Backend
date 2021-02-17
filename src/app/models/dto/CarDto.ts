@@ -13,20 +13,38 @@
  * Created with WebStorm.
  */
 
+import { JsonProperty } from 'typescript-json-serializer';
+import { SerializableDto } from './SerializableDto';
+
 /**
  * This class represents a car.
  */
-export class Car {
+export class CarDto extends SerializableDto {
   // region Fields
 
+  @JsonProperty()
   private _id?: number;
-  private readonly _registrationNumber: string;
-  private readonly _chassisNumber: number;
+
+  @JsonProperty()
+  private readonly _registrationNumber!: string;
+
+  @JsonProperty()
+  private readonly _chassisNumber!: string;
+
   // endregion
 
   // region Constructor
 
-  constructor(id: number, registrationNumber: string, chassisNumber: number) {
+  /**
+   * Instantiate the class.
+   *
+   * @param id - The unique id
+   * @param registrationNumber - The unique registration plate
+   * @param chassisNumber - The unique VIN code
+   */
+  constructor(id: number, registrationNumber: string, chassisNumber: string) {
+    super();
+
     this._id = id;
     this._registrationNumber = registrationNumber;
     this._chassisNumber = chassisNumber;
@@ -48,7 +66,7 @@ export class Car {
     return this._registrationNumber;
   }
 
-  get chassisNumber(): number {
+  get chassisNumber(): string {
     return this._chassisNumber;
   }
 

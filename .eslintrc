@@ -29,15 +29,6 @@
       "error",
       "always"
     ],
-    "require-jsdoc": [
-      "error",
-      {
-        "require": {
-          // Remove accessors
-          "MethodDefinition": false
-        }
-      }
-    ],
     "valid-jsdoc": [
       "error",
       {
