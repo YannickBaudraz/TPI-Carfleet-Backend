@@ -1,5 +1,5 @@
 /*
- * Description  :   [ADD DESCRIPTION]
+ * Description  :   Abstract class to serialize object to JSON.
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
@@ -13,16 +13,13 @@
  * Created with WebStorm.
  */
 
-import { Serializable, serialize } from 'typescript-json-serializer';
-import { StringUtils } from '../../../lib/utils/StringUtils';
+import { serialize } from 'class-transformer';
 
 /**
  * This abstract class enhanced the way to be serializable.
  */
-@Serializable({
-  formatPropertyNames: StringUtils.removeLeadingUnderscore,
-})
 export abstract class SerializableDto {
+  // noinspection JSUnusedGlobalSymbols
   /**
    * Serialize the instantiated object with the serializable options.
    *

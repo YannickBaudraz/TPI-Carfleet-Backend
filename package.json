@@ -14,18 +14,20 @@
     "start": "npm run build && node dist/program.js",
     "start:dev": "ts-node-dev src/Program.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "check": "npm-run-all check:*",
-    "check:lint": "eslint src --ext .ts",
-    "check:prettier": "prettier ./src/**/*.ts --config .prettierrc --check",
+    "validate": "npm-run-all validate:*",
+    "validate:lint": "eslint src --ext .ts",
+    "validate:prettier": "prettier ./src/**/*.ts --config .prettierrc --check",
     "format": "npm-run-all format:*",
     "format:lint": "eslint src --ext .ts --fix",
     "format:prettier": "prettier ./src/**/*.ts --config .prettierrc --write",
-    "validate": "npm-run-all prettier lint",
     "generate:doc": "compodoc --config compodocrc.json"
   },
   "dependencies": {
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
     "express": "^4.17.1",
-    "typescript-json-serializer": "^3.0.0"
+    "reflect-metadata": "^0.1.13",
+    "routing-controllers": "^0.9.0"
   },
   "devDependencies": {
     "@compodoc/compodoc": "^1.1.11",

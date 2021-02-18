@@ -14,12 +14,13 @@
  */
 
 import { Response } from 'express-serve-static-core';
-import { HTTPStatusCode } from './HTTPStatusCode';
+import { HTTPStatusCode } from '../../../lib/HTTPStatusCode';
+import { BackendResponseBody } from '../interfaces/BackendResponseBody';
 
 /**
  * This class simplifies the way to send response in Json format.
  */
-export class JSONResponse {
+export class ResponseService {
   /**
    * Instantiate with a HTTP response.
    *
@@ -32,9 +33,11 @@ export class JSONResponse {
    *
    * @param data - The data to send
    * @param message - The attached message
+   *
+   * @return The Response with custom JSON
    */
-  sendSuccess(data?: unknown, message?: string): void {
-    this.res.status(HTTPStatusCode.OK).json({
+  sendSuccess(data?: unknown, message?: string): Response<BackendResponseBody> {
+    return this.res.status(HTTPStatusCode.OK).json({
       code: HTTPStatusCode.OK,
       message: message || 'success',
       data: data,
@@ -45,9 +48,11 @@ export class JSONResponse {
    * Send an internal server error.
    *
    * @param message - The attached message
+   *
+   * @return The response with custom JSON
    */
-  sendServerError(message?: string): void {
-    this.res.status(HTTPStatusCode.SERVER_ERROR).json({
+  sendServerError(message?: string): Response<BackendResponseBody> {
+    return this.res.status(HTTPStatusCode.SERVER_ERROR).json({
       code: HTTPStatusCode.SERVER_ERROR,
       message: message || 'internal server error',
     });

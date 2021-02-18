@@ -13,7 +13,6 @@
  * Created with WebStorm.
  */
 
-import { JsonProperty } from 'typescript-json-serializer';
 import { SerializableDto } from './SerializableDto';
 
 /**
@@ -22,14 +21,9 @@ import { SerializableDto } from './SerializableDto';
 export class CarDto extends SerializableDto {
   // region Fields
 
-  @JsonProperty()
   private _id?: number;
-
-  @JsonProperty()
-  private readonly _registrationNumber!: string;
-
-  @JsonProperty()
-  private readonly _chassisNumber!: string;
+  private readonly _registrationNumber: string;
+  private readonly _chassisNumber: string;
 
   // endregion
 

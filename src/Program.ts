@@ -13,9 +13,7 @@
  * Created with WebStorm.
  */
 
-import { Router } from 'express';
-import { Server } from './app/server/Server';
-import express = require('express');
+import { CarFleetApplication } from './app/CarFleetApplication';
 
 /**
  * This class is the application entry point.
@@ -32,7 +30,7 @@ export class Program {
     if (!this._instance) {
       this._instance = new Program();
 
-      Server.init(express(), Router(), 3000);
+      new CarFleetApplication();
     }
   }
 }

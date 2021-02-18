@@ -19,8 +19,8 @@ import { Express, json, Request, Response, Router } from 'express';
 import * as http from 'http';
 import { AddressInfo } from 'net';
 import * as carsDataset from '../../data/cars.json';
-import { JSONResponse } from '../../lib/JSONResponse';
 import { CarDto } from '../models/dto/CarDto';
+import { ResponseService } from '../models/services/ResponseService';
 import ErrnoException = NodeJS.ErrnoException;
 
 /**
@@ -51,6 +51,14 @@ export class Server {
 
   //endregion
 
+  //region Accessors
+
+  static get instance(): Server {
+    return this._instance;
+  }
+
+  //endregion
+
   //region Methods
 
   //region Static methods
@@ -69,18 +77,11 @@ export class Server {
 
   //endregion
 
-  //region Accessors
-
-  static get instance(): Server {
-    return this._instance;
-  }
-
-  //endregion
-
   //region Instance methods
 
   private initRoutes() {
     const cars: CarDto[] = carsDataset.map((car) => {
+      new CarDto(car.id, car.registrationNumber, car.chassisNumber);
       return new CarDto(car.id, car.registrationNumber, car.chassisNumber);
     });
 
@@ -91,12 +92,12 @@ export class Server {
     );
 
     this._router.get(`${prefix}/cars/all`, (req, res) => {
-      res.json(new JSONResponse(res).sendSuccess(cars));
+      res.json(new ResponseService(res).sendSuccess(cars));
     });
 
     this._router.get(`${prefix}/cars/:id`, (req, res) => {
       const car = cars.find((car) => car.id === Number(req.params.id));
-      res.json(new JSONResponse(res).sendSuccess(car));
+      res.json(new ResponseService(res).sendSuccess(car));
     });
 
     this._app.use(json());
