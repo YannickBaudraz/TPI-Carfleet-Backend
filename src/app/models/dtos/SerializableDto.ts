@@ -13,7 +13,9 @@
  * Created with WebStorm.
  */
 
-import { serialize } from 'class-transformer';
+import { classToPlain } from 'class-transformer';
+import { StringUtils } from '../../../lib/utils/StringUtils';
+import { LiteralJSONObject } from '../types/LiteralJSONObject';
 
 /**
  * This abstract class enhanced the way to be serializable.
@@ -25,7 +27,18 @@ export abstract class SerializableDto {
    *
    * @return The object serialized
    */
-  toJSON(): string {
-    return serialize(this);
+  toJSON(): LiteralJSONObject {
+    return classToPlain(this);
+  }
+
+  /**
+   * Transform the property and remove the leading underscore (private fields).
+   *
+   * @param property - The property to transform
+   *
+   * @return The property transformed
+   */
+  protected static transformProperty(property: string): string {
+    return StringUtils.removeLeadingUnderscore(property);
   }
 }

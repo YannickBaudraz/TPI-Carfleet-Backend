@@ -29,15 +29,31 @@ export class ResponseService {
   constructor(private res: Response) {}
 
   /**
-   * Send a success response.
+   * Send a basic success response.
    *
    * @param data - The data to send
    * @param message - The attached message
    *
-   * @return The Response with custom JSON
+   * @return The Response with custom JSON body
    */
-  sendSuccess(data?: unknown, message?: string): Response<BackendResponseBody> {
+  sendOk(data?: unknown, message?: string): Response<BackendResponseBody> {
     return this.res.status(HTTPStatusCode.OK).json({
+      code: HTTPStatusCode.OK,
+      message: message || 'success',
+      data: data,
+    });
+  }
+
+  /**
+   * Send a created success response.
+   *
+   * @param data - The data created to re-send to the client
+   * @param message - The attache message
+   *
+   * @return The response with custom JSON body
+   */
+  sendCreated(data?: unknown, message?: string): Response<BackendResponseBody> {
+    return this.res.status(HTTPStatusCode.CREATED).json({
       code: HTTPStatusCode.OK,
       message: message || 'success',
       data: data,
@@ -49,7 +65,7 @@ export class ResponseService {
    *
    * @param message - The attached message
    *
-   * @return The response with custom JSON
+   * @return The response with custom JSON body
    */
   sendServerError(message?: string): Response<BackendResponseBody> {
     return this.res.status(HTTPStatusCode.SERVER_ERROR).json({

@@ -13,56 +13,62 @@
  * Created with WebStorm.
  */
 
+import { Exclude, Expose } from 'class-transformer';
 import { SerializableDto } from './SerializableDto';
 
+// noinspection JSUnusedGlobalSymbols
+@Exclude()
 /**
  * This class represents a car.
  */
 export class CarDto extends SerializableDto {
   // region Fields
 
-  private _id?: number;
-  private readonly _registrationNumber: string;
-  private readonly _chassisNumber: string;
+  private _id!: number;
+  private _registrationNumber!: string;
+  private _chassisNumber!: string;
 
   // endregion
 
   // region Constructor
 
   /**
-   * Instantiate the class.
-   *
-   * @param id - The unique id
-   * @param registrationNumber - The unique registration plate
-   * @param chassisNumber - The unique VIN code
+   * Instantiate a {@link CarDto}.
    */
-  constructor(id: number, registrationNumber: string, chassisNumber: string) {
+  constructor() {
     super();
-
-    this._id = id;
-    this._registrationNumber = registrationNumber;
-    this._chassisNumber = chassisNumber;
   }
 
   // endregion
 
-  // region Accessors
+  //region Accessors
 
-  get id(): number | undefined {
+  @Expose()
+  get id(): number {
     return this._id;
   }
 
-  set id(value: number | undefined) {
+  set id(value: number) {
     this._id = value;
   }
 
+  @Expose()
   get registrationNumber(): string {
     return this._registrationNumber;
   }
 
+  set registrationNumber(value: string) {
+    this._registrationNumber = value;
+  }
+
+  @Expose()
   get chassisNumber(): string {
     return this._chassisNumber;
   }
 
-  // endregion
+  set chassisNumber(value: string) {
+    this._chassisNumber = value;
+  }
+
+  //endregion
 }

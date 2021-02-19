@@ -13,17 +13,18 @@
  * Created with WebStorm.
  */
 
+import { Application } from 'express';
 import 'reflect-metadata';
 import { createExpressServer } from 'routing-controllers';
-import { CarController } from './controllers/CarController';
+import { CarController } from '../controllers/CarController';
 
 export class CarFleetApplication {
+  expressApplication: Application;
+
   constructor() {
-    const app = createExpressServer({
+    this.expressApplication = createExpressServer({
       routePrefix: '/api',
       controllers: [CarController],
     });
-
-    app.listen(3000);
   }
 }

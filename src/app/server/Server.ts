@@ -1,5 +1,5 @@
 /*
- * Description  :   Manage the application
+ * Description  :   Manage the application server
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
@@ -10,105 +10,64 @@
  * Updates      :   12.02.2021
  *                      Add documentation
  *                  16.02.2021
- *                      Adding routes
+ *                      Add routes
+ *                  18.02.2021
+ *                      Remove singleton pattern
  *
  * Created with WebStorm.
  */
 
-import { Express, json, Request, Response, Router } from 'express';
+import * as console from 'console';
+import { Application } from 'express';
 import * as http from 'http';
 import { AddressInfo } from 'net';
-import * as carsDataset from '../../data/cars.json';
-import { CarDto } from '../models/dto/CarDto';
-import { ResponseService } from '../models/services/ResponseService';
+import { ServerErrorCode } from '../../lib/ServerErrorCode';
 import ErrnoException = NodeJS.ErrnoException;
 
 /**
- * This class manages the application.
+ * This class manages the application server.
  */
 export class Server {
   //region Fields
 
-  private static _instance: Server;
-
-  private readonly _app: Express;
-  private readonly _router: Router;
+  private readonly _app: Application;
   private readonly _httpServer: http.Server;
-  private readonly _port: number;
 
   //endregion
 
   //region Constructor
 
-  private constructor(app: Express, router: Router, port: number) {
-    this._router = router;
+  constructor(app: Application) {
     this._app = app;
-    this._port = port;
     this._httpServer = this.createHttpServer();
-
-    this.initRoutes();
-  }
-
-  //endregion
-
-  //region Accessors
-
-  static get instance(): Server {
-    return this._instance;
   }
 
   //endregion
 
   //region Methods
 
-  //region Static methods
+  //region Public methods
 
   /**
+   * Start listening on port
    *
-   * Initialize the application.
-   *
-   * @param app - The application
-   * @param router - The router
-   * @param port - The port to listen
+   * @param port - The post to listen
+   * @param hostname - The hostname of the application
    */
-  public static init(app: Express, router: Router, port: number): void {
-    this._instance = this._instance ?? new Server(app, router, port);
+  listen(port = 3000, hostname = 'localhost'): void {
+    this._app.set('port', port);
+    this._app.set('hostname', hostname);
+    this._httpServer.on('listening', () => this.onListening());
+    this._httpServer.listen(port, hostname);
   }
 
   //endregion
 
-  //region Instance methods
-
-  private initRoutes() {
-    const cars: CarDto[] = carsDataset.map((car) => {
-      new CarDto(car.id, car.registrationNumber, car.chassisNumber);
-      return new CarDto(car.id, car.registrationNumber, car.chassisNumber);
-    });
-
-    const prefix = '/api';
-
-    this._router.get(`${prefix}/cars`, (req: Request, res: Response) =>
-      res.redirect(`${prefix}/cars/all`)
-    );
-
-    this._router.get(`${prefix}/cars/all`, (req, res) => {
-      res.json(new ResponseService(res).sendSuccess(cars));
-    });
-
-    this._router.get(`${prefix}/cars/:id`, (req, res) => {
-      const car = cars.find((car) => car.id === Number(req.params.id));
-      res.json(new ResponseService(res).sendSuccess(car));
-    });
-
-    this._app.use(json());
-    this._app.use(this._router);
-  }
+  //region Private methods
 
   private createHttpServer(): http.Server {
     const server = http.createServer(this._app);
     server.on('error', (e) => this.onError(e));
-    server.on('listening', () => this.onListening());
-    server.listen(this._port);
 
     return server;
   }
@@ -117,28 +76,27 @@ export class Server {
     if (error.syscall !== 'listen') throw error;
 
     switch (error.code) {
-      case 'EACCES':
-        console.error(this.getBind() + ' requires elevated privileges');
+      case ServerErrorCode.EACCES:
+        console.error(`${error.message}. Requires elevated privileges`);
         process.exit(1);
         break;
-      case 'EADDRINUSE':
-        console.error(`Port ${this._port} is already in use`);
+      case ServerErrorCode.EADDRINUSE: {
+        const port = `${this._app.get('port')}`;
+        const hostname = `${this._app.get('hostname')}`;
+        console.error(`Port ${port} at ${hostname} is already in use`);
         process.exit(1);
         break;
+      }
       default:
         throw error;
     }
   }
 
   private onListening() {
-    console.info('Listening on ' + this.getBind());
-  }
-
-  private getBind() {
-    const addr: string | AddressInfo | null = this._httpServer.address();
-    return typeof addr === 'string'
-      ? `pipe ${addr}`
-      : `http://localhost:${addr ? addr.port : this._port}`;
+    const addressInfo = this._httpServer.address() as AddressInfo;
+    const address = addressInfo.address;
+    const port = addressInfo.port;
+    console.info(`Listening on http://${address}:${port}`);
   }
 
   //endregion

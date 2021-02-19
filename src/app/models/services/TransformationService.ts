@@ -1,5 +1,5 @@
 /*
- * Description  :   Transform objects to anothers
+ * Description  :   Transform objects to others
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
@@ -14,8 +14,8 @@
  */
 
 import { plainToClass } from 'class-transformer';
-import { CarDto } from '../dto/CarDto';
-import { LiteralObject } from '../types/LiteralObject';
+import { CarDto } from '../dtos/CarDto';
+import { LiteralJSONObject } from '../types/LiteralJSONObject';
 
 /**
  * This class is designed to transform an object to another.
@@ -26,9 +26,20 @@ export class TransformationService {
    *
    * @param json - The JSON to transform
    *
-   * @return {CarDto} - The instance of {@link CarDto}
+   * @return The instance of {@link CarDto}
    */
-  jsonToCar(json: LiteralObject): CarDto {
+  jsonToCar(json: LiteralJSONObject): CarDto {
     return plainToClass(CarDto, json);
+  }
+
+  /**
+   * Transform an array of JSON object to an array of {@link CarDto}.
+   *
+   * @param jsonArray - The Json array to transform
+   *
+   * @return The array of {@link CarDto}
+   */
+  jsonArrayToCars(jsonArray: LiteralJSONObject[]): CarDto[] {
+    return plainToClass(CarDto, jsonArray);
   }
 }

@@ -13,7 +13,8 @@
  * Created with WebStorm.
  */
 
-import { CarFleetApplication } from './app/CarFleetApplication';
+import { CarFleetApplication } from './app/models/CarFleetApplication';
+import { Server } from './app/server/Server';
 
 /**
  * This class is the application entry point.
@@ -26,11 +27,12 @@ export class Program {
   /**
    * Entry point method.
    */
-  public static main(): void {
+  static main(): void {
     if (!this._instance) {
       this._instance = new Program();
 
-      new CarFleetApplication();
+      const server = new Server(new CarFleetApplication().expressApplication);
+      server.listen();
     }
   }
 }

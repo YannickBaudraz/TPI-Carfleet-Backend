@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "f2486294-874f-4da7-95ee-43a05c126006",
+		"name": "CarFleet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all cars",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/cars",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one car",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/cars/17",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cars",
+						"17"
+					]
+				},
+				"description": "Get one car"
+			},
+			"response": []
+		},
+		{
+			"name": "Save a car",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":null,\"registrationNumber\":\"VD171008\",\"chassisNumber\":\"OJS6DF1344LFKML88\"}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/cars/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cars",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a car",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/cars/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cars",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit a car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":1,\"registrationNumber\":\"VD987654\",\"chassisNumber\":\"OJS6DP1344LFKML88\"}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/cars/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cars",
+						"update"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

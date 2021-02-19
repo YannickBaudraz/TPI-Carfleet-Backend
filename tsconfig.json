@@ -8,9 +8,7 @@
     "strict": true,
     "alwaysStrict": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    // TODO : Remove next line when real database is ready. This is here to load dataset from json
-    "resolveJsonModule": true
+    "experimentalDecorators": true
   },
   "include": [
     "src/**/*.ts"
