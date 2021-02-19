@@ -1,0 +1,42 @@
+{
+  "root": true,
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "@typescript-eslint/no-empty-function": [
+      "off",
+      {
+        "allow": [
+          "constructors"
+        ]
+      }
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "valid-jsdoc": [
+      "error",
+      {
+        // Typescript with compodoc doesn't need this
+        "requireParamType": false,
+        "requireReturn": false,
+        "requireReturnType": false
+      }
+    ]
+  }
+}

@@ -1,10 +1,10 @@
 #parse("variables")
 /*
+ * Description  :   [ADD DESCRIPTION]
+ *
  * Author       :   $email
  *
  * Project      :   ${PROJECT_NAME} - ${FILE_NAME}
- *
- * Description  :   [ADD DESCRIPTION]
  *
  * Created      :   ${DATE}
  *
