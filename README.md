@@ -1,4 +1,4 @@
-# How to test to API
+# How to test the API
 
 Prerequisite :
 
@@ -6,7 +6,7 @@ Prerequisite :
 - Install yarn globally `npm install --global yarn`
 - Install Postman -> https://www.postman.com/downloads/
 
-1. Clone the repository frmo github
+1. Clone the repository from github
 1. Copy the file _src/data/cars.json_ and rename it in _cars_test.json_
 1. Run `yarn install`
 1. Run `yarn start:dev` for development

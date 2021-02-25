@@ -13,7 +13,7 @@
  * Created with WebStorm.
  */
 
-import { CarFleetApplication } from './app/models/CarFleetApplication';
+import { CarFleetApplication } from './app/CarFleetApplication';
 import { Server } from './app/server/Server';
 
 /**

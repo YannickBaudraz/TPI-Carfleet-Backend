@@ -21,16 +21,6 @@ import { LiteralJSONObject } from '../types/LiteralJSONObject';
  * This abstract class enhanced the way to be serializable.
  */
 export abstract class SerializableDto {
-  // noinspection JSUnusedGlobalSymbols
-  /**
-   * Serialize the instantiated object with the serializable options.
-   *
-   * @return The object serialized
-   */
-  toJSON(): LiteralJSONObject {
-    return classToPlain(this);
-  }
-
   /**
    * Transform the property and remove the leading underscore (private fields).
    *
@@ -40,5 +30,15 @@ export abstract class SerializableDto {
    */
   protected static transformProperty(property: string): string {
     return StringUtils.removeLeadingUnderscore(property);
+  }
+
+  // noinspection JSUnusedGlobalSymbols
+  /**
+   * Serialize the instantiated object with the serializable options.
+   *
+   * @return The object serialized
+   */
+  toJSON(): LiteralJSONObject {
+    return classToPlain(this);
   }
 }

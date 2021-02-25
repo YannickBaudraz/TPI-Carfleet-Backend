@@ -24,14 +24,6 @@ import { SerializableDto } from './SerializableDto';
 export class CarDto extends SerializableDto {
   // region Fields
 
-  private _id!: number;
-  private _registrationNumber!: string;
-  private _chassisNumber!: string;
-
-  // endregion
-
-  // region Constructor
-
   /**
    * Instantiate a {@link CarDto}.
    */
@@ -39,18 +31,26 @@ export class CarDto extends SerializableDto {
     super();
   }
 
-  // endregion
-
-  //region Accessors
+  private _id!: number;
 
   @Expose()
   get id(): number {
     return this._id;
   }
 
+  // endregion
+
+  // region Constructor
+
   set id(value: number) {
     this._id = value;
   }
+
+  // endregion
+
+  //region Accessors
+
+  private _registrationNumber!: string;
 
   @Expose()
   get registrationNumber(): string {
@@ -60,6 +60,8 @@ export class CarDto extends SerializableDto {
   set registrationNumber(value: string) {
     this._registrationNumber = value;
   }
+
+  private _chassisNumber!: string;
 
   @Expose()
   get chassisNumber(): string {
