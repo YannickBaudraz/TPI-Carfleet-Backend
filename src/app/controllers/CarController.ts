@@ -37,6 +37,15 @@ export class CarController {
     this.transformationService = new TransformationService();
   }
 
+  // TODO : Remove when using real database
+  private static readCarsJson(): JsonFromDataset[] {
+    return jsonfile.readFileSync('./src/data/cars_test.json');
+  }
+
+  private static writeCarsJson(carJson: JsonFromDataset[]): void {
+    jsonfile.writeFileSync('./src/data/cars_test.json', carJson);
+  }
+
   /**
    * Redirect to '/all'.
    *
@@ -174,15 +183,6 @@ export class CarController {
     }
 
     return new ResponseService(res).sendOk(null, 'Could not edit');
-  }
-
-  // TODO : Remove when using real database
-  private static readCarsJson(): JsonFromDataset[] {
-    return jsonfile.readFileSync('./src/data/cars_test.json');
-  }
-
-  private static writeCarsJson(carJson: JsonFromDataset[]): void {
-    jsonfile.writeFileSync('./src/data/cars_test.json', carJson);
   }
 }
 

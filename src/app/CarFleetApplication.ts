@@ -16,7 +16,7 @@
 import { Application } from 'express';
 import 'reflect-metadata';
 import { createExpressServer } from 'routing-controllers';
-import { CarController } from '../controllers/CarController';
+import { CarController } from './controllers/CarController';
 
 export class CarFleetApplication {
   expressApplication: Application;

@@ -1,5 +1,5 @@
 .idea
-data
+src/date
 dist
 doc
 node_modules
