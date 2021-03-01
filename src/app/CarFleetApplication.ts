@@ -16,7 +16,7 @@
 import { Application } from 'express';
 import 'reflect-metadata';
 import { createExpressServer } from 'routing-controllers';
-import { CarController } from './controllers/CarController';
+import { VehicleController } from './controllers/VehicleController';
 
 export class CarFleetApplication {
   expressApplication: Application;
@@ -24,7 +24,7 @@ export class CarFleetApplication {
   constructor() {
     this.expressApplication = createExpressServer({
       routePrefix: '/api',
-      controllers: [CarController],
+      controllers: [VehicleController],
     });
   }
 }

@@ -1,9 +1,9 @@
 /*
- * Description  :   This file represents a car model
+ * Description  :   This file represents a vehicle model
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
- * Project      :   tpicarfleet_backend - Car.ts
+ * Project      :   tpicarfleet_backend - VehicleDto.ts
  *
  * Created      :   12.02.2021
  *
@@ -19,13 +19,13 @@ import { SerializableDto } from './SerializableDto';
 // noinspection JSUnusedGlobalSymbols
 @Exclude()
 /**
- * This class represents a car.
+ * This class represents a vehicle.
  */
-export class CarDto extends SerializableDto {
+export class VehicleDto extends SerializableDto {
   // region Fields
 
   /**
-   * Instantiate a {@link CarDto}.
+   * Instantiate a {@link VehicleDto}.
    */
   constructor() {
     super();

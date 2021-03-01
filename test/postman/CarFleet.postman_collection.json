@@ -6,47 +6,47 @@
 	},
 	"item": [
 		{
-			"name": "Get all cars",
+			"name": "Get all vehicles",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/api/cars",
+					"raw": "localhost:3000/api/vehicles",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"api",
-						"cars"
+						"vehicles"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get one car",
+			"name": "Get one vehicle",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/api/cars/17",
+					"raw": "localhost:3000/api/vehicles/17",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"api",
-						"cars",
+						"vehicles",
 						"17"
 					]
 				},
-				"description": "Get one car"
+				"description": "Get one vehicle"
 			},
 			"response": []
 		},
 		{
-			"name": "Save a car",
+			"name": "Save a vehicle",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -55,7 +55,7 @@
 					"raw": "{\"id\":null,\"registrationNumber\":\"VD171008\",\"chassisNumber\":\"OJS6DF1344LFKML88\"}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/cars/save",
+					"raw": "http://localhost:3000/api/vehicles/save",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -63,7 +63,7 @@
 					"port": "3000",
 					"path": [
 						"api",
-						"cars",
+						"vehicles",
 						"save"
 					]
 				}
@@ -71,12 +71,12 @@
 			"response": []
 		},
 		{
-			"name": "Delete a car",
+			"name": "Delete a vehicle",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/cars/2",
+					"raw": "http://localhost:3000/api/vehicles/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -84,7 +84,7 @@
 					"port": "3000",
 					"path": [
 						"api",
-						"cars",
+						"vehicles",
 						"2"
 					]
 				}
@@ -92,7 +92,7 @@
 			"response": []
 		},
 		{
-			"name": "Edit a car",
+			"name": "Edit a vehicle",
 			"event": [
 				{
 					"listen": "test",
@@ -112,7 +112,7 @@
 					"raw": "{\"id\":1,\"registrationNumber\":\"VD987654\",\"chassisNumber\":\"OJS6DP1344LFKML88\"}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/cars/update",
+					"raw": "http://localhost:3000/api/vehicles/update",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -120,7 +120,7 @@
 					"port": "3000",
 					"path": [
 						"api",
-						"cars",
+						"vehicles",
 						"update"
 					]
 				}
