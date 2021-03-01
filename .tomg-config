@@ -1,0 +1,37 @@
+[
+  {
+    "resultsPath": "C:\\Users\\Yannick.BAUDRAZ\\Documents\\Projets\\TPICarfleet_Backend\\output",
+    "pluralizeNames": true,
+    "noConfigs": false,
+    "convertCaseFile": "param",
+    "convertCaseEntity": "pascal",
+    "convertCaseProperty": "camel",
+    "convertEol": "LF",
+    "propertyVisibility": "none",
+    "lazy": true,
+    "activeRecord": false,
+    "generateConstructor": false,
+    "customNamingStrategyPath": "",
+    "relationIds": false,
+    "strictMode": "!",
+    "skipSchema": false,
+    "indexFile": true,
+    "exportType": "named"
+  },
+  {
+    "host": "127.0.0.1",
+    "port": 3306,
+    "databaseNames": [
+      "car_fleet"
+    ],
+    "user": "root",
+    "password": "11091993",
+    "databaseType": "mariadb",
+    "schemaNames": [
+      ""
+    ],
+    "ssl": false,
+    "skipTables": [],
+    "onlyTables": []
+  }
+]
