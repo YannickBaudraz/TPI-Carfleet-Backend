@@ -78,7 +78,7 @@ export class CarController {
   /**
    * Get one car
    *
-   * @param id - The unique identifiant
+   * @param id - The unique identifier
    * @param res - The HTTP response
    *
    * @return The response to send
@@ -131,7 +131,7 @@ export class CarController {
   /**
    * Delete a car
    *
-   * @param id - The unique identifiant
+   * @param id - The unique identifier
    * @param res - The HTTP response
    *
    * @return The response to send
