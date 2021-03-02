@@ -21,7 +21,7 @@ USE `car_fleet` ;
 -- Table `car_fleet`.`Companies`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `car_fleet`.`Companies` (
-  `idCompanies` INT NOT NULL,
+  `idCompanies` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NULL,
   `Address` VARCHAR(45) NULL,
   `Zip` VARCHAR(45) NULL,
@@ -38,7 +38,7 @@ ENGINE = InnoDB;
 -- Table `car_fleet`.`Drivers`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `car_fleet`.`Drivers` (
-  `idDrivers` INT NOT NULL,
+  `idDrivers` INT NOT NULL AUTO_INCREMENT,
   `Gender` VARCHAR(45) NULL,
   `Firstname` VARCHAR(45) NULL,
   `Lastname` VARCHAR(45) NULL,
@@ -60,7 +60,7 @@ ENGINE = InnoDB;
 -- Table `car_fleet`.`Vehicles`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `car_fleet`.`Vehicles` (
-  `idVehicles` INT NOT NULL,
+  `idVehicles` INT NOT NULL AUTO_INCREMENT,
   `Drivers_idDrivers` INT NOT NULL,
   `Drivers_Companies_idCompanies` INT NOT NULL,
   `licensePlate` VARCHAR(45) NULL,
@@ -93,7 +93,7 @@ ENGINE = InnoDB;
 -- Table `car_fleet`.`Budgets`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `car_fleet`.`Budgets` (
-  `idBudgets` INT NOT NULL,
+  `idBudgets` INT NOT NULL AUTO_INCREMENT,
   `status` VARCHAR(45) NULL,
   `Vehicles_idVehicles` INT NOT NULL,
   `tagName` VARCHAR(45) NULL,
@@ -124,7 +124,7 @@ ENGINE = InnoDB;
 -- Table `car_fleet`.`Creditors`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `car_fleet`.`Creditors` (
-  `idCreditors` INT NOT NULL,
+  `idCreditors` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NULL,
   PRIMARY KEY (`idCreditors`))
 ENGINE = InnoDB;
@@ -134,7 +134,7 @@ ENGINE = InnoDB;
 -- Table `car_fleet`.`Invoices`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `car_fleet`.`Invoices` (
-  `idInvoices` INT NOT NULL,
+  `idInvoices` INT NOT NULL AUTO_INCREMENT,
   `Total` VARCHAR(45) NULL,
   `Invoicescol` VARCHAR(45) NULL,
   `Budgets_idBudgets` INT NOT NULL,
