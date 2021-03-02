@@ -16,4 +16,4 @@
 /**
  * This type represents a literal object.
  */
-export type LiteralJSONObject = Record<string, unknown>;
+export type LiteralJsonObject = Record<string, unknown>;

@@ -3,7 +3,7 @@
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
- * Project      :   tpicarfleet_backend - StringUtils.ts
+ * Project      :   tpicarfleet_backend - string-utils.ts
  *
  * Created      :   17.02.2021
  *

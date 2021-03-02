@@ -1,29 +1,16 @@
-import {
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
-import { Budgets } from './budgets';
-import { Drivers } from './drivers';
+import { Column, Entity, Index, PrimaryColumn } from 'typeorm';
 
-@Index(
-  'fk_Vehicles_Drivers1_idx',
-  ['driversIdDrivers', 'driversCompaniesIdCompanies'],
-  {}
-)
+@Index('fk_Vehicles_Drivers1_idx', ['driverId', 'driverCompanyId'], {})
 @Entity('vehicles', { schema: 'car_fleet' })
-export class Vehicles {
-  @Column('int', { primary: true, name: 'idVehicles' })
-  idVehicles!: number;
+export class VehicleEntity {
+  @PrimaryColumn('int', { primary: true, name: 'idVehicles' })
+  id!: number;
 
-  @Column('int', { primary: true, name: 'Drivers_idDrivers' })
-  driversIdDrivers!: number;
+  @Column('int', { name: 'Drivers_idDrivers' })
+  driverId!: number;
 
-  @Column('int', { primary: true, name: 'Drivers_Companies_idCompanies' })
-  driversCompaniesIdCompanies!: number;
+  @Column('int', { name: 'Drivers_Companies_idCompanies' })
+  driverCompanyId!: number;
 
   @Column('varchar', { name: 'licensePlate', nullable: true, length: 45 })
   licensePlate!: string | null;
@@ -54,6 +41,7 @@ export class Vehicles {
 
   @Column('varchar', { name: 'fuel', nullable: true, length: 45 })
   fuel!: string | null;
+
   @Column('varchar', { name: 'transmission', nullable: true, length: 45 })
   transmission!: string | null;
 
@@ -71,23 +59,4 @@ export class Vehicles {
 
   @Column('varchar', { name: 'Vehiclescol', nullable: true, length: 256 })
   vehiclescol!: string | null;
-
-  @OneToMany(() => Budgets, (budgets) => budgets.vehiclesIdVehicles2, {
-    lazy: true,
-  })
-  budgets!: Promise<Budgets[]>;
-
-  @ManyToOne(() => Drivers, (drivers) => drivers.vehicles, {
-    onDelete: 'NO ACTION',
-    onUpdate: 'NO ACTION',
-    lazy: true,
-  })
-  @JoinColumn([
-    { name: 'Drivers_idDrivers', referencedColumnName: 'idDrivers' },
-    {
-      name: 'Drivers_Companies_idCompanies',
-      referencedColumnName: 'companiesIdCompanies',
-    },
-  ])
-  drivers!: Promise<Drivers>;
 }

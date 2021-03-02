@@ -14,8 +14,8 @@
  */
 
 import { plainToClass } from 'class-transformer';
-import { VehicleDto } from '../dtos/VehicleDto';
-import { LiteralJSONObject } from '../types/LiteralJSONObject';
+import { VehicleDto } from '../dtos/vehicle.dto';
+import { LiteralJsonObject } from '../types/literal-json-object';
 
 /**
  * This class is designed to transform an object to another.
@@ -28,7 +28,7 @@ export class TransformationService {
    *
    * @return The instance of {@link VehicleDto}
    */
-  jsonToVehicle(json: LiteralJSONObject): VehicleDto {
+  jsonToVehicle(json: LiteralJsonObject): VehicleDto {
     return plainToClass(VehicleDto, json);
   }
 
@@ -39,7 +39,7 @@ export class TransformationService {
    *
    * @return The array of {@link VehicleDto}
    */
-  jsonArrayToVehicles(jsonArray: LiteralJSONObject[]): VehicleDto[] {
+  toVehiclesDto(jsonArray: LiteralJsonObject[]): VehicleDto[] {
     return plainToClass(VehicleDto, jsonArray);
   }
 }

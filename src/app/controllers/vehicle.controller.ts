@@ -3,12 +3,13 @@
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
- * Project      :   tpicarfleet_backend - VehicleController.ts
+ * Project      :   tpicarfleet_backend - vehicle.controller.ts
  *
  * Created      :   18.02.2021
  *
- * Updates      :   [update date]
- *                      [update description
+ * Updates      :   02.03.2021
+ *                      Vehicles are now retrieved from database instead of
+ *                      a Json file.
  *
  * Created with WebStorm.
  */
@@ -23,17 +24,22 @@ import {
   Param,
   Post,
   Put,
-  Res,
+  Res
 } from 'routing-controllers';
-import { VehicleDto } from '../models/dtos/VehicleDto';
-import { BackendResponseBody } from '../models/interfaces/BackendResponseBody';
-import { ResponseService } from '../models/services/ResponseService';
-import { TransformationService } from '../models/services/TransformationService';
-import { LiteralJSONObject } from '../models/types/LiteralJSONObject';
+import { getRepository, Repository } from 'typeorm';
+import { VehicleDto } from '../models/dtos';
+import { VehicleEntity } from '../models/entities';
+import { BackendResponseBody } from '../models/interfaces/backend-response-body';
+import { ResponseService } from '../models/services/response.service';
+import { TransformationService } from '../models/services/transformation.service';
+import { LiteralJsonObject } from '../models/types/literal-json-object';
 
 @Controller('/vehicles')
 export class VehicleController {
+  private _vehicleRepository: Repository<VehicleEntity>;
+
   constructor(private readonly transformationService: TransformationService) {
+    this._vehicleRepository = getRepository(VehicleEntity);
     this.transformationService = new TransformationService();
   }
 
@@ -51,11 +57,10 @@ export class VehicleController {
    *
    * @param res - The HTTP response to redirect with
    *
-   * @return The HTTP response
    */
   @Get()
-  base(@Res() res: Response): Response<BackendResponseBody> {
-    return this.all(res);
+  async base(@Res() res: Response): Promise<void> {
+    await this.all(res);
   }
 
   /**
@@ -63,16 +68,13 @@ export class VehicleController {
    *
    * @param res - The HTTP response
    *
-   * @return The response to send
    */
   @Get('/all')
-  all(@Res() res: Response): Response<BackendResponseBody> {
-    const vehiclesJson: JsonFromDataset[] = VehicleController.readVehiclesJson();
-    const vehiclesDto: VehicleDto[] = this.transformationService.jsonArrayToVehicles(
-      vehiclesJson
+  async all(@Res() res: Response): Promise<Response<BackendResponseBody>> {
+    const vehicleDto = this.transformationService.toVehiclesDto(
+      ((await this._vehicleRepository.find()) as unknown) as LiteralJsonObject[]
     );
-
-    return new ResponseService(res).sendOk(vehiclesDto);
+    return new ResponseService(res).sendOk(vehicleDto);
   }
 
   /**
@@ -116,7 +118,7 @@ export class VehicleController {
     @Body() vehicle: VehicleDto,
     @Res() res: Response
   ): Response<BackendResponseBody> {
-    const vehicleJson: LiteralJSONObject = vehicle.toJSON();
+    const vehicleJson: LiteralJsonObject = vehicle.toJSON();
     const vehiclesJson: JsonFromDataset[] = VehicleController.readVehiclesJson();
 
     vehicleJson.id = vehiclesJson[vehiclesJson.length - 1].id + 1;

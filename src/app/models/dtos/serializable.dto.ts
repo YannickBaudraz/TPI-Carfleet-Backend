@@ -14,13 +14,15 @@
  */
 
 import { classToPlain } from 'class-transformer';
-import { StringUtils } from '../../../lib/utils/StringUtils';
-import { LiteralJSONObject } from '../types/LiteralJSONObject';
+import { StringUtils } from '../../../lib/utils/string-utils';
+import { LiteralJsonObject } from '../types/literal-json-object';
 
 /**
  * This abstract class enhanced the way to be serializable.
  */
 export abstract class SerializableDto {
+  protected constructor() {}
+
   /**
    * Transform the property and remove the leading underscore (private fields).
    *
@@ -38,7 +40,7 @@ export abstract class SerializableDto {
    *
    * @return The object serialized
    */
-  toJSON(): LiteralJSONObject {
+  toJSON(): LiteralJsonObject {
     return classToPlain(this);
   }
 }

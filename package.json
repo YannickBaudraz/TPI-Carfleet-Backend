@@ -12,7 +12,7 @@
     "clean:modules": "rimraf node_modules",
     "build": "npm run clean:build && tsc",
     "start": "npm run build && node dist/program.js",
-    "start:dev": "ts-node-dev src/Program.ts",
+    "start:dev": "ts-node-dev src/program.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "validate": "npm-run-all validate:*",
     "validate:lint": "eslint . --ext .ts",
@@ -28,7 +28,8 @@
     "express": "^4.17.1",
     "jsonfile": "^6.1.0",
     "reflect-metadata": "^0.1.13",
-    "routing-controllers": "^0.9.0"
+    "routing-controllers": "^0.9.0",
+    "typeorm": "^0.2.31"
   },
   "devDependencies": {
     "@compodoc/compodoc": "^1.1.11",

@@ -18,7 +18,7 @@
  *
  * @see https://tools.ietf.org/html/rfc7231#section-6
  */
-export enum HTTPStatusCode {
+export enum HttpStatusCode {
   /**
    *  The 200 (OK) status code indicates that the request has succeeded.
    * The payload sent in a 200 response depends on the request method.

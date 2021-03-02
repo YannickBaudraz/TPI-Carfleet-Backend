@@ -14,8 +14,8 @@
  */
 
 import { Response } from 'express-serve-static-core';
-import { HTTPStatusCode } from '../../../lib/HTTPStatusCode';
-import { BackendResponseBody } from '../interfaces/BackendResponseBody';
+import { HttpStatusCode } from '../../../lib/http-status-code';
+import { BackendResponseBody } from '../interfaces/backend-response-body';
 
 /**
  * This class simplifies the way to send response in Json format.
@@ -37,8 +37,8 @@ export class ResponseService {
    * @return The Response with custom JSON body
    */
   sendOk(data?: unknown, message?: string): Response<BackendResponseBody> {
-    return this.res.status(HTTPStatusCode.OK).json({
-      code: HTTPStatusCode.OK,
+    return this.res.status(HttpStatusCode.OK).json({
+      code: HttpStatusCode.OK,
       message: message || 'success',
       data: data,
     });
@@ -53,8 +53,8 @@ export class ResponseService {
    * @return The response with custom JSON body
    */
   sendCreated(data?: unknown, message?: string): Response<BackendResponseBody> {
-    return this.res.status(HTTPStatusCode.CREATED).json({
-      code: HTTPStatusCode.OK,
+    return this.res.status(HttpStatusCode.CREATED).json({
+      code: HttpStatusCode.OK,
       message: message || 'success',
       data: data,
     });
@@ -68,8 +68,8 @@ export class ResponseService {
    * @return The response with custom JSON body
    */
   sendServerError(message?: string): Response<BackendResponseBody> {
-    return this.res.status(HTTPStatusCode.SERVER_ERROR).json({
-      code: HTTPStatusCode.SERVER_ERROR,
+    return this.res.status(HttpStatusCode.SERVER_ERROR).json({
+      code: HttpStatusCode.SERVER_ERROR,
       message: message || 'internal server error',
     });
   }
