@@ -1,4 +1,3 @@
-console.log(process.env.TS_NODE_DEV);
 const entitiesPath = process.env.TS_NODE_DEV
   ? 'src/app/models/entities/*.entity.ts'
   : 'dist/app/models/entities/*.entity.js';

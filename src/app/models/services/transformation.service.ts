@@ -13,33 +13,44 @@
  * Created with WebStorm.
  */
 
-import { plainToClass } from 'class-transformer';
-import { VehicleDto } from '../dtos/vehicle.dto';
-import { LiteralJsonObject } from '../types/literal-json-object';
+import { classToPlainFromExist, plainToClass } from 'class-transformer';
+import { VehicleDto } from '../dtos';
+import { VehicleEntity } from '../entities';
 
 /**
  * This class is designed to transform an object to another.
  */
 export class TransformationService {
   /**
-   * Transform a JSON object to a {@link VehicleDto}.
+   * Transform a {@link VehicleEntity} to a {@link VehicleDto}.
    *
-   * @param json - The JSON to transform
+   * @param json - The {@link VehicleEntity} to transform
    *
    * @return The instance of {@link VehicleDto}
    */
-  jsonToVehicle(json: LiteralJsonObject): VehicleDto {
+  vehicleEntityToDto(json: VehicleEntity): VehicleDto {
     return plainToClass(VehicleDto, json);
   }
 
   /**
-   * Transform an array of JSON object to an array of {@link VehicleDto}.
+   * Transform an array of {@link VehicleEntity} to an array of {@link VehicleDto}.
    *
-   * @param jsonArray - The Json array to transform
+   * @param vehicleEntities - {@link VehicleEntity} to transform
    *
    * @return The array of {@link VehicleDto}
    */
-  toVehiclesDto(jsonArray: LiteralJsonObject[]): VehicleDto[] {
-    return plainToClass(VehicleDto, jsonArray);
+  vehicleEntitiesToDtos(vehicleEntities: VehicleEntity[]): VehicleDto[] {
+    return plainToClass(VehicleDto, vehicleEntities);
+  }
+
+  /**
+   * Transform a {@link VehicleDto} to a {@link VehicleEntity}.
+   *
+   * @param vehicleDto - The {@link VehicleDto} to transform.
+   *
+   * @return The instance of {@link VehicleEntity}
+   */
+  vehicleDtoToEntity(vehicleDto: VehicleDto): VehicleEntity {
+    return classToPlainFromExist(vehicleDto, VehicleEntity) as VehicleEntity;
   }
 }

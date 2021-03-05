@@ -1,15 +1,15 @@
-import { Column, Entity, Index, PrimaryColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 @Index('fk_Vehicles_Drivers1_idx', ['driverId', 'driverCompanyId'], {})
 @Entity('vehicles', { schema: 'car_fleet' })
 export class VehicleEntity {
-  @PrimaryColumn('int', { primary: true, name: 'idVehicles' })
+  @PrimaryGeneratedColumn({ name: 'idVehicles' })
   id!: number;
 
-  @Column('int', { name: 'Drivers_idDrivers' })
+  @PrimaryColumn('int', { name: 'Drivers_idDrivers' })
   driverId!: number;
 
-  @Column('int', { name: 'Drivers_Companies_idCompanies' })
+  @PrimaryColumn('int', { name: 'Drivers_Companies_idCompanies' })
   driverCompanyId!: number;
 
   @Column('varchar', { name: 'licensePlate', nullable: true, length: 45 })

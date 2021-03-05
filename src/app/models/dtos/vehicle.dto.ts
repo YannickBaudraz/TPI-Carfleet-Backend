@@ -14,6 +14,7 @@
  */
 
 import { Exclude, Expose } from 'class-transformer';
+import { IsDefined } from 'class-validator';
 import { SerializableDto } from './serializable.dto';
 
 // noinspection JSUnusedGlobalSymbols
@@ -25,6 +26,8 @@ export class VehicleDto extends SerializableDto {
   // region Fields
 
   private _id!: number;
+  @IsDefined() private _driverId!: number;
+  @IsDefined() private _driverCompanyId!: number;
   private _licensePlate!: string;
   private _manufacturer!: string;
   private _model!: string;
@@ -32,7 +35,15 @@ export class VehicleDto extends SerializableDto {
   private _exteriorColor!: string;
   private _registration!: string;
   private _type!: string;
-  private _introduction!: Date;
+  private _introductionl!: Date;
+  private _insurance!: string;
+  private _fuel!: string;
+  private _transmission!: string;
+  private _priority!: string;
+  private _diagnosis!: string;
+  private _support!: string;
+  private _notes!: string;
+  private _vehiclescol!: string;
 
   // endregion
 
@@ -46,13 +57,31 @@ export class VehicleDto extends SerializableDto {
 
   //region Accessors
 
-  @Exclude()
+  @Expose()
   get id(): number {
     return this._id;
   }
 
   set id(value: number) {
     this._id = value;
+  }
+
+  @Expose()
+  get driverId(): number {
+    return this._driverId;
+  }
+
+  set driverId(value: number) {
+    this._driverId = value;
+  }
+
+  @Expose()
+  get driverCompanyId(): number {
+    return this._driverCompanyId;
+  }
+
+  set driverCompanyId(value: number) {
+    this._driverCompanyId = value;
   }
 
   @Expose()
@@ -119,12 +148,84 @@ export class VehicleDto extends SerializableDto {
   }
 
   @Expose()
-  get introduction(): Date {
-    return this._introduction;
+  get introductionl(): Date {
+    return this._introductionl;
   }
 
-  set introduction(value: Date) {
-    this._introduction = value;
+  set introductionl(value: Date) {
+    this._introductionl = value;
+  }
+
+  @Expose()
+  get insurance(): string {
+    return this._insurance;
+  }
+
+  set insurance(value: string) {
+    this._insurance = value;
+  }
+
+  @Expose()
+  get fuel(): string {
+    return this._fuel;
+  }
+
+  set fuel(value: string) {
+    this._fuel = value;
+  }
+
+  @Expose()
+  get transmission(): string {
+    return this._transmission;
+  }
+
+  set transmission(value: string) {
+    this._transmission = value;
+  }
+
+  @Expose()
+  get priority(): string {
+    return this._priority;
+  }
+
+  set priority(value: string) {
+    this._priority = value;
+  }
+
+  @Expose()
+  get diagnosis(): string {
+    return this._diagnosis;
+  }
+
+  set diagnosis(value: string) {
+    this._diagnosis = value;
+  }
+
+  @Expose()
+  get support(): string {
+    return this._support;
+  }
+
+  set support(value: string) {
+    this._support = value;
+  }
+
+  @Expose()
+  get notes(): string {
+    return this._notes;
+  }
+
+  set notes(value: string) {
+    this._notes = value;
+  }
+
+  @Expose()
+  get vehiclescol(): string {
+    return this._vehiclescol;
+  }
+
+  set vehiclescol(value: string) {
+    this._vehiclescol = value;
   }
 
   //endregion

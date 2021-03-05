@@ -15,41 +15,21 @@
  */
 
 import { Response } from 'express';
-import * as jsonfile from 'jsonfile';
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-  Res
-} from 'routing-controllers';
-import { getRepository, Repository } from 'typeorm';
+import { Body, Delete, Get, JsonController, Param, Post, Put, Res } from 'routing-controllers';
+import { DeleteResult, getRepository, Repository, UpdateResult } from 'typeorm';
 import { VehicleDto } from '../models/dtos';
 import { VehicleEntity } from '../models/entities';
 import { BackendResponseBody } from '../models/interfaces/backend-response-body';
 import { ResponseService } from '../models/services/response.service';
 import { TransformationService } from '../models/services/transformation.service';
-import { LiteralJsonObject } from '../models/types/literal-json-object';
 
-@Controller('/vehicles')
+@JsonController('/vehicles')
 export class VehicleController {
   private _vehicleRepository: Repository<VehicleEntity>;
 
   constructor(private readonly transformationService: TransformationService) {
     this._vehicleRepository = getRepository(VehicleEntity);
     this.transformationService = new TransformationService();
-  }
-
-  // TODO : Remove when using real database
-  private static readVehiclesJson(): JsonFromDataset[] {
-    return jsonfile.readFileSync('./src/data/vehicles_test.json');
-  }
-
-  private static writeVehiclesJson(vehicleJson: JsonFromDataset[]): void {
-    jsonfile.writeFileSync('./src/data/vehicles_test.json', vehicleJson);
   }
 
   /**
@@ -59,8 +39,8 @@ export class VehicleController {
    *
    */
   @Get()
-  async base(@Res() res: Response): Promise<void> {
-    await this.all(res);
+  async base(@Res() res: Response): Promise<Response<BackendResponseBody>> {
+    return this.all(res);
   }
 
   /**
@@ -71,130 +51,78 @@ export class VehicleController {
    */
   @Get('/all')
   async all(@Res() res: Response): Promise<Response<BackendResponseBody>> {
-    const vehicleDto = this.transformationService.toVehiclesDto(
-      ((await this._vehicleRepository.find()) as unknown) as LiteralJsonObject[]
-    );
-    return new ResponseService(res).sendOk(vehicleDto);
+    const vehicleEntities: VehicleEntity[] = await this._vehicleRepository.find({ licensePlate: 'FR348947' });
+    const vehicleDtos: VehicleDto[] = this.transformationService.vehicleEntitiesToDtos(vehicleEntities);
+
+    return new ResponseService(res).sendOk(vehicleDtos);
   }
 
   /**
    * Get one vehicle
    *
-   * @param id - The unique identifier
    * @param res - The HTTP response
-   *
-   * @return The response to send
+   * @param id - The unique identifier
    */
   @Get('/:id')
-  one(
-    @Param('id') id: number,
-    @Res() res: Response
-  ): Response<BackendResponseBody> {
-    const vehiclesJson: JsonFromDataset[] = VehicleController.readVehiclesJson();
-    const found: JsonFromDataset | undefined = vehiclesJson.find(
-      (vehicle: JsonFromDataset) => vehicle.id === id
-    );
+  async one(@Res() res: Response, @Param('id') id: number): Promise<Response<BackendResponseBody>> {
+    const vehicleEntity: VehicleEntity | undefined = await this._vehicleRepository.findOne(id);
 
-    if (found) {
-      const vehicleDto: VehicleDto = this.transformationService.jsonToVehicle(
-        found
-      );
-      return new ResponseService(res).sendOk(vehicleDto);
+    if (vehicleEntity) {
+      return new ResponseService(res).sendOk(this.transformationService.vehicleEntityToDto(vehicleEntity));
     }
 
     return new ResponseService(res).sendOk(null, 'No vehicle found');
   }
 
   /**
-   * Save ta vehicle.
+   * Save a vehicle.
    *
-   * @param vehicle - The vehicle object passed by method POST
    * @param res - The HTTP response
-   *
-   * @return {Response<BackendResponseBody>} response to send
+   * @param vehicleDto - The vehicle object passed by method POST
    */
   @Post('/save')
-  saveOne(
-    @Body() vehicle: VehicleDto,
-    @Res() res: Response
-  ): Response<BackendResponseBody> {
-    const vehicleJson: LiteralJsonObject = vehicle.toJSON();
-    const vehiclesJson: JsonFromDataset[] = VehicleController.readVehiclesJson();
+  async saveOne(@Res() res: Response, @Body() vehicleDto: VehicleDto): Promise<Response<BackendResponseBody>> {
+    const vehicleEntity = this.transformationService.vehicleDtoToEntity(vehicleDto);
+    await this._vehicleRepository.insert(vehicleEntity);
+    vehicleDto = this.transformationService.vehicleEntityToDto(vehicleEntity);
 
-    vehicleJson.id = vehiclesJson[vehiclesJson.length - 1].id + 1;
-    vehiclesJson.push(vehicleJson as JsonFromDataset);
-    VehicleController.writeVehiclesJson(vehiclesJson);
-
-    const vehicleDto: VehicleDto = this.transformationService.jsonToVehicle(
-      vehicleJson
-    );
-    return new ResponseService(res).sendCreated(
-      vehicleDto,
-      'Vehicle created with success'
-    );
-  }
-
-  /**
-   * Delete a vehicle
-   *
-   * @param id - The unique identifier
-   * @param res - The HTTP response
-   *
-   * @return The response to send
-   */
-  @Delete('/:id')
-  deleteOne(
-    @Param('id') id: number,
-    @Res() res: Response
-  ): Response<BackendResponseBody> {
-    const vehiclesJson: JsonFromDataset[] = VehicleController.readVehiclesJson();
-    const found: JsonFromDataset | undefined = vehiclesJson.find(
-      (vehicle: { id: number }) => vehicle.id === id
-    );
-
-    if (found) {
-      vehiclesJson.splice(vehiclesJson.indexOf(found), 1);
-      VehicleController.writeVehiclesJson(vehiclesJson);
-
-      return new ResponseService(res).sendOk();
-    }
-
-    return new ResponseService(res).sendOk(null, 'No vehicle matched with id');
+    return new ResponseService(res).sendCreated(vehicleDto, 'Vehicle created with success');
   }
 
   /**
    * Update a vehicle
    *
-   * @param vehicle - The vehicle to update
    * @param res - The HTTP response
-   *
-   * @return The response to send
+   * @param vehicleDto - The vehicle to update
    */
   @Put('/update')
-  updateOne(
-    @Body() vehicle: VehicleDto,
-    @Res() res: Response
-  ): Response<BackendResponseBody> {
-    const vehiclesJson: JsonFromDataset[] = VehicleController.readVehiclesJson();
-    const found: JsonFromDataset | undefined = vehiclesJson.find(
-      (vehicleJson: { id: number }) => vehicleJson.id === vehicle.id
+  async updateOne(@Res() res: Response, @Body() vehicleDto: VehicleDto): Promise<Response<BackendResponseBody>> {
+    const updateResult: UpdateResult = await this._vehicleRepository.update(
+      { id: vehicleDto.id, driverId: vehicleDto.driverId, driverCompanyId: vehicleDto.driverCompanyId },
+      this.transformationService.vehicleDtoToEntity(vehicleDto)
     );
 
-    if (found) {
-      const vehicleEdited = vehicle.toJSON() as JsonFromDataset;
-      vehiclesJson.splice(vehiclesJson.indexOf(found), 1, vehicleEdited);
-      VehicleController.writeVehiclesJson(vehiclesJson);
-
-      return new ResponseService(res).sendOk(vehicle, 'Vehicle edited');
+    if (updateResult.affected) {
+      return new ResponseService(res).sendOk(vehicleDto, 'Vehicle edited');
     }
 
     return new ResponseService(res).sendOk(null, 'Could not edit');
   }
-}
 
-// TODO : Remove when using real database
-type JsonFromDataset = {
-  id: number;
-  registrationNumber: string;
-  chassisNumber: string;
-};
+  /**
+   * Delete a vehicle
+   *
+   * @param res - The HTTP response
+   * @param id - The unique identifier
+   */
+  @Delete('/:id')
+  async deleteOne(@Res() res: Response, @Param('id') id: number): Promise<Response<BackendResponseBody>> {
+    const deleteResult: DeleteResult = await this._vehicleRepository.delete(id);
+
+    if (deleteResult.affected) {
+      return new ResponseService(res).sendOk();
+    }
+
+    return new ResponseService(res).sendOk(null, 'No vehicle matched with id');
+  }
+}

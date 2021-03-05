@@ -39,7 +39,7 @@ export class ResponseService {
   sendOk(data?: unknown, message?: string): Response<BackendResponseBody> {
     return this.res.status(HttpStatusCode.OK).json({
       code: HttpStatusCode.OK,
-      message: message || 'success',
+      message: message || 'Success',
       data: data,
     });
   }
@@ -55,7 +55,7 @@ export class ResponseService {
   sendCreated(data?: unknown, message?: string): Response<BackendResponseBody> {
     return this.res.status(HttpStatusCode.CREATED).json({
       code: HttpStatusCode.OK,
-      message: message || 'success',
+      message: message || 'Success',
       data: data,
     });
   }
@@ -70,7 +70,7 @@ export class ResponseService {
   sendServerError(message?: string): Response<BackendResponseBody> {
     return this.res.status(HttpStatusCode.SERVER_ERROR).json({
       code: HttpStatusCode.SERVER_ERROR,
-      message: message || 'internal server error',
+      message: message || 'Internal server error',
     });
   }
 }

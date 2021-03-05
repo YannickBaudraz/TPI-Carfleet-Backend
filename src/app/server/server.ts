@@ -88,7 +88,7 @@ export class Server {
         break;
       }
       default:
-        throw error;
+        throw error.code;
     }
   }
 

@@ -26,10 +26,11 @@ export class CarFleetApplication {
     this.expressApplication = createExpressServer({
       routePrefix: '/api',
       controllers: [VehicleController],
+      development: false,
     });
 
     createConnection()
       .then(() => console.log('Connected to the database.'))
-      .catch((error) => console.error(error.message));
+      .catch((error: Error) => console.error(error));
   }
 }
