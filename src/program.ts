@@ -3,7 +3,7 @@
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
- * Project      :   tpicarfleet_backend - Program.ts
+ * Project      :   tpicarfleet_backend - program.ts
  *
  * Created      :   12.02.2021 - Basic init
  *
@@ -13,8 +13,8 @@
  * Created with WebStorm.
  */
 
-import { CarFleetApplication } from './app/CarFleetApplication';
-import { Server } from './app/server/Server';
+import { CarFleetApplication } from './app/car-fleet.application';
+import { Server } from './app/server/server';
 
 /**
  * This class is the application entry point.

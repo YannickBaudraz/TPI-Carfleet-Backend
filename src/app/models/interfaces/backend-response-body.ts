@@ -3,7 +3,7 @@
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
- * Project      :   tpicarfleet_backend - BackendResponseBody.ts
+ * Project      :   tpicarfleet_backend - backend-response-body.ts
  *
  * Created      :   17.02.2021
  *
@@ -13,14 +13,14 @@
  * Created with WebStorm.
  */
 
-import { HTTPStatusCode } from '../../../lib/HTTPStatusCode';
-import { SerializableDto } from '../dtos/SerializableDto';
+import { HttpStatusCode } from '../../../lib/enums/http-status-code';
+import { SerializableDto } from '../dtos/serializable.dto';
 
 /**
  * This interface represents a custom response body.
  */
 export interface BackendResponseBody {
-  code: HTTPStatusCode;
+  code: HttpStatusCode;
   message: string;
   data: SerializableDto;
 }

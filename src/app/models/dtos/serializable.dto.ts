@@ -14,23 +14,13 @@
  */
 
 import { classToPlain } from 'class-transformer';
-import { StringUtils } from '../../../lib/utils/StringUtils';
-import { LiteralJSONObject } from '../types/LiteralJSONObject';
+import { LiteralJsonObject } from '../../../lib/types/literal-json-object';
 
 /**
  * This abstract class enhanced the way to be serializable.
  */
 export abstract class SerializableDto {
-  /**
-   * Transform the property and remove the leading underscore (private fields).
-   *
-   * @param property - The property to transform
-   *
-   * @return The property transformed
-   */
-  protected static transformProperty(property: string): string {
-    return StringUtils.removeLeadingUnderscore(property);
-  }
+  protected constructor() {}
 
   // noinspection JSUnusedGlobalSymbols
   /**
@@ -38,7 +28,24 @@ export abstract class SerializableDto {
    *
    * @return The object serialized
    */
-  toJSON(): LiteralJSONObject {
-    return classToPlain(this);
+  toJSON(): LiteralJsonObject {
+    this.undefinedNulls(this);
+
+    return classToPlain(this, { exposeUnsetFields: false });
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private undefinedNulls(obj: any): any {
+    if (obj === null) {
+      return undefined;
+    }
+    if (typeof obj === 'object') {
+      for (const key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+          obj[key] = this.undefinedNulls(obj[key]);
+        }
+      }
+    }
+    return obj;
   }
 }

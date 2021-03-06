@@ -21,7 +21,7 @@ import * as console from 'console';
 import { Application } from 'express';
 import * as http from 'http';
 import { AddressInfo } from 'net';
-import { ServerErrorCode } from '../../lib/ServerErrorCode';
+import { ServerErrorCode } from '../../lib/enums/server-error-code';
 import ErrnoException = NodeJS.ErrnoException;
 
 /**
@@ -88,7 +88,7 @@ export class Server {
         break;
       }
       default:
-        throw error;
+        throw error.code;
     }
   }
 

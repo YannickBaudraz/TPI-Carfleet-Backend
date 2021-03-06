@@ -13,6 +13,7 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
+    "prettier",
     "prettier/@typescript-eslint"
   ],
   "parser": "@typescript-eslint/parser",
@@ -37,6 +38,10 @@
         "requireReturn": false,
         "requireReturnType": false
       }
+    ],
+    "max-len": [
+      2,
+      120
     ]
   }
 }

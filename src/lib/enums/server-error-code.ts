@@ -3,7 +3,7 @@
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
- * Project      :   tpicarfleet_backend - ServerErrorCode.ts
+ * Project      :   tpicarfleet_backend - server-error-code.ts
  *
  * Created      :   18.02.2021
  *

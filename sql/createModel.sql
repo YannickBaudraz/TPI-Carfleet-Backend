@@ -8,20 +8,20 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema car_fleet
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema car_fleet
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `car_fleet` DEFAULT CHARACTER SET utf8 ;
+USE `car_fleet` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Companies`
+-- Table `car_fleet`.`Companies`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Companies` (
-  `idCompanies` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `car_fleet`.`Companies` (
+  `idCompanies` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NULL,
   `Address` VARCHAR(45) NULL,
   `Zip` VARCHAR(45) NULL,
@@ -35,10 +35,10 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Drivers`
+-- Table `car_fleet`.`Drivers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Drivers` (
-  `idDrivers` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `car_fleet`.`Drivers` (
+  `idDrivers` INT NOT NULL AUTO_INCREMENT,
   `Gender` VARCHAR(45) NULL,
   `Firstname` VARCHAR(45) NULL,
   `Lastname` VARCHAR(45) NULL,
@@ -50,17 +50,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Drivers` (
   INDEX `fk_Drivers_Companies1_idx` (`Companies_idCompanies` ASC) VISIBLE,
   CONSTRAINT `fk_Drivers_Companies1`
     FOREIGN KEY (`Companies_idCompanies`)
-    REFERENCES `mydb`.`Companies` (`idCompanies`)
+    REFERENCES `car_fleet`.`Companies` (`idCompanies`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Vehicles`
+-- Table `car_fleet`.`Vehicles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Vehicles` (
-  `idVehicles` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `car_fleet`.`Vehicles` (
+  `idVehicles` INT NOT NULL AUTO_INCREMENT,
   `Drivers_idDrivers` INT NOT NULL,
   `Drivers_Companies_idCompanies` INT NOT NULL,
   `licensePlate` VARCHAR(45) NULL,
@@ -83,17 +83,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Vehicles` (
   INDEX `fk_Vehicles_Drivers1_idx` (`Drivers_idDrivers` ASC, `Drivers_Companies_idCompanies` ASC) VISIBLE,
   CONSTRAINT `fk_Vehicles_Drivers1`
     FOREIGN KEY (`Drivers_idDrivers` , `Drivers_Companies_idCompanies`)
-    REFERENCES `mydb`.`Drivers` (`idDrivers` , `Companies_idCompanies`)
+    REFERENCES `car_fleet`.`Drivers` (`idDrivers` , `Companies_idCompanies`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Budgets`
+-- Table `car_fleet`.`Budgets`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Budgets` (
-  `idBudgets` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `car_fleet`.`Budgets` (
+  `idBudgets` INT NOT NULL AUTO_INCREMENT,
   `status` VARCHAR(45) NULL,
   `Vehicles_idVehicles` INT NOT NULL,
   `tagName` VARCHAR(45) NULL,
@@ -114,27 +114,27 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Budgets` (
   INDEX `fk_Budgets_Vehicles_idx` (`Vehicles_idVehicles` ASC) VISIBLE,
   CONSTRAINT `fk_Budgets_Vehicles`
     FOREIGN KEY (`Vehicles_idVehicles`)
-    REFERENCES `mydb`.`Vehicles` (`idVehicles`)
+    REFERENCES `car_fleet`.`Vehicles` (`idVehicles`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Creditors`
+-- Table `car_fleet`.`Creditors`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Creditors` (
-  `idCreditors` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `car_fleet`.`Creditors` (
+  `idCreditors` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NULL,
   PRIMARY KEY (`idCreditors`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Invoices`
+-- Table `car_fleet`.`Invoices`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Invoices` (
-  `idInvoices` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `car_fleet`.`Invoices` (
+  `idInvoices` INT NOT NULL AUTO_INCREMENT,
   `Total` VARCHAR(45) NULL,
   `Invoicescol` VARCHAR(45) NULL,
   `Budgets_idBudgets` INT NOT NULL,
@@ -144,21 +144,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Invoices` (
   INDEX `fk_Invoices_Creditors1_idx` (`Creditors_idCreditors` ASC) VISIBLE,
   CONSTRAINT `fk_Invoices_Budgets1`
     FOREIGN KEY (`Budgets_idBudgets`)
-    REFERENCES `mydb`.`Budgets` (`idBudgets`)
+    REFERENCES `car_fleet`.`Budgets` (`idBudgets`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Invoices_Creditors1`
     FOREIGN KEY (`Creditors_idCreditors`)
-    REFERENCES `mydb`.`Creditors` (`idCreditors`)
+    REFERENCES `car_fleet`.`Creditors` (`idCreditors`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`InvoiceItems`
+-- Table `car_fleet`.`InvoiceItems`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`InvoiceItems` (
+CREATE TABLE IF NOT EXISTS `car_fleet`.`InvoiceItems` (
   `Position` VARCHAR(45) NULL,
   `Amount` INT NULL,
   `Cost` FLOAT NULL,
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`InvoiceItems` (
   PRIMARY KEY (`Invoices_idInvoices`, `Invoices_Budgets_idBudgets`, `Invoices_Creditors_idCreditors`),
   CONSTRAINT `fk_InvoiceItems_Invoices1`
     FOREIGN KEY (`Invoices_idInvoices` , `Invoices_Budgets_idBudgets` , `Invoices_Creditors_idCreditors`)
-    REFERENCES `mydb`.`Invoices` (`idInvoices` , `Budgets_idBudgets` , `Creditors_idCreditors`)
+    REFERENCES `car_fleet`.`Invoices` (`idInvoices` , `Budgets_idBudgets` , `Creditors_idCreditors`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

@@ -3,7 +3,7 @@
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
- * Project      :   tpicarfleet_backend - CarFleetApplication.ts
+ * Project      :   tpicarfleet_backend - car-fleet.application.ts
  *
  * Created      :   18.02.2021
  *
@@ -16,7 +16,8 @@
 import { Application } from 'express';
 import 'reflect-metadata';
 import { createExpressServer } from 'routing-controllers';
-import { CarController } from './controllers/CarController';
+import { createConnection } from 'typeorm';
+import { VehicleController } from './controllers';
 
 export class CarFleetApplication {
   expressApplication: Application;
@@ -24,7 +25,12 @@ export class CarFleetApplication {
   constructor() {
     this.expressApplication = createExpressServer({
       routePrefix: '/api',
-      controllers: [CarController],
+      controllers: [VehicleController],
+      development: false,
     });
+
+    createConnection()
+      .then(() => console.log('Connected to the database.'))
+      .catch((error: Error) => console.error(error));
   }
 }

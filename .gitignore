@@ -193,3 +193,4 @@ fabric.properties
 ### Custmon
 doc/documentation/
 src/data/cars_test.json
+output/
