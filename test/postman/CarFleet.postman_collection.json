@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f2486294-874f-4da7-95ee-43a05c126006",
+		"_postman_id": "0905a2f3-2962-4756-bbf1-96c11a36c817",
 		"name": "CarFleet",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -52,7 +52,12 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"id\":null,\"registrationNumber\":\"VD171008\",\"chassisNumber\":\"OJS6DF1344LFKML88\"}"
+					"raw": "{\r\n  \"id\": null,\r\n  \"driverId\": 1,\r\n  \"driverCompanyId\": 1,\r\n  \"licensePlate\": \"FR348947\",\r\n  \"manufacturer\": \"Cadillac\",\r\n  \"model\": \"Escalade EXT\",\r\n  \"vin\": \"XDIUXJXN7K98B24S4\",\r\n  \"exteriorColor\": \"Fuscia\",\r\n  \"registration\": \"612.971.703\",\r\n  \"type\": \"Q1KNU\",\r\n  \"introductionl\": \"2020-05-11 11:54:06\",\r\n  \"insurance\": \"Jenkins-Hegmann\",\r\n  \"fuel\": \"Essence\",\r\n  \"transmission\": \"Manuelle\",\r\n  \"priority\": \"En ordre\",\r\n  \"diagnosis\": \"archive\",\r\n  \"support\": \"Leasing\",\r\n  \"notes\": \"gravida\",\r\n  \"Vehiclescol\": \"6.4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://localhost:3000/api/vehicles/save",
@@ -85,7 +90,7 @@
 					"path": [
 						"api",
 						"vehicles",
-						"2"
+						"17"
 					]
 				}
 			},
@@ -109,7 +114,12 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"id\":1,\"registrationNumber\":\"VD987654\",\"chassisNumber\":\"OJS6DP1344LFKML88\"}"
+					"raw": "{\r\n  \"id\": 1,\r\n  \"driverId\": 1,\r\n  \"driverCompanyId\": 1,\r\n  \"licensePlate\": \"FR348937\",\r\n  \"manufacturer\": \"Cadillac\",\r\n  \"model\": \"Escalade EXT\",\r\n  \"vin\": \"XDIUXJXN7K98B24S4\",\r\n  \"exteriorColor\": \"Fuscia\",\r\n  \"registration\": \"612.971.703\",\r\n  \"type\": \"Q1KNU\",\r\n  \"introductionl\": \"2020-05-11 12:00:00\",\r\n  \"insurance\": \"Jenkins-Hegmann\",\r\n  \"fuel\": \"Essence\",\r\n  \"transmission\": \"Manuelle\",\r\n  \"priority\": \"En ordre\",\r\n  \"diagnosis\": \"archive\",\r\n  \"support\": \"Leasing\",\r\n  \"notes\": \"gravida\",\r\n  \"Vehiclescol\": \"6.4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://localhost:3000/api/vehicles/update",

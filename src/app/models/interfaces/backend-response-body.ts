@@ -13,7 +13,7 @@
  * Created with WebStorm.
  */
 
-import { HttpStatusCode } from '../../../lib/http-status-code';
+import { HttpStatusCode } from '../../../lib/enums/http-status-code';
 import { SerializableDto } from '../dtos/serializable.dto';
 
 /**

@@ -14,8 +14,8 @@
  */
 
 import { Response } from 'express-serve-static-core';
-import { HttpStatusCode } from '../../../lib/http-status-code';
-import { BackendResponseBody } from '../interfaces/backend-response-body';
+import { HttpStatusCode } from '../../../lib/enums/http-status-code';
+import { BackendResponseBody } from '../interfaces';
 
 /**
  * This class simplifies the way to send response in Json format.
@@ -57,20 +57,6 @@ export class ResponseService {
       code: HttpStatusCode.OK,
       message: message || 'Success',
       data: data,
-    });
-  }
-
-  /**
-   * Send an internal server error.
-   *
-   * @param message - The attached message
-   *
-   * @return The response with custom JSON body
-   */
-  sendServerError(message?: string): Response<BackendResponseBody> {
-    return this.res.status(HttpStatusCode.SERVER_ERROR).json({
-      code: HttpStatusCode.SERVER_ERROR,
-      message: message || 'Internal server error',
     });
   }
 }

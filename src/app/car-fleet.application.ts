@@ -17,7 +17,7 @@ import { Application } from 'express';
 import 'reflect-metadata';
 import { createExpressServer } from 'routing-controllers';
 import { createConnection } from 'typeorm';
-import { VehicleController } from './controllers/vehicle.controller';
+import { VehicleController } from './controllers';
 
 export class CarFleetApplication {
   expressApplication: Application;

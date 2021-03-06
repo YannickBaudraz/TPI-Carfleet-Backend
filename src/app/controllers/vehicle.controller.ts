@@ -19,17 +19,19 @@ import { Body, Delete, Get, JsonController, Param, Post, Put, Res } from 'routin
 import { DeleteResult, getRepository, Repository, UpdateResult } from 'typeorm';
 import { VehicleDto } from '../models/dtos';
 import { VehicleEntity } from '../models/entities';
-import { BackendResponseBody } from '../models/interfaces/backend-response-body';
-import { ResponseService } from '../models/services/response.service';
-import { TransformationService } from '../models/services/transformation.service';
+import { BackendResponseBody } from '../models/interfaces';
+import { ResponseService, TransformationService, VehicleService } from '../models/services';
 
 @JsonController('/vehicles')
 export class VehicleController {
-  private _vehicleRepository: Repository<VehicleEntity>;
+  private readonly _vehicleRepository: Repository<VehicleEntity>;
+  private readonly _vehicleService: VehicleService;
+  private readonly _transformationService: TransformationService;
 
-  constructor(private readonly transformationService: TransformationService) {
+  constructor() {
     this._vehicleRepository = getRepository(VehicleEntity);
-    this.transformationService = new TransformationService();
+    this._transformationService = new TransformationService();
+    this._vehicleService = new VehicleService(this._transformationService);
   }
 
   /**
@@ -40,7 +42,7 @@ export class VehicleController {
    */
   @Get()
   async base(@Res() res: Response): Promise<Response<BackendResponseBody>> {
-    return this.all(res);
+    return await this.all(res);
   }
 
   /**
@@ -51,8 +53,7 @@ export class VehicleController {
    */
   @Get('/all')
   async all(@Res() res: Response): Promise<Response<BackendResponseBody>> {
-    const vehicleEntities: VehicleEntity[] = await this._vehicleRepository.find({ licensePlate: 'FR348947' });
-    const vehicleDtos: VehicleDto[] = this.transformationService.vehicleEntitiesToDtos(vehicleEntities);
+    const vehicleDtos = await this._vehicleService.getAllFromDb();
 
     return new ResponseService(res).sendOk(vehicleDtos);
   }
@@ -65,13 +66,11 @@ export class VehicleController {
    */
   @Get('/:id')
   async one(@Res() res: Response, @Param('id') id: number): Promise<Response<BackendResponseBody>> {
-    const vehicleEntity: VehicleEntity | undefined = await this._vehicleRepository.findOne(id);
+    const vehicleDto: VehicleDto | undefined = await this._vehicleService.getOnFromDb(id);
 
-    if (vehicleEntity) {
-      return new ResponseService(res).sendOk(this.transformationService.vehicleEntityToDto(vehicleEntity));
-    }
-
-    return new ResponseService(res).sendOk(null, 'No vehicle found');
+    return vehicleDto
+      ? new ResponseService(res).sendOk(vehicleDto)
+      : new ResponseService(res).sendOk(null, 'No vehicle found');
   }
 
   /**
@@ -82,9 +81,7 @@ export class VehicleController {
    */
   @Post('/save')
   async saveOne(@Res() res: Response, @Body() vehicleDto: VehicleDto): Promise<Response<BackendResponseBody>> {
-    const vehicleEntity = this.transformationService.vehicleDtoToEntity(vehicleDto);
-    await this._vehicleRepository.insert(vehicleEntity);
-    vehicleDto = this.transformationService.vehicleEntityToDto(vehicleEntity);
+    vehicleDto = await this._vehicleService.createOneInDb(vehicleDto);
 
     return new ResponseService(res).sendCreated(vehicleDto, 'Vehicle created with success');
   }
@@ -97,16 +94,11 @@ export class VehicleController {
    */
   @Put('/update')
   async updateOne(@Res() res: Response, @Body() vehicleDto: VehicleDto): Promise<Response<BackendResponseBody>> {
-    const updateResult: UpdateResult = await this._vehicleRepository.update(
-      { id: vehicleDto.id, driverId: vehicleDto.driverId, driverCompanyId: vehicleDto.driverCompanyId },
-      this.transformationService.vehicleDtoToEntity(vehicleDto)
-    );
+    const updateResult: UpdateResult = await this._vehicleService.updateOneInDb(vehicleDto);
 
-    if (updateResult.affected) {
-      return new ResponseService(res).sendOk(vehicleDto, 'Vehicle edited');
-    }
-
-    return new ResponseService(res).sendOk(null, 'Could not edit');
+    return updateResult.affected
+      ? new ResponseService(res).sendOk(vehicleDto, 'Vehicle edited')
+      : new ResponseService(res).sendOk(undefined, 'Could not edit');
   }
 
   /**
@@ -117,12 +109,10 @@ export class VehicleController {
    */
   @Delete('/:id')
   async deleteOne(@Res() res: Response, @Param('id') id: number): Promise<Response<BackendResponseBody>> {
-    const deleteResult: DeleteResult = await this._vehicleRepository.delete(id);
+    const deleteResult: DeleteResult = await this._vehicleService.deleteOneInDb(id);
 
-    if (deleteResult.affected) {
-      return new ResponseService(res).sendOk();
-    }
-
-    return new ResponseService(res).sendOk(null, 'No vehicle matched with id');
+    return deleteResult.affected
+      ? new ResponseService(res).sendOk()
+      : new ResponseService(res).sendOk(undefined, 'No vehicle matched with id');
   }
 }
