@@ -191,6 +191,6 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 ### Custmon
-doc/documentation/
+doc/generated-doc/
 src/data/cars_test.json
 output/

@@ -14,38 +14,28 @@
  */
 
 import { classToPlain } from 'class-transformer';
-import { LiteralJsonObject } from '../../../lib/types/literal-json-object';
+import { LiteralObject } from '../../../lib/types/literal-object';
+import { ObjectsUtils } from '../../../lib/utils/objects.utils';
 
 /**
  * This abstract class enhanced the way to be serializable.
  */
-export abstract class SerializableDto {
+export abstract class AbstractSerializableDto {
+  //region Protected constructor
   protected constructor() {}
+  //endregion
 
+  //region Methods
   // noinspection JSUnusedGlobalSymbols
   /**
    * Serialize the instantiated object with the serializable options.
    *
    * @return The object serialized
    */
-  toJSON(): LiteralJsonObject {
-    this.undefinedNulls(this);
+  toJSON(): LiteralObject {
+    ObjectsUtils.nullToUndefinedProperties(this);
 
-    return classToPlain(this, { exposeUnsetFields: false });
+    return classToPlain(this);
   }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private undefinedNulls(obj: any): any {
-    if (obj === null) {
-      return undefined;
-    }
-    if (typeof obj === 'object') {
-      for (const key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) {
-          obj[key] = this.undefinedNulls(obj[key]);
-        }
-      }
-    }
-    return obj;
-  }
+  //endregion
 }

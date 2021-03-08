@@ -1,6 +1,24 @@
+/*
+ * Description  :   Entity for vehicles table.
+ *
+ * Author       :   Yannick.BAUDRAZ@cpnv.ch
+ *
+ * Project      :   TPICarfleet_Backend - vehicles.entity.ts
+ *
+ * Created      :   01.03.2021
+ *
+ * Updates      :   [update date]
+ *                      [update description
+ *
+ * Created with WebStorm.
+ */
+
 import { Column, Entity, Index, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 
-@Index('fk_Vehicles_Drivers1_idx', ['driverId', 'driverCompanyId'], {})
+/**
+ * Entity vehicles.
+ */
+@Index('fk_Vehicles_Drivers1_idx', ['driverId', 'driverCompanyId'])
 @Entity('vehicles', { schema: 'car_fleet' })
 export class VehicleEntity {
   @PrimaryGeneratedColumn({ name: 'idVehicles' })

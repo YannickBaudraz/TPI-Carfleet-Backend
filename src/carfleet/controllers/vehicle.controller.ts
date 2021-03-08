@@ -5,40 +5,50 @@
  *
  * Project      :   tpicarfleet_backend - vehicle.controller.ts
  *
- * Created      :   18.02.2021
+ * Created      :   18.02.2021 - Create with routes /api/vehicles :
+ *                    - GET : '', '/all', '/:id'
+ *                    - POST : '/save'
+ *                    - PUT : '/update'
+ *                    - DELETE : '/:id'
  *
  * Updates      :   02.03.2021
- *                      Vehicles are now retrieved from database instead of
- *                      a Json file.
+ *                      Vehicles are now retrieved from database instead of a Json file.
  *
  * Created with WebStorm.
  */
 
 import { Response } from 'express';
 import { Body, Delete, Get, JsonController, Param, Post, Put, Res } from 'routing-controllers';
-import { DeleteResult, getRepository, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { VehicleDto } from '../models/dtos';
-import { VehicleEntity } from '../models/entities';
 import { BackendResponseBody } from '../models/interfaces';
 import { ResponseService, TransformationService, VehicleService } from '../models/services';
 
+/**
+ * This class is the controller for vehicles.
+ */
 @JsonController('/vehicles')
 export class VehicleController {
-  private readonly _vehicleRepository: Repository<VehicleEntity>;
+  //region Fields
   private readonly _vehicleService: VehicleService;
-  private readonly _transformationService: TransformationService;
+  //endregion
 
+  //region Constructor
+  /**
+   * Create a vehicle controller
+   */
   constructor() {
-    this._vehicleRepository = getRepository(VehicleEntity);
-    this._transformationService = new TransformationService();
-    this._vehicleService = new VehicleService(this._transformationService);
+    this._vehicleService = new VehicleService(new TransformationService());
   }
+  //endregion
 
+  //region Methods
   /**
    * Redirect to '/all'.
    *
    * @param res - The HTTP response to redirect with
    *
+   * @return A promise with the HTTP response
    */
   @Get()
   async base(@Res() res: Response): Promise<Response<BackendResponseBody>> {
@@ -50,6 +60,7 @@ export class VehicleController {
    *
    * @param res - The HTTP response
    *
+   * @return A promise with the HTTP response
    */
   @Get('/all')
   async all(@Res() res: Response): Promise<Response<BackendResponseBody>> {
@@ -63,10 +74,12 @@ export class VehicleController {
    *
    * @param res - The HTTP response
    * @param id - The unique identifier
+   *
+   * @return A promise with the HTTP response
    */
   @Get('/:id')
-  async one(@Res() res: Response, @Param('id') id: number): Promise<Response<BackendResponseBody>> {
-    const vehicleDto: VehicleDto | undefined = await this._vehicleService.getOnFromDb(id);
+  async getOne(@Res() res: Response, @Param('id') id: number): Promise<Response<BackendResponseBody>> {
+    const vehicleDto: VehicleDto | undefined = await this._vehicleService.getOneFromDb(id);
 
     return vehicleDto
       ? new ResponseService(res).sendOk(vehicleDto)
@@ -78,6 +91,8 @@ export class VehicleController {
    *
    * @param res - The HTTP response
    * @param vehicleDto - The vehicle object passed by method POST
+   *
+   * @return A promise with the HTTP response
    */
   @Post('/save')
   async saveOne(@Res() res: Response, @Body() vehicleDto: VehicleDto): Promise<Response<BackendResponseBody>> {
@@ -91,6 +106,8 @@ export class VehicleController {
    *
    * @param res - The HTTP response
    * @param vehicleDto - The vehicle to update
+   *
+   * @return A promise with the HTTP response
    */
   @Put('/update')
   async updateOne(@Res() res: Response, @Body() vehicleDto: VehicleDto): Promise<Response<BackendResponseBody>> {
@@ -106,6 +123,8 @@ export class VehicleController {
    *
    * @param res - The HTTP response
    * @param id - The unique identifier
+   *
+   * @return A promise with the HTTP response
    */
   @Delete('/:id')
   async deleteOne(@Res() res: Response, @Param('id') id: number): Promise<Response<BackendResponseBody>> {
@@ -115,4 +134,5 @@ export class VehicleController {
       ? new ResponseService(res).sendOk()
       : new ResponseService(res).sendOk(undefined, 'No vehicle matched with id');
   }
+  //endregion
 }

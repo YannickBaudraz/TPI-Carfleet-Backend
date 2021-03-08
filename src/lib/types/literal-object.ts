@@ -1,5 +1,5 @@
 /*
- * Description  :   Type to use literal json object
+ * Description  :   Type to use literal javascript object
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
@@ -14,6 +14,6 @@
  */
 
 /**
- * This type represents a literal object.
+ * This type represents a literal javascript object.
  */
-export type LiteralJsonObject = Record<string, unknown>;
+export type LiteralObject = Record<string, unknown>;

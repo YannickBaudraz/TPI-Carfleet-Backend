@@ -5,7 +5,12 @@
  *
  * Project      :   TPICarfleet_Backend - vehicle.service.ts
  *
- * Created      :   05.03.2021
+ * Created      :   05.03.2021 - Create with :
+ *                    - getAllFromDb
+ *                    - getOneFromDb
+ *                    - createOneInDb
+ *                    - updateOneInDb
+ *                    - deleteOneInDb
  *
  * Updates      :   [update date]
  *                      [update description
@@ -13,7 +18,7 @@
  * Created with WebStorm.
  */
 
-import { DeleteResult, getRepository, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, getRepository, InsertResult, Repository, UpdateResult } from 'typeorm';
 import { VehicleDto } from '../dtos';
 import { VehicleEntity } from '../entities';
 import { TransformationService } from './transformation.service';
@@ -22,14 +27,24 @@ import { TransformationService } from './transformation.service';
  * This class manages vehicles.
  */
 export class VehicleService {
+  //region Fields
   private readonly _vehicleRepository: Repository<VehicleEntity>;
   private readonly _transformationService: TransformationService;
+  //endregion
 
+  //region Constructor
+  /**
+   * Create an instance of vehicles service.
+   *
+   * @param transformationService - A carfleet transformation service
+   */
   constructor(transformationService: TransformationService) {
     this._vehicleRepository = getRepository(VehicleEntity);
     this._transformationService = transformationService;
   }
+  //endregion
 
+  //region Methods
   /**
    * Retrieve all vehicles from the database.
    *
@@ -48,7 +63,7 @@ export class VehicleService {
    *
    * @return The dto vehicle or undefined if it was not found
    */
-  async getOnFromDb(id: number): Promise<VehicleDto | undefined> {
+  async getOneFromDb(id: number): Promise<VehicleDto | undefined> {
     const vehicleEntity: VehicleEntity | undefined = await this._vehicleRepository.findOne(id);
 
     return vehicleEntity ? this._transformationService.vehicleEntityToDto(vehicleEntity) : undefined;
@@ -63,7 +78,7 @@ export class VehicleService {
    */
   async createOneInDb(vehicleDto: VehicleDto): Promise<VehicleDto> {
     const vehicleEntity = this._transformationService.vehicleDtoToEntity(vehicleDto);
-    await this._vehicleRepository.insert(vehicleEntity).then((value) => {
+    await this._vehicleRepository.insert(vehicleEntity).then((value: InsertResult) => {
       vehicleEntity.id = (value.identifiers[0] as VehicleEntity).id;
     });
 
@@ -95,9 +110,10 @@ export class VehicleService {
    *
    * @param id - The dto vehicle
    *
-   * @return The delete resulte
+   * @return The delete result
    */
   async deleteOneInDb(id: number): Promise<DeleteResult> {
     return await this._vehicleRepository.delete(id);
   }
+  //endregion
 }

@@ -1,5 +1,5 @@
 /*
- * Description  :   This file represents a vehicle model
+ * Description  :   Data Transfer Object for vehicles.
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
@@ -15,16 +15,18 @@
 
 import { Exclude, Expose } from 'class-transformer';
 import { IsDefined } from 'class-validator';
-import { SerializableDto } from './serializable.dto';
+import { AbstractSerializableDto } from './abstract-serializable.dto';
 
 // noinspection JSUnusedGlobalSymbols
+/**
+ * This class represent a data transfer object vehicle.
+ */
 @Exclude()
 /**
  * This class represents a vehicle.
  */
-export class VehicleDto extends SerializableDto {
-  // region Fields
-
+export class VehicleDto extends AbstractSerializableDto {
+  //region Fields
   private _id!: number;
   @IsDefined() private _driverId!: number;
   @IsDefined() private _driverCompanyId!: number;
@@ -44,19 +46,21 @@ export class VehicleDto extends SerializableDto {
   private _support!: string;
   private _notes!: string;
   private _vehiclescol!: string;
+  //endregion
 
-  // endregion
-
-  // region Constructor
-
+  //region Constructor
+  /**
+   * Create an instance of an dto vehicle.
+   */
   constructor() {
     super();
   }
-
-  // endregion
+  //endregion
 
   //region Accessors
-
+  /**
+   * Unique ID row number.
+   */
   @Expose()
   get id(): number {
     return this._id;
@@ -66,6 +70,9 @@ export class VehicleDto extends SerializableDto {
     this._id = value;
   }
 
+  /**
+   * ID of the driver.
+   */
   @Expose()
   get driverId(): number {
     return this._driverId;
@@ -75,6 +82,9 @@ export class VehicleDto extends SerializableDto {
     this._driverId = value;
   }
 
+  /**
+   * ID of the driver's company.
+   */
   @Expose()
   get driverCompanyId(): number {
     return this._driverCompanyId;
@@ -84,6 +94,9 @@ export class VehicleDto extends SerializableDto {
     this._driverCompanyId = value;
   }
 
+  /**
+   * Unique license plate.
+   */
   @Expose()
   get licensePlate(): string {
     return this._licensePlate;
@@ -93,6 +106,9 @@ export class VehicleDto extends SerializableDto {
     this._licensePlate = value;
   }
 
+  /**
+   * NAme of the manufacturer.
+   */
   @Expose()
   get manufacturer(): string {
     return this._manufacturer;
@@ -102,6 +118,9 @@ export class VehicleDto extends SerializableDto {
     this._manufacturer = value;
   }
 
+  /**
+   * Name of the model.
+   */
   @Expose()
   get model(): string {
     return this._model;
@@ -111,6 +130,9 @@ export class VehicleDto extends SerializableDto {
     this._model = value;
   }
 
+  /**
+   * Vehicle Identification Number.
+   */
   @Expose()
   get vin(): string {
     return this._vin;
@@ -120,6 +142,9 @@ export class VehicleDto extends SerializableDto {
     this._vin = value;
   }
 
+  /**
+   * Name of the exterior color.
+   */
   @Expose()
   get exteriorColor(): string {
     return this._exteriorColor;
@@ -129,6 +154,9 @@ export class VehicleDto extends SerializableDto {
     this._exteriorColor = value;
   }
 
+  /**
+   * Registration number.
+   */
   @Expose()
   get registration(): string {
     return this._registration;
@@ -138,6 +166,9 @@ export class VehicleDto extends SerializableDto {
     this._registration = value;
   }
 
+  /**
+   * Type code.
+   */
   @Expose()
   get type(): string {
     return this._type;
@@ -147,6 +178,9 @@ export class VehicleDto extends SerializableDto {
     this._type = value;
   }
 
+  /**
+   * Introduction date.
+   */
   @Expose()
   get introductionl(): Date {
     return this._introductionl;
@@ -156,6 +190,9 @@ export class VehicleDto extends SerializableDto {
     this._introductionl = value;
   }
 
+  /**
+   * Name of the insurance.
+   */
   @Expose()
   get insurance(): string {
     return this._insurance;
@@ -165,6 +202,9 @@ export class VehicleDto extends SerializableDto {
     this._insurance = value;
   }
 
+  /**
+   * Fuel type.
+   */
   @Expose()
   get fuel(): string {
     return this._fuel;
@@ -174,6 +214,9 @@ export class VehicleDto extends SerializableDto {
     this._fuel = value;
   }
 
+  /**
+   * Transmission type.
+   */
   @Expose()
   get transmission(): string {
     return this._transmission;
@@ -183,6 +226,9 @@ export class VehicleDto extends SerializableDto {
     this._transmission = value;
   }
 
+  /**
+   * Priority type.
+   */
   @Expose()
   get priority(): string {
     return this._priority;
@@ -192,6 +238,9 @@ export class VehicleDto extends SerializableDto {
     this._priority = value;
   }
 
+  /**
+   * Diagnosis type.
+   */
   @Expose()
   get diagnosis(): string {
     return this._diagnosis;
@@ -201,6 +250,9 @@ export class VehicleDto extends SerializableDto {
     this._diagnosis = value;
   }
 
+  /**
+   * Support type.
+   */
   @Expose()
   get support(): string {
     return this._support;
@@ -210,6 +262,9 @@ export class VehicleDto extends SerializableDto {
     this._support = value;
   }
 
+  /**
+   * Notes for help.
+   */
   @Expose()
   get notes(): string {
     return this._notes;
@@ -219,6 +274,9 @@ export class VehicleDto extends SerializableDto {
     this._notes = value;
   }
 
+  /**
+   * Col number.
+   */
   @Expose()
   get vehiclescol(): string {
     return this._vehiclescol;
@@ -227,6 +285,5 @@ export class VehicleDto extends SerializableDto {
   set vehiclescol(value: string) {
     this._vehiclescol = value;
   }
-
   //endregion
 }

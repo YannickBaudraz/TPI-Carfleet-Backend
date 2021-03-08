@@ -5,10 +5,10 @@
  *
  * Project      :   tpicarfleet_backend - JSONResponse.ts
  *
- * Created      :   17.02.2021
+ * Created      :   17.02.2021 - Create to send Ok, created and error response.
  *
- * Updates      :   [update date]
- *                      [update description
+ * Updates      :   06.03.2021
+ *                      Remove unused error response.
  *
  * Created with WebStorm.
  */
@@ -21,13 +21,16 @@ import { BackendResponseBody } from '../interfaces';
  * This class simplifies the way to send response in Json format.
  */
 export class ResponseService {
+  //region Constructor
   /**
    * Instantiate with a HTTP response.
    *
-   * @param res - The HTTP response
+   * @param _res - The HTTP response
    */
-  constructor(private res: Response) {}
+  constructor(private _res: Response) {}
+  //endregion
 
+  //region Methods
   /**
    * Send a basic success response.
    *
@@ -37,7 +40,7 @@ export class ResponseService {
    * @return The Response with custom JSON body
    */
   sendOk(data?: unknown, message?: string): Response<BackendResponseBody> {
-    return this.res.status(HttpStatusCode.OK).json({
+    return this._res.status(HttpStatusCode.OK).json({
       code: HttpStatusCode.OK,
       message: message || 'Success',
       data: data,
@@ -53,10 +56,11 @@ export class ResponseService {
    * @return The response with custom JSON body
    */
   sendCreated(data?: unknown, message?: string): Response<BackendResponseBody> {
-    return this.res.status(HttpStatusCode.CREATED).json({
+    return this._res.status(HttpStatusCode.CREATED).json({
       code: HttpStatusCode.OK,
       message: message || 'Success',
       data: data,
     });
   }
+  //endregion
 }

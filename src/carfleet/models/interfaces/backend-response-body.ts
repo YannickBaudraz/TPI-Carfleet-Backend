@@ -14,13 +14,22 @@
  */
 
 import { HttpStatusCode } from '../../../lib/enums/http-status-code';
-import { SerializableDto } from '../dtos/serializable.dto';
+import { AbstractSerializableDto } from '../dtos/abstract-serializable.dto';
 
 /**
  * This interface represents a custom response body.
  */
 export interface BackendResponseBody {
+  /**
+   * Status code of the HTTP response.
+   */
   code: HttpStatusCode;
+  /**
+   * Message received for the client.
+   */
   message: string;
-  data: SerializableDto;
+  /**
+   * Data attached to the response.
+   */
+  data: AbstractSerializableDto;
 }

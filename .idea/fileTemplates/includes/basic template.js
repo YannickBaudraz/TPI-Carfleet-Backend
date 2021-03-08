@@ -9,7 +9,7 @@
  * Created      :   ${DATE}
  *
  * Updates      :   [update date]
- *                      [update description
+ *                      [update description]
  *
  * Created with ${PRODUCT_NAME}.
  */

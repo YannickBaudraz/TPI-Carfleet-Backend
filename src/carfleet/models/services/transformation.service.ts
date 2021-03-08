@@ -5,10 +5,19 @@
  *
  * Project      :   tpicarfleet_backend - TransformerService.ts
  *
- * Created      :   18.02.2021
+ * Created      :   18.02.2021 : Created with :
+ *                    - jsonToCar
+ *                    - jsonArrayToCars
  *
- * Updates      :   [update date]
- *                      [update description
+ * Updates      :   05.03.2021
+ *                      Use database instead of JSON file :
+ *                        Delete :
+ *                          - jsonToCar
+ *                          - jsonArrayToCars
+ *                        Add :
+ *                          - vehicleEntityToDto
+ *                          - vehicleEntitiesToDtos
+ *                          - vehicleDtoToEntity
  *
  * Created with WebStorm.
  */
@@ -24,12 +33,12 @@ export class TransformationService {
   /**
    * Transform a {@link VehicleEntity} to a {@link VehicleDto}.
    *
-   * @param json - The {@link VehicleEntity} to transform
+   * @param vehicleEntity - The {@link VehicleEntity} to transform
    *
    * @return The instance of {@link VehicleDto}
    */
-  vehicleEntityToDto(json: VehicleEntity): VehicleDto {
-    return plainToClass(VehicleDto, json);
+  vehicleEntityToDto(vehicleEntity: VehicleEntity): VehicleDto {
+    return plainToClass(VehicleDto, vehicleEntity);
   }
 
   /**
