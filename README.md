@@ -1,4 +1,6 @@
-# How to test the API
+# CarFleet v0.2.0
+
+## How to test the API
 
 Prerequisite :
 
