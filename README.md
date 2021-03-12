@@ -1,10 +1,12 @@
-# How to test the API
+# CarFleet v0.2.0
+
+## How to test the API
 
 Prerequisite :
 
-- Install nodejs with npm -> https://nodejs.org/en/download/
-- Install yarn globally `npm install --global yarn`
-- Install Postman -> https://www.postman.com/downloads/
+- Nodejs with npm -> https://nodejs.org/en/download/
+- Yarn globally `npm install --global yarn`
+- Postman -> https://www.postman.com/downloads/
 
 1. Clone the repository from github
 1. Copy the file _src/data/cars.json_ and rename it in _cars_test.json_
