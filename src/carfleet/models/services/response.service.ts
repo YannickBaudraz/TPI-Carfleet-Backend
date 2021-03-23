@@ -15,7 +15,8 @@
 
 import { Response } from 'express-serve-static-core';
 import { HttpStatusCode } from '../../../lib/enums/http-status-code';
-import { BackendResponseBody } from '../interfaces';
+import { BackendResponse } from '../interfaces';
+import { BackendResponseData } from '../types/backend-response-data';
 
 /**
  * This class simplifies the way to send response in Json format.
@@ -39,7 +40,7 @@ export class ResponseService {
    *
    * @return The Response with custom JSON body
    */
-  sendOk(data?: unknown, message?: string): Response<BackendResponseBody> {
+  sendOk(data?: BackendResponseData, message?: string): Response<BackendResponse> {
     return this._res.status(HttpStatusCode.OK).json({
       code: HttpStatusCode.OK,
       message: message || 'Success',
@@ -55,7 +56,7 @@ export class ResponseService {
    *
    * @return The response with custom JSON body
    */
-  sendCreated(data?: unknown, message?: string): Response<BackendResponseBody> {
+  sendCreated(data?: BackendResponseData, message?: string): Response<BackendResponse> {
     return this._res.status(HttpStatusCode.CREATED).json({
       code: HttpStatusCode.OK,
       message: message || 'Success',

@@ -23,43 +23,45 @@
  */
 
 import { classToPlainFromExist, plainToClass } from 'class-transformer';
+import { Service } from 'typedi';
+import { VehiclesEntity } from '../database/entities';
 import { VehicleDto } from '../dtos';
-import { VehicleEntity } from '../entities';
 
 /**
  * This class is designed to transform an object to another.
  */
+@Service()
 export class TransformationService {
   /**
-   * Transform a {@link VehicleEntity} to a {@link VehicleDto}.
+   * Transform a {@link VehiclesEntity} to a {@link VehicleDto}.
    *
-   * @param vehicleEntity - The {@link VehicleEntity} to transform
+   * @param vehicleEntity - The {@link VehiclesEntity} to transform
    *
    * @return The instance of {@link VehicleDto}
    */
-  vehicleEntityToDto(vehicleEntity: VehicleEntity): VehicleDto {
+  vehicleEntityToDto(vehicleEntity: VehiclesEntity): VehicleDto {
     return plainToClass(VehicleDto, vehicleEntity);
   }
 
   /**
-   * Transform an array of {@link VehicleEntity} to an array of {@link VehicleDto}.
+   * Transform an array of {@link VehiclesEntity} to an array of {@link VehicleDto}.
    *
-   * @param vehicleEntities - {@link VehicleEntity} to transform
+   * @param vehicleEntities - {@link VehiclesEntity} to transform
    *
    * @return The array of {@link VehicleDto}
    */
-  vehicleEntitiesToDtos(vehicleEntities: VehicleEntity[]): VehicleDto[] {
+  vehicleEntitiesToDtos(vehicleEntities: VehiclesEntity[]): VehicleDto[] {
     return plainToClass(VehicleDto, vehicleEntities);
   }
 
   /**
-   * Transform a {@link VehicleDto} to a {@link VehicleEntity}.
+   * Transform a {@link VehicleDto} to a {@link VehiclesEntity}.
    *
    * @param vehicleDto - The {@link VehicleDto} to transform.
    *
-   * @return The instance of {@link VehicleEntity}
+   * @return The instance of {@link VehiclesEntity}
    */
-  vehicleDtoToEntity(vehicleDto: VehicleDto): VehicleEntity {
-    return classToPlainFromExist(vehicleDto, VehicleEntity) as VehicleEntity;
+  vehicleDtoToEntity(vehicleDto: VehicleDto): VehiclesEntity {
+    return classToPlainFromExist(vehicleDto, VehiclesEntity) as VehiclesEntity;
   }
 }

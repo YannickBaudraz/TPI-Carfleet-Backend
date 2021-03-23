@@ -13,23 +13,17 @@
  * Created with WebStorm.
  */
 
-import { Exclude, Expose } from 'class-transformer';
-import { IsDefined } from 'class-validator';
+import { Exclude, Expose, Type } from 'class-transformer';
 import { AbstractSerializableDto } from './abstract-serializable.dto';
+import { DriverDto } from './driver.dto';
 
-// noinspection JSUnusedGlobalSymbols
 /**
  * This class represent a data transfer object vehicle.
  */
 @Exclude()
-/**
- * This class represents a vehicle.
- */
 export class VehicleDto extends AbstractSerializableDto {
   //region Fields
   private _id!: number;
-  @IsDefined() private _driverId!: number;
-  @IsDefined() private _driverCompanyId!: number;
   private _licensePlate!: string;
   private _manufacturer!: string;
   private _model!: string;
@@ -37,7 +31,7 @@ export class VehicleDto extends AbstractSerializableDto {
   private _exteriorColor!: string;
   private _registration!: string;
   private _type!: string;
-  private _introductionl!: Date;
+  private _introductionl!: string;
   private _insurance!: string;
   private _fuel!: string;
   private _transmission!: string;
@@ -46,6 +40,7 @@ export class VehicleDto extends AbstractSerializableDto {
   private _support!: string;
   private _notes!: string;
   private _vehiclescol!: string;
+  private _driver!: DriverDto;
   //endregion
 
   //region Constructor
@@ -65,33 +60,8 @@ export class VehicleDto extends AbstractSerializableDto {
   get id(): number {
     return this._id;
   }
-
   set id(value: number) {
     this._id = value;
-  }
-
-  /**
-   * ID of the driver.
-   */
-  @Expose()
-  get driverId(): number {
-    return this._driverId;
-  }
-
-  set driverId(value: number) {
-    this._driverId = value;
-  }
-
-  /**
-   * ID of the driver's company.
-   */
-  @Expose()
-  get driverCompanyId(): number {
-    return this._driverCompanyId;
-  }
-
-  set driverCompanyId(value: number) {
-    this._driverCompanyId = value;
   }
 
   /**
@@ -101,7 +71,6 @@ export class VehicleDto extends AbstractSerializableDto {
   get licensePlate(): string {
     return this._licensePlate;
   }
-
   set licensePlate(value: string) {
     this._licensePlate = value;
   }
@@ -113,7 +82,6 @@ export class VehicleDto extends AbstractSerializableDto {
   get manufacturer(): string {
     return this._manufacturer;
   }
-
   set manufacturer(value: string) {
     this._manufacturer = value;
   }
@@ -125,7 +93,6 @@ export class VehicleDto extends AbstractSerializableDto {
   get model(): string {
     return this._model;
   }
-
   set model(value: string) {
     this._model = value;
   }
@@ -137,7 +104,6 @@ export class VehicleDto extends AbstractSerializableDto {
   get vin(): string {
     return this._vin;
   }
-
   set vin(value: string) {
     this._vin = value;
   }
@@ -149,7 +115,6 @@ export class VehicleDto extends AbstractSerializableDto {
   get exteriorColor(): string {
     return this._exteriorColor;
   }
-
   set exteriorColor(value: string) {
     this._exteriorColor = value;
   }
@@ -161,7 +126,6 @@ export class VehicleDto extends AbstractSerializableDto {
   get registration(): string {
     return this._registration;
   }
-
   set registration(value: string) {
     this._registration = value;
   }
@@ -173,7 +137,6 @@ export class VehicleDto extends AbstractSerializableDto {
   get type(): string {
     return this._type;
   }
-
   set type(value: string) {
     this._type = value;
   }
@@ -182,11 +145,10 @@ export class VehicleDto extends AbstractSerializableDto {
    * Introduction date.
    */
   @Expose()
-  get introductionl(): Date {
+  get introductionl(): string {
     return this._introductionl;
   }
-
-  set introductionl(value: Date) {
+  set introductionl(value: string) {
     this._introductionl = value;
   }
 
@@ -197,7 +159,6 @@ export class VehicleDto extends AbstractSerializableDto {
   get insurance(): string {
     return this._insurance;
   }
-
   set insurance(value: string) {
     this._insurance = value;
   }
@@ -209,7 +170,6 @@ export class VehicleDto extends AbstractSerializableDto {
   get fuel(): string {
     return this._fuel;
   }
-
   set fuel(value: string) {
     this._fuel = value;
   }
@@ -221,7 +181,6 @@ export class VehicleDto extends AbstractSerializableDto {
   get transmission(): string {
     return this._transmission;
   }
-
   set transmission(value: string) {
     this._transmission = value;
   }
@@ -233,7 +192,6 @@ export class VehicleDto extends AbstractSerializableDto {
   get priority(): string {
     return this._priority;
   }
-
   set priority(value: string) {
     this._priority = value;
   }
@@ -245,7 +203,6 @@ export class VehicleDto extends AbstractSerializableDto {
   get diagnosis(): string {
     return this._diagnosis;
   }
-
   set diagnosis(value: string) {
     this._diagnosis = value;
   }
@@ -257,7 +214,6 @@ export class VehicleDto extends AbstractSerializableDto {
   get support(): string {
     return this._support;
   }
-
   set support(value: string) {
     this._support = value;
   }
@@ -269,7 +225,6 @@ export class VehicleDto extends AbstractSerializableDto {
   get notes(): string {
     return this._notes;
   }
-
   set notes(value: string) {
     this._notes = value;
   }
@@ -281,9 +236,20 @@ export class VehicleDto extends AbstractSerializableDto {
   get vehiclescol(): string {
     return this._vehiclescol;
   }
-
   set vehiclescol(value: string) {
     this._vehiclescol = value;
+  }
+
+  /**
+   * Driver object.
+   */
+  @Type(() => DriverDto)
+  @Expose()
+  get driver(): DriverDto {
+    return this._driver;
+  }
+  set driver(value: DriverDto) {
+    this._driver = value;
   }
   //endregion
 }

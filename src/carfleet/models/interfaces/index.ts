@@ -1,3 +1,3 @@
-import { BackendResponseBody } from './backend-response-body';
+import { BackendResponse } from './backend-response';
 
-export { BackendResponseBody };
+export { BackendResponse };

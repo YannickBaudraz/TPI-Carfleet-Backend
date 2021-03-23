@@ -17,8 +17,8 @@
 
 import { Application } from 'express';
 import 'reflect-metadata';
-import { createExpressServer } from 'routing-controllers';
-import { createConnection } from 'typeorm';
+import { createExpressServer, useContainer } from 'routing-controllers';
+import { Container } from 'typedi';
 import { VehicleController } from '../controllers';
 
 /**
@@ -34,16 +34,20 @@ export class CarFleetApplication {
    * Create the application of car fleet.
    */
   constructor() {
+    useContainer(Container);
+
     this._expressApplication = createExpressServer({
+      cors: {
+        origin: /:4200/,
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
+      },
       routePrefix: '/api',
       controllers: [VehicleController],
-      development: !!process.env.TS_NODE_DEV,
+      development: process.env.NODE_ENV === 'development',
     });
-
-    createConnection()
-      .then(() => console.log('Connected to the database.'))
-      .catch((error: Error) => console.error(error));
   }
+
   //endregion
 
   //region Methods
@@ -53,5 +57,6 @@ export class CarFleetApplication {
   get expressApplication(): Application {
     return this._expressApplication;
   }
+
   //endregion
 }

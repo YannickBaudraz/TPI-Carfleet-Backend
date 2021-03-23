@@ -18,29 +18,42 @@
  * Created with WebStorm.
  */
 
-import { DeleteResult, getRepository, InsertResult, Repository, UpdateResult } from 'typeorm';
+import { Service } from 'typedi';
+import { DeleteResult, getConnectionManager, InsertResult, Repository, UpdateResult } from 'typeorm';
+import { DatabaseConnector } from '../database';
+import { VehiclesEntity } from '../database/entities';
+import { VehicleRepository } from '../database/repositories';
 import { VehicleDto } from '../dtos';
-import { VehicleEntity } from '../entities';
 import { TransformationService } from './transformation.service';
 
 /**
  * This class manages vehicles.
  */
+@Service()
 export class VehicleService {
   //region Fields
-  private readonly _vehicleRepository: Repository<VehicleEntity>;
-  private readonly _transformationService: TransformationService;
+  private _vehicleRepository!: Repository<VehiclesEntity>;
+  private readonly _connectionReady: Promise<unknown>;
   //endregion
 
   //region Constructor
   /**
    * Create an instance of vehicles service.
    *
-   * @param transformationService - A carfleet transformation service
+   * @param _transformationService - A carfleet transformation service
    */
-  constructor(transformationService: TransformationService) {
-    this._vehicleRepository = getRepository(VehicleEntity);
-    this._transformationService = transformationService;
+  constructor(private _transformationService: TransformationService) {
+    const databaseConnector = new DatabaseConnector(getConnectionManager());
+    this._connectionReady = new Promise((resolve, reject) => {
+      databaseConnector
+        .createTypeOrmConnection()
+        .then(() => {
+          const connection = databaseConnector.getConnection();
+          this._vehicleRepository = connection.getCustomRepository(VehicleRepository);
+          resolve(undefined);
+        })
+        .catch(() => reject());
+    });
   }
   //endregion
 
@@ -50,8 +63,9 @@ export class VehicleService {
    *
    * @return An array of {@link VehicleDto}
    */
-  async getAllFromDb(): Promise<VehicleDto[]> {
-    const vehicleEntities: VehicleEntity[] = await this._vehicleRepository.find();
+  async getAll(): Promise<VehicleDto[]> {
+    await this._connectionReady;
+    const vehicleEntities: VehiclesEntity[] = await this._vehicleRepository.find();
 
     return this._transformationService.vehicleEntitiesToDtos(vehicleEntities);
   }
@@ -63,8 +77,9 @@ export class VehicleService {
    *
    * @return The dto vehicle or undefined if it was not found
    */
-  async getOneFromDb(id: number): Promise<VehicleDto | undefined> {
-    const vehicleEntity: VehicleEntity | undefined = await this._vehicleRepository.findOne(id);
+  async getById(id: number): Promise<VehicleDto | undefined> {
+    await this._connectionReady;
+    const vehicleEntity: VehiclesEntity | undefined = await this._vehicleRepository.findOne(id);
 
     return vehicleEntity ? this._transformationService.vehicleEntityToDto(vehicleEntity) : undefined;
   }
@@ -76,10 +91,12 @@ export class VehicleService {
    *
    * @return The dto object with the insert id if success, otherwise it fails
    */
-  async createOneInDb(vehicleDto: VehicleDto): Promise<VehicleDto> {
+  async create(vehicleDto: VehicleDto): Promise<VehicleDto> {
     const vehicleEntity = this._transformationService.vehicleDtoToEntity(vehicleDto);
+
+    await this._connectionReady;
     await this._vehicleRepository.insert(vehicleEntity).then((value: InsertResult) => {
-      vehicleEntity.id = (value.identifiers[0] as VehicleEntity).id;
+      vehicleEntity.id = (value.identifiers[0] as VehiclesEntity).id;
     });
 
     return this._transformationService.vehicleEntityToDto(vehicleEntity);
@@ -92,13 +109,12 @@ export class VehicleService {
    *
    * @return The update result
    */
-  async updateOneInDb(vehicleDto: VehicleDto): Promise<UpdateResult> {
+  async update(vehicleDto: VehicleDto): Promise<UpdateResult> {
     const primaryKeys = {
       id: vehicleDto.id,
-      driverId: vehicleDto.driverId,
-      driverCompanyId: vehicleDto.driverCompanyId,
     };
 
+    await this._connectionReady;
     return await this._vehicleRepository.update(
       primaryKeys,
       this._transformationService.vehicleDtoToEntity(vehicleDto)
@@ -112,7 +128,7 @@ export class VehicleService {
    *
    * @return The delete result
    */
-  async deleteOneInDb(id: number): Promise<DeleteResult> {
+  async deleteById(id: number): Promise<DeleteResult> {
     return await this._vehicleRepository.delete(id);
   }
   //endregion

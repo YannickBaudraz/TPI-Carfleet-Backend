@@ -19,27 +19,23 @@
 
 import { Response } from 'express';
 import { Body, Delete, Get, JsonController, Param, Post, Put, Res } from 'routing-controllers';
+import { Service } from 'typedi';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { VehicleDto } from '../models/dtos';
-import { BackendResponseBody } from '../models/interfaces';
-import { ResponseService, TransformationService, VehicleService } from '../models/services';
+import { BackendResponse } from '../models/interfaces';
+import { ResponseService, VehicleService } from '../models/services';
 
 /**
  * This class is the controller for vehicles.
  */
+@Service()
 @JsonController('/vehicles')
 export class VehicleController {
-  //region Fields
-  private readonly _vehicleService: VehicleService;
-  //endregion
-
   //region Constructor
   /**
    * Create a vehicle controller
    */
-  constructor() {
-    this._vehicleService = new VehicleService(new TransformationService());
-  }
+  constructor(private readonly _vehicleService: VehicleService) {}
   //endregion
 
   //region Methods
@@ -51,7 +47,7 @@ export class VehicleController {
    * @return A promise with the HTTP response
    */
   @Get()
-  async base(@Res() res: Response): Promise<Response<BackendResponseBody>> {
+  async base(@Res() res: Response): Promise<Response<BackendResponse>> {
     return await this.all(res);
   }
 
@@ -63,8 +59,8 @@ export class VehicleController {
    * @return A promise with the HTTP response
    */
   @Get('/all')
-  async all(@Res() res: Response): Promise<Response<BackendResponseBody>> {
-    const vehicleDtos = await this._vehicleService.getAllFromDb();
+  async all(@Res() res: Response): Promise<Response<BackendResponse>> {
+    const vehicleDtos = await this._vehicleService.getAll();
 
     return new ResponseService(res).sendOk(vehicleDtos);
   }
@@ -78,8 +74,8 @@ export class VehicleController {
    * @return A promise with the HTTP response
    */
   @Get('/:id')
-  async getOne(@Res() res: Response, @Param('id') id: number): Promise<Response<BackendResponseBody>> {
-    const vehicleDto: VehicleDto | undefined = await this._vehicleService.getOneFromDb(id);
+  async getOne(@Res() res: Response, @Param('id') id: number): Promise<Response<BackendResponse>> {
+    const vehicleDto: VehicleDto | undefined = await this._vehicleService.getById(id);
 
     return vehicleDto
       ? new ResponseService(res).sendOk(vehicleDto)
@@ -95,8 +91,8 @@ export class VehicleController {
    * @return A promise with the HTTP response
    */
   @Post('/save')
-  async saveOne(@Res() res: Response, @Body() vehicleDto: VehicleDto): Promise<Response<BackendResponseBody>> {
-    vehicleDto = await this._vehicleService.createOneInDb(vehicleDto);
+  async saveOne(@Res() res: Response, @Body() vehicleDto: VehicleDto): Promise<Response<BackendResponse>> {
+    vehicleDto = await this._vehicleService.create(vehicleDto);
 
     return new ResponseService(res).sendCreated(vehicleDto, 'Vehicle created with success');
   }
@@ -110,8 +106,8 @@ export class VehicleController {
    * @return A promise with the HTTP response
    */
   @Put('/update')
-  async updateOne(@Res() res: Response, @Body() vehicleDto: VehicleDto): Promise<Response<BackendResponseBody>> {
-    const updateResult: UpdateResult = await this._vehicleService.updateOneInDb(vehicleDto);
+  async updateOne(@Res() res: Response, @Body() vehicleDto: VehicleDto): Promise<Response<BackendResponse>> {
+    const updateResult: UpdateResult = await this._vehicleService.update(vehicleDto);
 
     return updateResult.affected
       ? new ResponseService(res).sendOk(vehicleDto, 'Vehicle edited')
@@ -127,8 +123,8 @@ export class VehicleController {
    * @return A promise with the HTTP response
    */
   @Delete('/:id')
-  async deleteOne(@Res() res: Response, @Param('id') id: number): Promise<Response<BackendResponseBody>> {
-    const deleteResult: DeleteResult = await this._vehicleService.deleteOneInDb(id);
+  async deleteOne(@Res() res: Response, @Param('id') id: number): Promise<Response<BackendResponse>> {
+    const deleteResult: DeleteResult = await this._vehicleService.deleteById(id);
 
     return deleteResult.affected
       ? new ResponseService(res).sendOk()
