@@ -32,8 +32,6 @@ export class DatabaseConnector {
       database: process.env.DB_DATABASE,
       entities: [CompaniesEntity, DriversEntity, VehiclesEntity],
       logging: BooleanUtils.stringToBoolean(process.env.DB_LOGGING as string),
-      synchronize: BooleanUtils.stringToBoolean(process.env.DB_SNYCHRONISE as string),
-      dropSchema: BooleanUtils.stringToBoolean(process.env.DB_DROP_SCHEMA as string),
     };
   }
 

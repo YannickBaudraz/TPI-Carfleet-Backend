@@ -1,6 +1,6 @@
 {
   "name": "tpicarfleet_backend",
-  "version": "0.3.0-SNAPSHOT",
+  "version": "0.3.0",
   "description": "Car fleet management back-end",
   "main": "program.js",
   "repository": "git@github.com:/NicolasGlassey/TPICarfleet_Backend.git",
