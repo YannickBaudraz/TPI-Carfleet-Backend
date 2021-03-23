@@ -71,8 +71,10 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
-.env.test
+.env.*
+*.env
+!.env.development
+!.env.test
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -191,6 +193,7 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 ### Custmon
-doc/generated-doc/
+doc/
 src/data/cars_test.json
 output/
+*.bak

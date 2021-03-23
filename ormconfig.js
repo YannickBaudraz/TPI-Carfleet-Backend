@@ -1,6 +1,7 @@
-const entitiesPath = process.env.TS_NODE_DEV
-  ? 'src/carfleet/models/entities/*.entity.ts'
-  : 'dist/carfleet/models/entities/*.entity.js';
+const entitiesPath =
+  process.env.NODE_ENV === 'development'
+    ? 'src/carfleet/models/entities/*.entity.ts'
+    : 'dist/carfleet/models/entities/*.entity.js';
 
 module.exports = {
   name: 'default',

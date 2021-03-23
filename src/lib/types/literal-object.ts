@@ -1,5 +1,5 @@
 /*
- * Description  :   Type to use literal javascript object
+ * Description  :   Type that defines literal javascript object
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *

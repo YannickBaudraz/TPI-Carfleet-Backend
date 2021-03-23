@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mariadb://localhost:3306/car_fleet</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="car_fleet_test@localhost" uuid="c92c4691-3e3b-47e2-b969-3735202ed107">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://localhost:3306/car_fleet_test</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

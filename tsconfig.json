@@ -10,7 +10,6 @@
     "target": "es2020",
 
     "strict": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
 
@@ -19,10 +18,13 @@
     "alwaysStrict": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "test/auto/tsconfig.json"
   ],
   "exclude": [
     "node_modules"

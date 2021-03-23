@@ -15,7 +15,7 @@
 
 import { classToPlain } from 'class-transformer';
 import { LiteralObject } from '../../../lib/types/literal-object';
-import { ObjectsUtils } from '../../../lib/utils/objects.utils';
+import { ObjectUtils } from '../../../lib/utils';
 
 /**
  * This abstract class enhanced the way to be serializable.
@@ -33,7 +33,7 @@ export abstract class AbstractSerializableDto {
    * @return The object serialized
    */
   toJSON(): LiteralObject {
-    ObjectsUtils.nullToUndefinedProperties(this);
+    ObjectUtils.nullToUndefinedProperties(this);
 
     return classToPlain(this);
   }

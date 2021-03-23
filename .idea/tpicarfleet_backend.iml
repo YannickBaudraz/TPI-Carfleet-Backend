@@ -5,9 +5,11 @@
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
-      <excludeFolder url="file://$MODULE_DIR$/doc/documentation" />
+      <excludeFolder url="file://$MODULE_DIR$/../Wiki_Backend/doc/documentation" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/../Wiki_Backend/doc/generated-doc" />
     </content>
+    <content url="file://$MODULE_DIR$/../Wiki_Backend" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

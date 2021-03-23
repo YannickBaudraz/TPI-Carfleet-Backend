@@ -13,6 +13,7 @@
  * Created with WebStorm.
  */
 
+import { config } from 'dotenv';
 import { CarFleetApplication } from './carfleet/application/car-fleet.application';
 import { Server } from './server/server';
 
@@ -37,6 +38,7 @@ export class Program {
    */
   static main(): void {
     if (!this._instance) {
+      config({ path: `config/env/.env.${process.env.NODE_ENV}` });
       this._instance = new Program();
 
       const server = new Server(new CarFleetApplication());
