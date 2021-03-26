@@ -65,12 +65,7 @@ export class DatabaseConnector {
 
   //region Methods
   //region Static methods
-  /**
-   * Get the connection options of the database.
-   *
-   * @return The connection options
-   */
-  static getConnectionOptions(): ConnectionOptions {
+  private static getConnectionOptions(): ConnectionOptions {
     return {
       name: process.env.DB_CONNECTION_NAME,
       type: process.env.DB_TYPE as 'mariadb' | 'mysql' | 'postgres',
@@ -104,7 +99,7 @@ export class DatabaseConnector {
   //endregion
 
   //region Private methods
-  private async createTypeOrmConnection() {
+  private async createTypeOrmConnection(): Promise<void> {
     if (!this.isConnectionExists()) {
       const connectionOptions = DatabaseConnector.getConnectionOptions();
       await createConnection(connectionOptions);

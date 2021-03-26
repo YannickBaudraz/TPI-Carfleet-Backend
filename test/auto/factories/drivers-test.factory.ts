@@ -26,12 +26,16 @@ export class DriversTestFactory extends AbstractSerializableTestFactory {
    *
    * @return A driver dto.
    */
-  static createDriverDto(): DriverDto {
+  static createFullDriverDto(): DriverDto {
     const driverDto: DriverDto = new DriverDto();
 
-    driverDto.id = 1;
-    driverDto.firstname = 'Silvain';
-    driverDto.lastname = 'Lowder';
+    driverDto.id = 2;
+    driverDto.gender = 'F';
+    driverDto.firstname = 'Correna';
+    driverDto.lastname = 'McKimmie';
+    driverDto.jobTitle = 'Staff Scientist';
+    driverDto.email = 'cmckimmie1@gravatar.com';
+    driverDto.phoneNumber = '479-313-0570';
     driverDto.company = CompaniesTestFactory.createCompanyDto();
 
     return this.removeLeadingUnderscoreInFields(driverDto) as DriverDto;

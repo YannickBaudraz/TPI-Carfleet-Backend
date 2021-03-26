@@ -26,6 +26,10 @@ export class DriverDto extends AbstractSerializableDto {
   private _firstname!: string;
   private _lastname!: string;
   private _company!: CompanyDto;
+  private _gender!: string;
+  private _jobTitle!: string;
+  private _email!: string;
+  private _phoneNumber!: string;
 
   /**
    * Create an instance of an dto driver.
@@ -66,6 +70,46 @@ export class DriverDto extends AbstractSerializableDto {
 
   set lastname(value: string) {
     this._lastname = value;
+  }
+
+  /**
+   * Gender.
+   */
+  get gender(): string {
+    return this._gender;
+  }
+  set gender(value: string) {
+    this._gender = value;
+  }
+
+  /**
+   * Job title.
+   */
+  get jobTitle(): string {
+    return this._jobTitle;
+  }
+  set jobTitle(value: string) {
+    this._jobTitle = value;
+  }
+
+  /**
+   * Email.
+   */
+  get email(): string {
+    return this._email;
+  }
+  set email(value: string) {
+    this._email = value;
+  }
+
+  /**
+   * Phone number.
+   */
+  get phoneNumber(): string {
+    return this._phoneNumber;
+  }
+  set phoneNumber(value: string) {
+    this._phoneNumber = value;
   }
 
   /**
