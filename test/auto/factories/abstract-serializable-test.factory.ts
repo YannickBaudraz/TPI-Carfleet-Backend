@@ -18,7 +18,7 @@ import { AbstractSerializableDto } from '../../../src/carfleet/models/dtos/abstr
 /**
  * Factory for serializable dto in tests.
  */
-export class AbstractSerializableTestFactory {
+export abstract class AbstractSerializableTestFactory {
   protected static removeLeadingUnderscoreInFields(dto: AbstractSerializableDto): AbstractSerializableDto {
     const withoutUnderscoreInFields = dto.toJSON();
     return (withoutUnderscoreInFields as unknown) as AbstractSerializableDto;

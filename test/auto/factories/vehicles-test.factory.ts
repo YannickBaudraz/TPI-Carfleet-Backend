@@ -47,7 +47,7 @@ export class VehiclesTestFactory extends AbstractSerializableTestFactory {
     vehicleDto.notes = 'augue a suscipit';
     vehicleDto.vehiclescol = '9.8';
 
-    vehicleDto.driver = DriversTestFactory.createDriverDto();
+    vehicleDto.driver = DriversTestFactory.createFullDriverDto();
 
     return this.removeLeadingUnderscoreInFields(vehicleDto) as VehicleDto;
   }

@@ -22,10 +22,10 @@
  * Created with WebStorm.
  */
 
-import { classToPlainFromExist, plainToClass } from 'class-transformer';
+import { ClassConstructor, classToPlainFromExist, plainToClass } from 'class-transformer';
 import { Service } from 'typedi';
-import { VehiclesEntity } from '../database/entities';
-import { VehicleDto } from '../dtos';
+import { CarFleetEntity } from '../database/entities/car-fleet.entity';
+import { AbstractSerializableDto } from '../dtos/abstract-serializable.dto';
 
 /**
  * This class is designed to transform an object to another.
@@ -33,35 +33,41 @@ import { VehicleDto } from '../dtos';
 @Service()
 export class TransformationService {
   /**
-   * Transform a {@link VehiclesEntity} to a {@link VehicleDto}.
+   * Transform an entity to a dto.
    *
-   * @param vehicleEntity - The {@link VehiclesEntity} to transform
+   * @param entity - The entity object existing
+   * @param dtoClass - The dto class wanted
    *
-   * @return The instance of {@link VehicleDto}
+   * @return The dto transformed from the entity
    */
-  vehicleEntityToDto(vehicleEntity: VehiclesEntity): VehicleDto {
-    return plainToClass(VehicleDto, vehicleEntity);
+  entityToDto(entity: CarFleetEntity, dtoClass: ClassConstructor<AbstractSerializableDto>): AbstractSerializableDto {
+    return plainToClass(dtoClass, entity);
   }
 
   /**
-   * Transform an array of {@link VehiclesEntity} to an array of {@link VehicleDto}.
+   * Transform an array of entities to an array of dtos.
    *
-   * @param vehicleEntities - {@link VehiclesEntity} to transform
+   * @param entities - Entity objects existing
+   * @param dtoClass - The dto class wanted
    *
-   * @return The array of {@link VehicleDto}
+   * @return Dtos transformed from entities
    */
-  vehicleEntitiesToDtos(vehicleEntities: VehiclesEntity[]): VehicleDto[] {
-    return plainToClass(VehicleDto, vehicleEntities);
+  entitiesToDtos(
+    entities: CarFleetEntity[],
+    dtoClass: ClassConstructor<AbstractSerializableDto>
+  ): AbstractSerializableDto[] {
+    return plainToClass(dtoClass, entities);
   }
 
   /**
-   * Transform a {@link VehicleDto} to a {@link VehiclesEntity}.
+   * Transform a dto to an entity.
    *
-   * @param vehicleDto - The {@link VehicleDto} to transform.
+   * @param dto - The dto object existing
+   * @param entityClass - The entity class wanted
    *
-   * @return The instance of {@link VehiclesEntity}
+   * @return The entity transformed from the dto
    */
-  vehicleDtoToEntity(vehicleDto: VehicleDto): VehiclesEntity {
-    return classToPlainFromExist(vehicleDto, VehiclesEntity) as VehiclesEntity;
+  dtoToEntity(dto: AbstractSerializableDto, entityClass: ClassConstructor<CarFleetEntity>): CarFleetEntity {
+    return classToPlainFromExist(dto, entityClass) as CarFleetEntity;
   }
 }

@@ -14,10 +14,10 @@
  */
 
 import { EntityRepository, Repository } from 'typeorm';
-import { VehiclesEntity } from '../entities';
+import { VehicleEntity } from '../entities';
 
 /**
- * This class is a repository of {@link VehiclesEntity}.
+ * This class is a repository of {@link VehicleEntity}.
  */
-@EntityRepository(VehiclesEntity)
-export class VehicleRepository extends Repository<VehiclesEntity> {}
+@EntityRepository(VehicleEntity)
+export class VehicleRepository extends Repository<VehicleEntity> {}

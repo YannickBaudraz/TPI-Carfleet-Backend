@@ -22,29 +22,17 @@ import { CompanyDto } from './company.dto';
  */
 @Exclude()
 export class DriverDto extends AbstractSerializableDto {
-  private _id!: number;
+  //region Fields
   private _firstname!: string;
   private _lastname!: string;
   private _company!: CompanyDto;
+  private _gender!: string;
+  private _jobTitle!: string;
+  private _email!: string;
+  private _phoneNumber!: string;
+  //endregion
 
-  /**
-   * Create an instance of an dto driver.
-   */
-  constructor() {
-    super();
-  }
-
-  /**
-   * Unique ID row number.
-   */
-  @Expose()
-  get id(): number {
-    return this._id;
-  }
-  set id(value: number) {
-    this._id = value;
-  }
-
+  //region Accessors
   /**
    * Firstname.
    */
@@ -69,6 +57,50 @@ export class DriverDto extends AbstractSerializableDto {
   }
 
   /**
+   * Gender.
+   */
+  @Expose()
+  get gender(): string {
+    return this._gender;
+  }
+  set gender(value: string) {
+    this._gender = value;
+  }
+
+  /**
+   * Job title.
+   */
+  @Expose()
+  get jobTitle(): string {
+    return this._jobTitle;
+  }
+  set jobTitle(value: string) {
+    this._jobTitle = value;
+  }
+
+  /**
+   * Email.
+   */
+  @Expose()
+  get email(): string {
+    return this._email;
+  }
+  set email(value: string) {
+    this._email = value;
+  }
+
+  /**
+   * Phone number.
+   */
+  @Expose()
+  get phoneNumber(): string {
+    return this._phoneNumber;
+  }
+  set phoneNumber(value: string) {
+    this._phoneNumber = value;
+  }
+
+  /**
    * Company object.
    */
   @Type(() => CompanyDto)
@@ -79,4 +111,5 @@ export class DriverDto extends AbstractSerializableDto {
   set company(value: CompanyDto) {
     this._company = value;
   }
+  //endregion
 }

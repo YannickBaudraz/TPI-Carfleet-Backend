@@ -19,7 +19,7 @@ import { Application } from 'express';
 import 'reflect-metadata';
 import { createExpressServer, useContainer } from 'routing-controllers';
 import { Container } from 'typedi';
-import { VehicleController } from '../controllers';
+import { DriverController, VehicleController } from '../controllers';
 
 /**
  * This class manage the carFleet application.
@@ -43,7 +43,7 @@ export class CarFleetApplication {
         allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
       },
       routePrefix: '/api',
-      controllers: [VehicleController],
+      controllers: [DriverController, VehicleController],
       development: process.env.NODE_ENV === 'development',
     });
   }

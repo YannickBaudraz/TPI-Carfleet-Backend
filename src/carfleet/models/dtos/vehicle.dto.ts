@@ -23,7 +23,6 @@ import { DriverDto } from './driver.dto';
 @Exclude()
 export class VehicleDto extends AbstractSerializableDto {
   //region Fields
-  private _id!: number;
   private _licensePlate!: string;
   private _manufacturer!: string;
   private _model!: string;
@@ -41,15 +40,6 @@ export class VehicleDto extends AbstractSerializableDto {
   private _notes!: string;
   private _vehiclescol!: string;
   private _driver!: DriverDto;
-  //endregion
-
-  //region Constructor
-  /**
-   * Create an instance of an dto vehicle.
-   */
-  constructor() {
-    super();
-  }
   //endregion
 
   //region Accessors

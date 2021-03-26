@@ -19,9 +19,9 @@
  */
 
 import { Service } from 'typedi';
-import { DeleteResult, getConnectionManager, InsertResult, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, getConnectionManager, InsertResult, UpdateResult } from 'typeorm';
 import { DatabaseConnector } from '../database';
-import { VehiclesEntity } from '../database/entities';
+import { VehicleEntity } from '../database/entities';
 import { VehicleRepository } from '../database/repositories';
 import { VehicleDto } from '../dtos';
 import { TransformationService } from './transformation.service';
@@ -32,27 +32,21 @@ import { TransformationService } from './transformation.service';
 @Service()
 export class VehicleService {
   //region Fields
-  private _vehicleRepository!: Repository<VehiclesEntity>;
-  private readonly _connectionReady: Promise<unknown>;
+  private _vehicleRepository!: VehicleRepository;
+  private _databaseConnector: DatabaseConnector;
   //endregion
 
   //region Constructor
   /**
-   * Create an instance of vehicles service.
+   * Create an instance of vehicle service.
    *
    * @param _transformationService - A carfleet transformation service
    */
   constructor(private _transformationService: TransformationService) {
-    const databaseConnector = new DatabaseConnector(getConnectionManager());
-    this._connectionReady = new Promise((resolve, reject) => {
-      databaseConnector
-        .createTypeOrmConnection()
-        .then(() => {
-          const connection = databaseConnector.getConnection();
-          this._vehicleRepository = connection.getCustomRepository(VehicleRepository);
-          resolve(undefined);
-        })
-        .catch(() => reject());
+    this._databaseConnector = new DatabaseConnector(getConnectionManager());
+    this._databaseConnector.connect(() => {
+      const connection = this._databaseConnector.connection;
+      this._vehicleRepository = connection.getCustomRepository(VehicleRepository);
     });
   }
   //endregion
@@ -64,10 +58,10 @@ export class VehicleService {
    * @return An array of {@link VehicleDto}
    */
   async getAll(): Promise<VehicleDto[]> {
-    await this._connectionReady;
-    const vehicleEntities: VehiclesEntity[] = await this._vehicleRepository.find();
+    await this._databaseConnector.connectionReadyToUse;
+    const vehicleEntities: VehicleEntity[] = await this._vehicleRepository.find();
 
-    return this._transformationService.vehicleEntitiesToDtos(vehicleEntities);
+    return this._transformationService.entitiesToDtos(vehicleEntities, VehicleDto) as VehicleDto[];
   }
 
   /**
@@ -78,10 +72,12 @@ export class VehicleService {
    * @return The dto vehicle or undefined if it was not found
    */
   async getById(id: number): Promise<VehicleDto | undefined> {
-    await this._connectionReady;
-    const vehicleEntity: VehiclesEntity | undefined = await this._vehicleRepository.findOne(id);
+    await this._databaseConnector.connectionReadyToUse;
+    const vehicleEntity: VehicleEntity | undefined = await this._vehicleRepository.findOne(id);
 
-    return vehicleEntity ? this._transformationService.vehicleEntityToDto(vehicleEntity) : undefined;
+    return vehicleEntity
+      ? (this._transformationService.entityToDto(vehicleEntity, VehicleDto) as VehicleDto)
+      : undefined;
   }
 
   /**
@@ -92,14 +88,14 @@ export class VehicleService {
    * @return The dto object with the insert id if success, otherwise it fails
    */
   async create(vehicleDto: VehicleDto): Promise<VehicleDto> {
-    const vehicleEntity = this._transformationService.vehicleDtoToEntity(vehicleDto);
+    const vehicleEntity = this._transformationService.dtoToEntity(vehicleDto, VehicleEntity) as VehicleEntity;
 
-    await this._connectionReady;
+    await this._databaseConnector.connectionReadyToUse;
     await this._vehicleRepository.insert(vehicleEntity).then((value: InsertResult) => {
-      vehicleEntity.id = (value.identifiers[0] as VehiclesEntity).id;
+      vehicleEntity.id = (value.identifiers[0] as VehicleEntity).id;
     });
 
-    return this._transformationService.vehicleEntityToDto(vehicleEntity);
+    return this._transformationService.entityToDto(vehicleEntity, VehicleDto) as VehicleDto;
   }
 
   /**
@@ -110,14 +106,10 @@ export class VehicleService {
    * @return The update result
    */
   async update(vehicleDto: VehicleDto): Promise<UpdateResult> {
-    const primaryKeys = {
-      id: vehicleDto.id,
-    };
-
-    await this._connectionReady;
+    await this._databaseConnector.connectionReadyToUse;
     return await this._vehicleRepository.update(
-      primaryKeys,
-      this._transformationService.vehicleDtoToEntity(vehicleDto)
+      vehicleDto.id,
+      this._transformationService.dtoToEntity(vehicleDto, VehicleEntity)
     );
   }
 
