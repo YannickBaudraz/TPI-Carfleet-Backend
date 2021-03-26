@@ -1,3 +1,4 @@
+import { getConnection } from 'typeorm';
 import { TestDatabaseHelper } from '../../../helpers/database-test.helper';
 import { AbstractApiTest } from './abstract.api.test';
 
@@ -8,5 +9,9 @@ export abstract class AbstractConnectedApiTest extends AbstractApiTest {
   protected async before() {
     await super.before();
     await TestDatabaseHelper.prepareTestDatabase();
+  }
+
+  protected static async after() {
+    await getConnection('test').close();
   }
 }

@@ -3,7 +3,7 @@
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
- * Project      :   TPICarfleet_Backend - companie.entity.ts
+ * Project      :   TPICarfleet_Backend - company.entity.ts
  *
  * Created      :   20.03.2021
  *
@@ -14,13 +14,13 @@
  */
 
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { DriversEntity } from './driver.entity';
+import { DriverEntity } from './driver.entity';
 
 /**
  * Entity companies
  */
 @Entity('companies', { schema: 'car_fleet' })
-export class CompaniesEntity {
+export class CompanyEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'idCompanies' })
   id!: number;
 
@@ -48,6 +48,6 @@ export class CompaniesEntity {
   @Column('varchar', { name: 'Companiescol', nullable: true, length: 45 })
   companiescol!: string | null;
 
-  @OneToMany(() => DriversEntity, (driversEntity) => driversEntity.company, { lazy: true })
-  drivers!: Promise<DriversEntity[]>;
+  @OneToMany(() => DriverEntity, (driversEntity) => driversEntity.company, { lazy: true })
+  drivers!: Promise<DriverEntity[]>;
 }

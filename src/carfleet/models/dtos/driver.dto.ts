@@ -22,7 +22,7 @@ import { CompanyDto } from './company.dto';
  */
 @Exclude()
 export class DriverDto extends AbstractSerializableDto {
-  private _id!: number;
+  //region Fields
   private _firstname!: string;
   private _lastname!: string;
   private _company!: CompanyDto;
@@ -30,25 +30,9 @@ export class DriverDto extends AbstractSerializableDto {
   private _jobTitle!: string;
   private _email!: string;
   private _phoneNumber!: string;
+  //endregion
 
-  /**
-   * Create an instance of an dto driver.
-   */
-  constructor() {
-    super();
-  }
-
-  /**
-   * Unique ID row number.
-   */
-  @Expose()
-  get id(): number {
-    return this._id;
-  }
-  set id(value: number) {
-    this._id = value;
-  }
-
+  //region Accessors
   /**
    * Firstname.
    */
@@ -75,6 +59,7 @@ export class DriverDto extends AbstractSerializableDto {
   /**
    * Gender.
    */
+  @Expose()
   get gender(): string {
     return this._gender;
   }
@@ -85,6 +70,7 @@ export class DriverDto extends AbstractSerializableDto {
   /**
    * Job title.
    */
+  @Expose()
   get jobTitle(): string {
     return this._jobTitle;
   }
@@ -95,6 +81,7 @@ export class DriverDto extends AbstractSerializableDto {
   /**
    * Email.
    */
+  @Expose()
   get email(): string {
     return this._email;
   }
@@ -105,6 +92,7 @@ export class DriverDto extends AbstractSerializableDto {
   /**
    * Phone number.
    */
+  @Expose()
   get phoneNumber(): string {
     return this._phoneNumber;
   }
@@ -123,4 +111,5 @@ export class DriverDto extends AbstractSerializableDto {
   set company(value: CompanyDto) {
     this._company = value;
   }
+  //endregion
 }
