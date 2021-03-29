@@ -21,26 +21,7 @@ import { AbstractSerializableDto } from './abstract-serializable.dto';
  */
 @Exclude()
 export class CompanyDto extends AbstractSerializableDto {
-  private _id!: number;
   private _name!: string;
-
-  /**
-   * Create an instance of an dto company.
-   */
-  constructor() {
-    super();
-  }
-
-  /**
-   * Unique ID row number.
-   */
-  @Expose()
-  get id(): number {
-    return this._id;
-  }
-  set id(value: number) {
-    this._id = value;
-  }
 
   /**
    * Name.

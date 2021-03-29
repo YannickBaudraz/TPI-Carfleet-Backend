@@ -13,7 +13,7 @@
  * Created with WebStorm.
  */
 
-import { classToPlain } from 'class-transformer';
+import { classToPlain, Expose } from 'class-transformer';
 import { LiteralObject } from '../../../lib/types/literal-object';
 import { ObjectUtils } from '../../../lib/utils';
 
@@ -21,9 +21,18 @@ import { ObjectUtils } from '../../../lib/utils';
  * This abstract class enhanced the way to be serializable.
  */
 export abstract class AbstractSerializableDto {
-  //region Protected constructor
-  protected constructor() {}
-  //endregion
+  protected _id!: number;
+
+  /**
+   * Unique ID row number.
+   */
+  @Expose()
+  get id(): number {
+    return this._id;
+  }
+  set id(value: number) {
+    this._id = value;
+  }
 
   //region Methods
   // noinspection JSUnusedGlobalSymbols

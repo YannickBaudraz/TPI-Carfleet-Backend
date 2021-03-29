@@ -24,23 +24,21 @@ export class ObjectUtils {
 
   //region Methods
   /**
-   * Transform all null properties of an object to {@link undefined}.
+   * Transform all null properties of an object to {@link undefined}. It do recursively.
    *
    * @param obj - The object with his properties
    *
-   * @return The same object with the properties undefined
+   * @return The same object with properties undefined
+   *
+   * @see https://stackoverflow.com/a/60085326
    */
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-explicit-any
-  static nullToUndefinedProperties(obj: any): any {
-    if (obj === null) {
-      return undefined;
-    }
+  static nullToUndefinedProperties<T>(obj: T): T | undefined {
+    if (obj === null) return undefined;
+    if (typeof obj !== 'object') return obj;
 
-    if (typeof obj === 'object') {
-      for (const key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) {
-          obj[key] = this.nullToUndefinedProperties(obj[key]);
-        }
+    for (const key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        obj[key] = this.nullToUndefinedProperties(obj[key]) as T[Extract<never, never>];
       }
     }
 

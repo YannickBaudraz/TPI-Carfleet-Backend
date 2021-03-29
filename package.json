@@ -1,6 +1,6 @@
 {
   "name": "tpicarfleet_backend",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Car fleet management back-end",
   "main": "program.js",
   "repository": "git@github.com:/NicolasGlassey/TPICarfleet_Backend.git",
@@ -13,7 +13,7 @@
     "build": "npm run clean:build && tsc",
     "start": "cross-env NODE_ENV=production npm run build && node dist/program.js",
     "start:dev": "cross-env NODE_ENV=development ts-node-dev src/program.ts -r source-map-support/register",
-    "test": "cross-env NODE_ENV=test jest -c jest.config.js",
+    "test": "cross-env NODE_ENV=test jest -c jest.config.js --runInBand",
     "validate": "npm-run-all validate:* test",
     "validate:lint": "eslint . --ext .ts",
     "validate:prettier": "prettier ./**/*.ts --config .prettierrc --check",

@@ -14,15 +14,16 @@
  */
 
 import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { CompaniesEntity } from './companies.entity';
-import { VehiclesEntity } from './index';
+import { CarFleetEntity } from './car-fleet.entity';
+import { CompanyEntity } from './company.entity';
+import { VehicleEntity } from './index';
 
 /**
  * Entity drivers.
  */
 @Index('fk_Drivers_Companies1_idx', ['companyId'], {})
 @Entity('drivers', { schema: 'car_fleet' })
-export class DriversEntity {
+export class DriverEntity implements CarFleetEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'idDrivers' })
   id!: number;
 
@@ -47,14 +48,14 @@ export class DriversEntity {
   @Column('varchar', { name: 'PhoneNumber', nullable: true, length: 45 })
   phoneNumber!: string | null;
 
-  @ManyToOne(() => CompaniesEntity, (CompaniesEntity) => CompaniesEntity.drivers, {
+  @ManyToOne(() => CompanyEntity, (CompaniesEntity) => CompaniesEntity.drivers, {
     onDelete: 'NO ACTION',
     onUpdate: 'NO ACTION',
     eager: true,
   })
   @JoinColumn([{ name: 'Companies_idCompanies', referencedColumnName: 'id' }])
-  company!: CompaniesEntity;
+  company!: CompanyEntity;
 
-  @OneToMany(() => VehiclesEntity, (vehiclesEntity) => vehiclesEntity.driver, { lazy: true })
-  vehicles!: Promise<VehiclesEntity[]>;
+  @OneToMany(() => VehicleEntity, (vehiclesEntity) => vehiclesEntity.driver, { lazy: true })
+  vehicles!: Promise<VehicleEntity[]>;
 }

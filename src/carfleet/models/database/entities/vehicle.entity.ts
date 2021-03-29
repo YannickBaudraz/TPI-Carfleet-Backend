@@ -3,7 +3,7 @@
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
- * Project      :   TPICarfleet_Backend - vehicles.entity.ts
+ * Project      :   TPICarfleet_Backend - vehicle.entity.ts
  *
  * Created      :   01.03.2021
  *
@@ -14,14 +14,15 @@
  */
 
 import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { DriversEntity } from './driver.entity';
+import { CarFleetEntity } from './car-fleet.entity';
+import { DriverEntity } from './driver.entity';
 
 /**
  * Entity vehicles.
  */
 @Index('fk_Vehicles_Drivers1_idx', ['driverId'])
 @Entity('vehicles', { schema: 'car_fleet' })
-export class VehiclesEntity {
+export class VehicleEntity implements CarFleetEntity {
   @PrimaryGeneratedColumn({ name: 'idVehicles' })
   id!: number;
 
@@ -76,11 +77,11 @@ export class VehiclesEntity {
   @Column('varchar', { name: 'Vehiclescol', nullable: true, length: 256 })
   vehiclescol!: string | null;
 
-  @ManyToOne(() => DriversEntity, (driversEntity) => driversEntity.vehicles, {
+  @ManyToOne(() => DriverEntity, (driversEntity) => driversEntity.vehicles, {
     onDelete: 'NO ACTION',
     onUpdate: 'NO ACTION',
     eager: true,
   })
   @JoinColumn([{ name: 'Drivers_idDrivers', referencedColumnName: 'id' }])
-  driver!: DriversEntity;
+  driver!: DriverEntity;
 }

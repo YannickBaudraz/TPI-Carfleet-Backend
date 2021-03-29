@@ -1,4 +1,5 @@
 import { suite, test } from '@testdeck/jest';
+import { HttpStatusCode } from '../../../../src/lib/enums/http-status-code';
 import { AbstractApiTest } from './abstract/abstract.api.test';
 import request = require('supertest');
 
@@ -9,11 +10,11 @@ class ApiRootPathTest extends AbstractApiTest {
     /*
      * When
      */
-    const result: request.Response = await request(this.express).get(`${this.API_PREFIX}`);
+    const result: request.Response = await request(this.express).get(`${this.CONTROLLER_PATH}`);
 
     /*
      * Then
      */
-    expect(result.status).toBe(404);
+    expect(result.status).toBe(HttpStatusCode.NOT_FOUND);
   }
 }

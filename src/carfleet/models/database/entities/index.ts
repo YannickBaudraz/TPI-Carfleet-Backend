@@ -1,5 +1,5 @@
-import { CompaniesEntity } from './companies.entity';
-import { DriversEntity } from './driver.entity';
-import { VehiclesEntity } from './vehicles.entity';
+import { CompanyEntity } from './company.entity';
+import { DriverEntity } from './driver.entity';
+import { VehicleEntity } from './vehicle.entity';
 
-export { CompaniesEntity, DriversEntity, VehiclesEntity };
+export { CompanyEntity, DriverEntity, VehicleEntity };

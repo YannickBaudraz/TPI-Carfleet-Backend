@@ -16,35 +16,25 @@
 import { Exclude, Expose, Type } from 'class-transformer';
 import { AbstractSerializableDto } from './abstract-serializable.dto';
 import { CompanyDto } from './company.dto';
+import { VehicleDto } from './vehicle.dto';
 
 /**
  * This class represent a data transfer object driver.
  */
 @Exclude()
 export class DriverDto extends AbstractSerializableDto {
-  private _id!: number;
+  //region Fields
   private _firstname!: string;
   private _lastname!: string;
+  private _gender!: string;
+  private _jobTitle!: string;
+  private _email!: string;
+  private _phoneNumber!: string;
   private _company!: CompanyDto;
+  private _vehicles!: VehicleDto[];
+  //endregion
 
-  /**
-   * Create an instance of an dto driver.
-   */
-  constructor() {
-    super();
-  }
-
-  /**
-   * Unique ID row number.
-   */
-  @Expose()
-  get id(): number {
-    return this._id;
-  }
-  set id(value: number) {
-    this._id = value;
-  }
-
+  //region Accessors
   /**
    * Firstname.
    */
@@ -69,7 +59,51 @@ export class DriverDto extends AbstractSerializableDto {
   }
 
   /**
-   * Company object.
+   * Gender.
+   */
+  @Expose()
+  get gender(): string {
+    return this._gender;
+  }
+  set gender(value: string) {
+    this._gender = value;
+  }
+
+  /**
+   * Job title.
+   */
+  @Expose()
+  get jobTitle(): string {
+    return this._jobTitle;
+  }
+  set jobTitle(value: string) {
+    this._jobTitle = value;
+  }
+
+  /**
+   * Email.
+   */
+  @Expose()
+  get email(): string {
+    return this._email;
+  }
+  set email(value: string) {
+    this._email = value;
+  }
+
+  /**
+   * Phone number.
+   */
+  @Expose()
+  get phoneNumber(): string {
+    return this._phoneNumber;
+  }
+  set phoneNumber(value: string) {
+    this._phoneNumber = value;
+  }
+
+  /**
+   * Company data transfer object..
    */
   @Type(() => CompanyDto)
   @Expose()
@@ -79,4 +113,17 @@ export class DriverDto extends AbstractSerializableDto {
   set company(value: CompanyDto) {
     this._company = value;
   }
+
+  /**
+   * Array of vehicle data transfer object.
+   */
+  @Type(() => VehicleDto)
+  @Expose({ name: '__vehicles__' })
+  get vehicles(): VehicleDto[] {
+    return this._vehicles;
+  }
+  set vehicles(value: VehicleDto[]) {
+    this._vehicles = value;
+  }
+  //endregion
 }

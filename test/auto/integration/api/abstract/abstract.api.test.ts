@@ -6,7 +6,7 @@ import { CarFleetApplication } from '../../../../../src/carfleet/application/car
 
 // noinspection JSUnusedGlobalSymbols
 export abstract class AbstractApiTest {
-  protected API_PREFIX = '/api';
+  protected CONTROLLER_PATH = '/api';
   protected express!: e.Application;
 
   protected static before() {
