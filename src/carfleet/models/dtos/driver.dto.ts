@@ -16,6 +16,7 @@
 import { Exclude, Expose, Type } from 'class-transformer';
 import { AbstractSerializableDto } from './abstract-serializable.dto';
 import { CompanyDto } from './company.dto';
+import { VehicleDto } from './vehicle.dto';
 
 /**
  * This class represent a data transfer object driver.
@@ -25,11 +26,12 @@ export class DriverDto extends AbstractSerializableDto {
   //region Fields
   private _firstname!: string;
   private _lastname!: string;
-  private _company!: CompanyDto;
   private _gender!: string;
   private _jobTitle!: string;
   private _email!: string;
   private _phoneNumber!: string;
+  private _company!: CompanyDto;
+  private _vehicles!: VehicleDto[];
   //endregion
 
   //region Accessors
@@ -101,7 +103,7 @@ export class DriverDto extends AbstractSerializableDto {
   }
 
   /**
-   * Company object.
+   * Company data transfer object..
    */
   @Type(() => CompanyDto)
   @Expose()
@@ -110,6 +112,18 @@ export class DriverDto extends AbstractSerializableDto {
   }
   set company(value: CompanyDto) {
     this._company = value;
+  }
+
+  /**
+   * Array of vehicle data transfer object.
+   */
+  @Type(() => VehicleDto)
+  @Expose({ name: '__vehicles__' })
+  get vehicles(): VehicleDto[] {
+    return this._vehicles;
+  }
+  set vehicles(value: VehicleDto[]) {
+    this._vehicles = value;
   }
   //endregion
 }

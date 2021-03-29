@@ -1,4 +1,4 @@
 import { BooleanUtils } from './boolean.utils';
-import { ObjectUtils } from './objectUtils';
+import { ObjectUtils } from './object-utils';
 
 export { BooleanUtils, ObjectUtils };

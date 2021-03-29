@@ -14,9 +14,9 @@
  */
 
 import { Response } from 'express-serve-static-core';
-import { HttpStatusCode } from '../../../lib/enums/http-status-code';
-import { BackendResponse } from '../interfaces';
-import { BackendResponseData } from '../types/backend-response-data';
+import { HttpStatusCode } from '../../lib/enums/http-status-code';
+import { BackendResponse } from '../models/interfaces';
+import { BackendResponseData } from '../models/types/backend-response-data';
 
 /**
  * This class simplifies the way to send response in Json format.

@@ -21,15 +21,16 @@ import { Response } from 'express';
 import { Body, Delete, Get, JsonController, Param, Post, Put, Res } from 'routing-controllers';
 import { Service } from 'typedi';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { CarFleetConstants } from '../application/car-fleet.constants';
 import { VehicleDto } from '../models/dtos';
 import { BackendResponse } from '../models/interfaces';
-import { ResponseService, VehicleService } from '../models/services';
+import { ResponseService, VehicleService } from '../services';
 
 /**
  * This class is the controller for vehicles.
  */
 @Service()
-@JsonController('/vehicles')
+@JsonController(CarFleetConstants.VEHICLES_API_PATH)
 export class VehicleController {
   //region Constructor
   /**
@@ -47,8 +48,10 @@ export class VehicleController {
    * @return A promise with the HTTP response
    */
   @Get()
-  async base(@Res() res: Response): Promise<Response<BackendResponse>> {
-    return await this.all(res);
+  async base(@Res() res: Response): Promise<Response> {
+    res.redirect(`${CarFleetConstants.PREFIX_API_PATH}${CarFleetConstants.VEHICLES_API_PATH}/all`);
+
+    return res;
   }
 
   /**

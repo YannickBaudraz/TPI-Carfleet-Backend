@@ -20,10 +20,10 @@
 
 import { Service } from 'typedi';
 import { DeleteResult, getConnectionManager, InsertResult, UpdateResult } from 'typeorm';
-import { DatabaseConnector } from '../database';
-import { VehicleEntity } from '../database/entities';
-import { VehicleRepository } from '../database/repositories';
-import { VehicleDto } from '../dtos';
+import { DatabaseConnector } from '../models/database';
+import { VehicleEntity } from '../models/database/entities';
+import { VehicleRepository } from '../models/database/repositories';
+import { VehicleDto } from '../models/dtos';
 import { TransformationService } from './transformation.service';
 
 /**
@@ -59,6 +59,7 @@ export class VehicleService {
    */
   async getAll(): Promise<VehicleDto[]> {
     await this._databaseConnector.connectionReadyToUse;
+
     const vehicleEntities: VehicleEntity[] = await this._vehicleRepository.find();
 
     return this._transformationService.entitiesToDtos(vehicleEntities, VehicleDto) as VehicleDto[];
@@ -73,6 +74,7 @@ export class VehicleService {
    */
   async getById(id: number): Promise<VehicleDto | undefined> {
     await this._databaseConnector.connectionReadyToUse;
+
     const vehicleEntity: VehicleEntity | undefined = await this._vehicleRepository.findOne(id);
 
     return vehicleEntity
@@ -91,6 +93,7 @@ export class VehicleService {
     const vehicleEntity = this._transformationService.dtoToEntity(vehicleDto, VehicleEntity) as VehicleEntity;
 
     await this._databaseConnector.connectionReadyToUse;
+
     await this._vehicleRepository.insert(vehicleEntity).then((value: InsertResult) => {
       vehicleEntity.id = (value.identifiers[0] as VehicleEntity).id;
     });
@@ -107,6 +110,7 @@ export class VehicleService {
    */
   async update(vehicleDto: VehicleDto): Promise<UpdateResult> {
     await this._databaseConnector.connectionReadyToUse;
+
     return await this._vehicleRepository.update(
       vehicleDto.id,
       this._transformationService.dtoToEntity(vehicleDto, VehicleEntity)
@@ -121,6 +125,8 @@ export class VehicleService {
    * @return The delete result
    */
   async deleteById(id: number): Promise<DeleteResult> {
+    await this._databaseConnector.connectionReadyToUse;
+
     return await this._vehicleRepository.delete(id);
   }
   //endregion

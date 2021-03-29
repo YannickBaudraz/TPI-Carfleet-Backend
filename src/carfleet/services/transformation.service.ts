@@ -24,8 +24,8 @@
 
 import { ClassConstructor, classToPlainFromExist, plainToClass } from 'class-transformer';
 import { Service } from 'typedi';
-import { CarFleetEntity } from '../database/entities/car-fleet.entity';
-import { AbstractSerializableDto } from '../dtos/abstract-serializable.dto';
+import { CarFleetEntity } from '../models/database/entities/car-fleet.entity';
+import { AbstractSerializableDto } from '../models/dtos/abstract-serializable.dto';
 
 /**
  * This class is designed to transform an object to another.

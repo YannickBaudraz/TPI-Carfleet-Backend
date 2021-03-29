@@ -20,7 +20,6 @@ import { AbstractSerializableDto } from '../../../src/carfleet/models/dtos/abstr
  */
 export abstract class AbstractSerializableTestFactory {
   protected static removeLeadingUnderscoreInFields(dto: AbstractSerializableDto): AbstractSerializableDto {
-    const withoutUnderscoreInFields = dto.toJSON();
-    return (withoutUnderscoreInFields as unknown) as AbstractSerializableDto;
+    return (dto.toJSON() as unknown) as AbstractSerializableDto;
   }
 }
