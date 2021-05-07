@@ -7,8 +7,8 @@
  *
  * Created      :   23.03.2021
  *
- * Updates      :   [update date]
- *                      [update description]
+ * Updates      :   07.05.2021
+ *                      Add fields to get a full company dto.
  *
  * Created with WebStorm.
  */
@@ -25,11 +25,20 @@ export class CompaniesTestFactory extends AbstractSerializableTestFactory {
    *
    * @return A company dto.
    */
-  static createCompanyDto(): CompanyDto {
+  static createFullCompanyDto(): CompanyDto {
     const companyDto = new CompanyDto();
 
     companyDto.id = 1;
     companyDto.name = 'Voonder';
+    companyDto.address = '3668 Graceland Plaza';
+    companyDto.zip = '1209';
+    companyDto.city = 'Genève';
+    companyDto.canton = 'Genève';
+    companyDto.phone = '210-211-8599';
+    companyDto.email = 'ecleary0@altervista.org';
+    companyDto.websiteUrl = 'http://ox.ac.uk';
+    companyDto.color = 0x5b5bff;
+    companyDto.companiescol = 'sap';
 
     return this.removeLeadingUnderscoreInFields(companyDto) as CompanyDto;
   }

@@ -25,9 +25,11 @@ CREATE TABLE IF NOT EXISTS `car_fleet_test`.`Companies`
     `Address`      VARCHAR(45)  NULL,
     `Zip`          VARCHAR(45)  NULL,
     `City`         VARCHAR(45)  NULL,
+    `Canton`       VARCHAR(45)  NULL,
     `Phone`        VARCHAR(45)  NULL,
     `Email`        VARCHAR(256) NULL,
     `WebSiteUrl`   VARCHAR(256) NULL,
+    `Color`        BINARY(3)    NULL,
     `Companiescol` VARCHAR(45)  NULL,
     PRIMARY KEY (`idCompanies`)
 ) ENGINE = InnoDB;
