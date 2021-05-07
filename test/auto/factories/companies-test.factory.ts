@@ -37,7 +37,7 @@ export class CompaniesTestFactory extends AbstractSerializableTestFactory {
     companyDto.phone = '210-211-8599';
     companyDto.email = 'ecleary0@altervista.org';
     companyDto.websiteUrl = 'http://ox.ac.uk';
-    companyDto.color = 0x5b5bff;
+    companyDto.color = '#5b5bff';
     companyDto.companiescol = 'sap';
 
     return this.removeLeadingUnderscoreInFields(companyDto) as CompanyDto;

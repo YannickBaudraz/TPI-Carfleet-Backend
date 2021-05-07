@@ -13,7 +13,7 @@
  * Created with WebStorm.
  */
 
-import { Exclude, Expose } from 'class-transformer';
+import { Exclude, Expose, Transform } from 'class-transformer';
 import { AbstractSerializableDto } from './abstract-serializable.dto';
 
 /**
@@ -21,6 +21,7 @@ import { AbstractSerializableDto } from './abstract-serializable.dto';
  */
 @Exclude()
 export class CompanyDto extends AbstractSerializableDto {
+  //region Fields
   private _name!: string;
   private _address!: string;
   private _zip!: string;
@@ -29,9 +30,11 @@ export class CompanyDto extends AbstractSerializableDto {
   private _phone!: string;
   private _email!: string;
   private _websiteUrl!: string;
-  private _color!: number;
+  private _color!: string;
   private _companiescol!: string;
+  //endregion
 
+  //region Accessors
   /**
    * Name.
    */
@@ -124,10 +127,11 @@ export class CompanyDto extends AbstractSerializableDto {
    * Color in hexadecimal.
    */
   @Expose()
-  get color(): number {
+  @Transform(({ value }) => CompanyDto.convertBufferToHexColor((value as unknown) as Buffer), { toClassOnly: true })
+  get color(): string {
     return this._color;
   }
-  set color(value: number) {
+  set color(value: string) {
     this._color = value;
   }
 
@@ -141,4 +145,18 @@ export class CompanyDto extends AbstractSerializableDto {
   set companiescol(value: string) {
     this._companiescol = value;
   }
+  //endregion
+
+  //region Methods
+  /**
+   * Return hex color from a buffer.
+   *
+   * @param buffer - The buffer ton convert
+   *
+   * @return The hex color code converted.
+   */
+  static convertBufferToHexColor(buffer: Buffer): string {
+    return `#${buffer.toString('hex')}`;
+  }
+  //endregion
 }

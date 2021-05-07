@@ -20,6 +20,7 @@ export class CarFleetConstants {
   static readonly PREFIX_API_PATH = '/api';
   static readonly VEHICLES_API_PATH = '/vehicles';
   static readonly DRIVERS_API_PATH = '/drivers';
+  static readonly COMPANIES_API_PATH = '/companies';
 
   // noinspection JSUnusedLocalSymbols
   private constructor() {}
