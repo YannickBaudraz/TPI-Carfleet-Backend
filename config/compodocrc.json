@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@compodoc/compodoc/src/config/schema.json",
   "tsconfig": "tsconfig.json",
-  "output": "doc/generated-doc",
+  "output": "documentation",
   "name": "Carfleet back-end documentation",
   "theme": "material",
   "disablePrivate": true

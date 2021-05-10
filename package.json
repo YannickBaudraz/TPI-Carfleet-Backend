@@ -20,8 +20,8 @@
     "format": "npm-run-all format:*",
     "format:lint": "eslint . --ext .ts --fix",
     "format:prettier": "prettier ./**/*.ts --config .prettierrc --write",
-    "generate:doc": "rimraf ../Wiki_Backend/doc/generated-doc && compodoc --config config/compodocrc.json",
-    "generate:doc:serve": "rimraf ../Wiki_Backend/doc/generated-doc && compodoc --config config/compodocrc.json --serve --open --port 51001"
+    "generate:doc": "rimraf documentation && compodoc --config config/compodocrc.json",
+    "generate:doc:serve": "rimraf /documentation && compodoc --config config/compodocrc.json --serve --open --port 51001"
   },
   "dependencies": {
     "@types/cors": "^2.8.10",
