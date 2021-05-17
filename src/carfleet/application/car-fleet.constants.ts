@@ -1,5 +1,5 @@
 /*
- * Description  :   [ADD DESCRIPTION]
+ * Description  :   Constants of carfleet application.
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
@@ -17,11 +17,30 @@
  * This class is a static class to use constants of the application CarFleet.
  */
 export class CarFleetConstants {
+  //region Fields
+  /**
+   * Prefix for all api paths.
+   */
   static readonly PREFIX_API_PATH = '/api';
-  static readonly VEHICLES_API_PATH = '/vehicles';
-  static readonly DRIVERS_API_PATH = '/drivers';
-  static readonly COMPANIES_API_PATH = '/companies';
 
+  /**
+   * Api path for vehicles.
+   */
+  static readonly VEHICLES_API_PATH = '/vehicles';
+
+  /**
+   * Api path for drivers.
+   */
+  static readonly DRIVERS_API_PATH = '/drivers';
+
+  /**
+   * Api path for companies.
+   */
+  static readonly COMPANIES_API_PATH = '/companies';
+  //endregion
+
+  //region Constructor
   // noinspection JSUnusedLocalSymbols
   private constructor() {}
+  //endregion
 }
