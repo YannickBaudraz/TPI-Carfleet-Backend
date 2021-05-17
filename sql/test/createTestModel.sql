@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `car_fleet_test`.`Drivers`
     `PhoneNumber`           VARCHAR(45) NULL,
     `Companies_idCompanies` INT         NOT NULL,
     PRIMARY KEY (`idDrivers`),
-    INDEX `fk_Drivers_Companies1_idx` (`Companies_idCompanies` ASC) VISIBLE,
+    INDEX `fk_Drivers_Companies1_idx` (`Companies_idCompanies` ASC),
     CONSTRAINT `fk_Drivers_Companies1`
         FOREIGN KEY (`Companies_idCompanies`)
             REFERENCES `car_fleet_test`.`Companies` (`idCompanies`)
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `car_fleet_test`.`Vehicles`
     `notes`             VARCHAR(45)  NULL,
     `Vehiclescol`       VARCHAR(256) NULL,
     PRIMARY KEY (`idVehicles`),
-    INDEX `fk_Vehicles_Drivers1_idx` (`Drivers_idDrivers` ASC) VISIBLE,
+    INDEX `fk_Vehicles_Drivers1_idx` (`Drivers_idDrivers` ASC),
     CONSTRAINT `fk_Vehicles_Drivers1`
         FOREIGN KEY (`Drivers_idDrivers`)
             REFERENCES `car_fleet_test`.`Drivers` (`idDrivers`)
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `car_fleet_test`.`Budgets`
     `fleetManagement`     INT         NULL,
     `replacementVehicle`  INT         NULL,
     PRIMARY KEY (`idBudgets`),
-    INDEX `fk_Budgets_Vehicles_idx` (`Vehicles_idVehicles` ASC) VISIBLE,
+    INDEX `fk_Budgets_Vehicles_idx` (`Vehicles_idVehicles` ASC),
     CONSTRAINT `fk_Budgets_Vehicles`
         FOREIGN KEY (`Vehicles_idVehicles`)
             REFERENCES `car_fleet_test`.`Vehicles` (`idVehicles`)
@@ -145,8 +145,8 @@ CREATE TABLE IF NOT EXISTS `car_fleet_test`.`Invoices`
     `Budgets_idBudgets`     INT         NOT NULL,
     `Creditors_idCreditors` INT         NOT NULL,
     PRIMARY KEY (`idInvoices`, `Budgets_idBudgets`, `Creditors_idCreditors`),
-    INDEX `fk_Invoices_Budgets1_idx` (`Budgets_idBudgets` ASC) VISIBLE,
-    INDEX `fk_Invoices_Creditors1_idx` (`Creditors_idCreditors` ASC) VISIBLE,
+    INDEX `fk_Invoices_Budgets1_idx` (`Budgets_idBudgets` ASC),
+    INDEX `fk_Invoices_Creditors1_idx` (`Creditors_idCreditors` ASC),
     CONSTRAINT `fk_Invoices_Budgets1`
         FOREIGN KEY (`Budgets_idBudgets`)
             REFERENCES `car_fleet_test`.`Budgets` (`idBudgets`)
