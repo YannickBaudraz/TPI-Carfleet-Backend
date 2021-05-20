@@ -35,6 +35,26 @@ export abstract class AbstractConnectedApiTest extends AbstractApiTest {
     expect(response.headers.location).toEqual(expectedRedirectLocation);
   }
 
+  @test('when using GET root with /, should redirected to /all and returning a 302 status response.')
+  async getRootPathWithSlash() {
+    /*
+     * Given
+     */
+    const slash = '/';
+    const expectedRedirectLocation = `${this.CONTROLLER_PATH}/all`;
+
+    /*
+     * When
+     */
+    const response: request.Response = await request(this.express).get(`${this.CONTROLLER_PATH}${slash}`);
+
+    /*
+     * Then
+     */
+    expect(response.status).toEqual(HttpStatusCode.FOUND);
+    expect(response.headers.location).toEqual(expectedRedirectLocation);
+  }
+
   protected static async after() {
     await getConnection('test').close();
   }

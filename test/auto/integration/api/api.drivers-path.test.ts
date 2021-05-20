@@ -6,7 +6,7 @@ import { HttpStatusCode } from '../../../../src/lib/enums/http-status-code';
 import { DriversTestFactory } from '../../factories/drivers-test.factory';
 import { AbstractConnectedApiTest } from './abstract/abstract-connected.api.test';
 
-@suite('Test api requests with api/drivers/ paths')
+@suite('Test api requests with api/drivers paths')
 class ApiDriversPathTest extends AbstractConnectedApiTest {
   constructor() {
     super();

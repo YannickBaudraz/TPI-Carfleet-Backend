@@ -3,7 +3,7 @@ import { HttpStatusCode } from '../../../../src/lib/enums/http-status-code';
 import { AbstractApiTest } from './abstract/abstract.api.test';
 import request = require('supertest');
 
-@suite('Test api requests with api/ path prefix')
+@suite('Test api requests with "api" path prefix')
 class ApiRootPathTest extends AbstractApiTest {
   @test('Should return response 404.')
   async index() {
