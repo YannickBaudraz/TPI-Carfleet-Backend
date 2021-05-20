@@ -197,3 +197,4 @@ documentation/
 src/data/cars_test.json
 output/
 *.bak
+sql/.idea/
