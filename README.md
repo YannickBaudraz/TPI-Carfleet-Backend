@@ -16,11 +16,14 @@ Run `yarn install`
 
 - Starts MariaDb Service
 - Run scripts from _sql_ folder in this order :
-    1. _createUser.sql_
     1. _createModel.sql_
     1. _insertCompanies.sql_
     1. _insertDrivers.sql_
     1. _insertVehicles.sql_
+    1. _createUser.sql_
+
+_In linux environment you will always need to re-create users after creating the database, or they will not have
+rights to interact with it._
 
 ### Development
 
@@ -30,6 +33,16 @@ The server starts at `http://localhost:3000` and load directly typescript files.
 if you change any of the source files.
 
 The api prefix is `/api`, e.g. `http://localhost:3000/api/vehicles`.
+
+### Integration
+
+Run `yarn start:integration` for an integration server. Assume that this command will always be run in a debian 
+environment.
+
+The server starts at `http://localhost:3000` and have the same environment as a production, except that the database 
+contains fake data.
+
+The integration database used is actually the same as the development database.
 
 ## Documentation
 
