@@ -15,6 +15,7 @@
 
 import fs from 'fs';
 import mariadb, { Connection } from 'mariadb';
+import path from 'path';
 
 /**
  * This class is designed to help with the test database.
@@ -44,9 +45,9 @@ export class TestDatabaseHelper {
   }
 
   private static async runSqlFile(filename: string, conn: Connection): Promise<void> {
-    const path = `${this.SQL_TEST_FILES}/${filename}`;
+    const filePath = path.resolve(`${this.SQL_TEST_FILES}/${filename}`);
     const options = 'utf8';
-    const sqlText = fs.readFileSync(path, options);
+    const sqlText = fs.readFileSync(filePath, options);
     await conn.query(sqlText);
   }
 }

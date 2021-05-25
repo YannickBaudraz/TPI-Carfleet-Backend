@@ -16,7 +16,7 @@ import { DriverEntity } from './driver.entity';
 /**
  * Entity companies
  */
-@Entity('companies', { schema: 'car_fleet' })
+@Entity('Companies', { schema: 'car_fleet' })
 export class CompanyEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'idCompanies' })
   id!: number;

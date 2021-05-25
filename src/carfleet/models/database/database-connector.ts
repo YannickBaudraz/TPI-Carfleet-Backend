@@ -93,7 +93,10 @@ export class DatabaseConnector {
           resolvedCallback();
           resolve(undefined);
         })
-        .catch(() => reject());
+        .catch(() => {
+          console.log('Connection failed.');
+          reject();
+        });
     });
   }
   //endregion
