@@ -103,7 +103,7 @@ export class DriverDto extends AbstractSerializableDto {
   }
 
   /**
-   * Company data transfer object..
+   * Company data transfer object.
    */
   @Type(() => CompanyDto)
   @Expose()

@@ -1,6 +1,6 @@
 import { suite, test } from '@testdeck/jest';
 import request from 'supertest';
-import { DriverDto } from '../../../../src/carfleet/models/dtos/driver.dto';
+import { DriverDto } from '../../../../src/carfleet/models/dtos';
 import { BackendResponse } from '../../../../src/carfleet/models/interfaces';
 import { HttpStatusCode } from '../../../../src/lib/enums/http-status-code';
 import { DriversTestFactory } from '../../factories/drivers-test.factory';

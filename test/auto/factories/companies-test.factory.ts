@@ -13,7 +13,7 @@
  * Created with WebStorm.
  */
 
-import { CompanyDto } from '../../../src/carfleet/models/dtos/company.dto';
+import { CompanyDto } from '../../../src/carfleet/models/dtos';
 import { AbstractSerializableTestFactory } from './abstract-serializable-test.factory';
 
 /**

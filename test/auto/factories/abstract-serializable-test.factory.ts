@@ -13,7 +13,7 @@
  * Created with WebStorm.
  */
 
-import { AbstractSerializableDto } from '../../../src/carfleet/models/dtos/abstract-serializable.dto';
+import { AbstractSerializableDto } from '../../../src/carfleet/models/dtos';
 
 /**
  * Factory for serializable dto in tests.
