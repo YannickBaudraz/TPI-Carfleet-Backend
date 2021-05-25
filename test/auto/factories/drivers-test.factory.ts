@@ -36,7 +36,7 @@ export class DriversTestFactory extends AbstractSerializableTestFactory {
     driverDto.jobTitle = 'Staff Scientist';
     driverDto.email = 'cmckimmie1@gravatar.com';
     driverDto.phoneNumber = '479-313-0570';
-    driverDto.company = CompaniesTestFactory.createCompanyDto();
+    driverDto.company = CompaniesTestFactory.createFullCompanyDto();
 
     return this.removeLeadingUnderscoreInFields(driverDto) as DriverDto;
   }

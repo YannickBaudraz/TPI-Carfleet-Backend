@@ -1,11 +1,11 @@
 /*
- * Description  :   Controller for drivers.
+ * Description  :   Controller for companies.
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
  * Project      :   TPICarfleet_Backend - driver.controller.ts
  *
- * Created      :   25.03.2021
+ * Created      :   07.05.2021
  *
  * Updates      :   [update date]
  *                      [update description]
@@ -17,26 +17,29 @@ import { Response } from 'express';
 import { Get, JsonController, Param, Res } from 'routing-controllers';
 import { Service } from 'typedi';
 import { CarFleetConstants } from '../application/car-fleet.constants';
-import { DriverDto } from '../models/dtos/driver.dto';
+import { CompanyDto } from '../models/dtos/company.dto';
 import { BackendResponse } from '../models/interfaces';
-import { DriverService, ResponseService } from '../services';
+import { CompanyService, ResponseService } from '../services';
 import { AbstractController } from './abstract.controller';
 
 /**
- * This class is the controller for drivers.
+ * This class is the controller fot companies
  */
 @Service()
-@JsonController(CarFleetConstants.DRIVERS_API_PATH)
-export class DriverController extends AbstractController {
+@JsonController(CarFleetConstants.COMPANIES_API_PATH)
+export class CompanyController extends AbstractController {
+  //region Constructor
   /**
-   * Create a driver controller.
+   * Create a company controller.
    */
-  constructor(private readonly _driverService: DriverService) {
+  constructor(private readonly _companyService: CompanyService) {
     super();
   }
+  //endregion
 
+  //region Methods
   /**
-   * Get all drivers.
+   * Get all companies.
    *
    * @param res - The HTTP response
    *
@@ -44,25 +47,26 @@ export class DriverController extends AbstractController {
    */
   @Get('/all')
   async all(@Res() res: Response): Promise<Response<BackendResponse>> {
-    const driversDtos = await this._driverService.getAll();
+    const companyDtos = await this._companyService.getAll();
 
-    return new ResponseService(res).sendOk(driversDtos);
+    return new ResponseService(res).sendOk(companyDtos);
   }
 
   /**
-   * Get one driver
+   * Get one company.
    *
    * @param res - The HTTP response
    * @param id - The unique identifier
    *
-   * @return A promise with the HTTP response
+   * @return A promise with the HTTP Response
    */
   @Get('/:id')
   async getOne(@Res() res: Response, @Param('id') id: number): Promise<Response<BackendResponse>> {
-    const driverDto: DriverDto | undefined = await this._driverService.getById(id);
+    const companyDto: CompanyDto | undefined = await this._companyService.getById(id);
 
-    return driverDto
-      ? new ResponseService(res).sendOk(driverDto)
-      : new ResponseService(res).sendOk(driverDto, 'No drivers found with the id requested.');
+    return companyDto
+      ? new ResponseService(res).sendOk(companyDto)
+      : new ResponseService(res).sendOk(null, 'No company found');
   }
+  //endregion
 }

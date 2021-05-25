@@ -25,34 +25,22 @@ import { CarFleetConstants } from '../application/car-fleet.constants';
 import { VehicleDto } from '../models/dtos';
 import { BackendResponse } from '../models/interfaces';
 import { ResponseService, VehicleService } from '../services';
+import { AbstractController } from './abstract.controller';
 
 /**
  * This class is the controller for vehicles.
  */
 @Service()
 @JsonController(CarFleetConstants.VEHICLES_API_PATH)
-export class VehicleController {
+export class VehicleController extends AbstractController {
   //region Constructor
   /**
    * Create a vehicle controller
    */
-  constructor(private readonly _vehicleService: VehicleService) {}
-  //endregion
-
-  //region Methods
-  /**
-   * Redirect to '/all'.
-   *
-   * @param res - The HTTP response to redirect with
-   *
-   * @return A promise with the HTTP response
-   */
-  @Get()
-  async base(@Res() res: Response): Promise<Response> {
-    res.redirect(`${CarFleetConstants.PREFIX_API_PATH}${CarFleetConstants.VEHICLES_API_PATH}/all`);
-
-    return res;
+  constructor(private readonly _vehicleService: VehicleService) {
+    super();
   }
+  //endregion
 
   /**
    * Get all vehicles.

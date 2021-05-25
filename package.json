@@ -10,9 +10,11 @@
     "clean": "rimraf dist node_modules",
     "clean:build": "rimraf dist",
     "clean:modules": "rimraf node_modules",
-    "build": "npm run clean:build && tsc",
-    "start": "cross-env NODE_ENV=production npm run build && node dist/program.js",
-    "start:dev": "cross-env NODE_ENV=development ts-node-dev src/program.ts -r source-map-support/register",
+    "build": "npm-run-all clean:build && tsc && npm run copy-files",
+    "copy-files": "chmod +x ./copy-files.sh && ./copy-files.sh",
+    "start": "export NODE_ENV=production && npm run build && node dist/src/program.js",
+    "start:integration": "export NODE_ENV=integration && npm run build && node dist/src/program.js",
+    "start:dev": "cross-env NODE_ENV=development ts-node-dev src/program.ts -r",
     "test": "cross-env NODE_ENV=test jest -c jest.config.js --runInBand",
     "validate": "npm-run-all validate:* test",
     "validate:lint": "eslint . --ext .ts",
@@ -20,8 +22,8 @@
     "format": "npm-run-all format:*",
     "format:lint": "eslint . --ext .ts --fix",
     "format:prettier": "prettier ./**/*.ts --config .prettierrc --write",
-    "generate:doc": "rimraf ../Wiki_Backend/doc/generated-doc && compodoc --config config/compodocrc.json",
-    "generate:doc:serve": "rimraf ../Wiki_Backend/doc/generated-doc && compodoc --config config/compodocrc.json --serve --open --port 51001"
+    "generate:doc": "rimraf documentation && compodoc --config config/compodocrc.json",
+    "generate:doc:serve": "rimraf /documentation && compodoc --config config/compodocrc.json --serve --open --port 51001"
   },
   "dependencies": {
     "@types/cors": "^2.8.10",
@@ -59,6 +61,7 @@
     "ts-jest": "^26.5.3",
     "ts-node-dev": "^1.1.1",
     "typeorm-model-generator": "^0.4.4",
-    "typescript": "^4.1.5"
+    "typescript": "^4.1.5",
+    "yarn-audit-fix": "^5.0.1"
   }
 }

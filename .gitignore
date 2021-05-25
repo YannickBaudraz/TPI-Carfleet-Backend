@@ -73,6 +73,7 @@ web_modules/
 # dotenv environment variables file
 .env.*
 *.env
+!.env.integration
 !.env.development
 !.env.test
 
@@ -193,7 +194,8 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 ### Custmon
-doc/
+documentation/
 src/data/cars_test.json
 output/
 *.bak
+sql/.idea/

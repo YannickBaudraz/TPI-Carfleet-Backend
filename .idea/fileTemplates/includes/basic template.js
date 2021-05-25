@@ -8,8 +8,5 @@
  *
  * Created      :   ${DATE}
  *
- * Updates      :   [update date]
- *                      [update description]
- *
  * Created with ${PRODUCT_NAME}.
  */

@@ -22,7 +22,7 @@ import { VehicleEntity } from './index';
  * Entity drivers.
  */
 @Index('fk_Drivers_Companies1_idx', ['companyId'], {})
-@Entity('drivers', { schema: 'car_fleet' })
+@Entity('Drivers', { schema: 'car_fleet' })
 export class DriverEntity implements CarFleetEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'idDrivers' })
   id!: number;

@@ -13,6 +13,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
 
+    "rootDir": ".",
     "outDir": "dist",
     "sourceMap": true,
     "alwaysStrict": true,

@@ -1,14 +1,11 @@
 /*
- * Description  :   [ADD DESCRIPTION]
+ * Description  :   Entity for Companies tables
  *
  * Author       :   Yannick.BAUDRAZ@cpnv.ch
  *
  * Project      :   TPICarfleet_Backend - company.entity.ts
  *
  * Created      :   20.03.2021
- *
- * Updates      :   [update date]
- *                      [update description]
  *
  * Created with WebStorm.
  */
@@ -19,7 +16,7 @@ import { DriverEntity } from './driver.entity';
 /**
  * Entity companies
  */
-@Entity('companies', { schema: 'car_fleet' })
+@Entity('Companies', { schema: 'car_fleet' })
 export class CompanyEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'idCompanies' })
   id!: number;
@@ -36,6 +33,9 @@ export class CompanyEntity {
   @Column('varchar', { name: 'City', nullable: true, length: 45 })
   city!: string | null;
 
+  @Column('varchar', { name: 'Canton', nullable: true, length: 45 })
+  canton!: string | null;
+
   @Column('varchar', { name: 'Phone', nullable: true, length: 45 })
   phone!: string | null;
 
@@ -43,7 +43,10 @@ export class CompanyEntity {
   email!: string | null;
 
   @Column('varchar', { name: 'WebSiteUrl', nullable: true, length: 256 })
-  webSiteUrl!: string | null;
+  websiteUrl!: string | null;
+
+  @Column('binary', { name: 'Color', nullable: true, length: 3 })
+  color!: Buffer | null;
 
   @Column('varchar', { name: 'Companiescol', nullable: true, length: 45 })
   companiescol!: string | null;

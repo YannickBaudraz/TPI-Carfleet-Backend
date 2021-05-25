@@ -6,7 +6,7 @@ import { VehiclesTestFactory } from '../../factories/vehicles-test.factory';
 import { AbstractConnectedApiTest } from './abstract/abstract-connected.api.test';
 import request = require('supertest');
 
-@suite('Test api requests with api/vehicles/ paths')
+@suite('Test api requests with api/vehicles paths')
 class ApiVehiclesPathTest extends AbstractConnectedApiTest {
   constructor() {
     super();
