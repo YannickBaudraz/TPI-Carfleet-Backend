@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `car_fleet_test`.`Users`
     `Firstname`             VARCHAR(45)                                               NULL,
     `Lastname`              VARCHAR(45)                                               NULL,
     `Email`                 VARCHAR(256)                                              NOT NULL,
-    `Role`                  ENUM ('administrateur', 'editeur', 'donateur', 'lecteur') NULL,
+    `Role`                  ENUM ('administrateur', 'éditeur', 'donateur', 'lecteur') NULL,
     `Language`              VARCHAR(45)                                               NULL,
     `Status`                ENUM ('en attendant', 'actif', 'suspendu')                NULL,
     `Companies_idCompanies` INT                                                       NOT NULL,

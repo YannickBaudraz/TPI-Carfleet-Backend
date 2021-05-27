@@ -12,6 +12,6 @@
  *
  * Created with WebStorm.
  */
-import { AbstractSerializableDto } from '../dtos/abstract-serializable.dto';
+import { AbstractSerializableDto } from '../dtos';
 
 export type BackendResponseData = AbstractSerializableDto[] | AbstractSerializableDto | null;

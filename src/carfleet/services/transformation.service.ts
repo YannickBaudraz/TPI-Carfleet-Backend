@@ -22,10 +22,11 @@
  * Created with WebStorm.
  */
 
-import { ClassConstructor, classToPlainFromExist, plainToClass } from 'class-transformer';
+import { ClassConstructor, plainToClass } from 'class-transformer';
 import { Service } from 'typedi';
-import { CarFleetEntity } from '../models/database/entities/car-fleet.entity';
-import { AbstractSerializableDto } from '../models/dtos/abstract-serializable.dto';
+import { ObjectUtils } from '../../lib/utils';
+import { CarFleetEntity } from '../models/database/entities';
+import { AbstractSerializableDto } from '../models/dtos';
 
 /**
  * This class is designed to transform an object to another.
@@ -68,6 +69,7 @@ export class TransformationService {
    * @return The entity transformed from the dto
    */
   dtoToEntity(dto: AbstractSerializableDto, entityClass: ClassConstructor<CarFleetEntity>): CarFleetEntity {
-    return classToPlainFromExist(dto, entityClass) as CarFleetEntity;
+    const plain = ObjectUtils.blankStringToNullProperties(dto.toJSON());
+    return plainToClass(entityClass, plain);
   }
 }

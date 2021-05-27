@@ -1,4 +1,4 @@
-use car_fleet_test;
+use car_fleet;
 
 insert into Users (Firstname, Lastname, Email, Role, Language, Status, Companies_idCompanies) values ('Réjane', 'Zambon', 'azambon0@chron.com', 'administrateur', 'Français', 'actif', 1);
 insert into Users (Firstname, Lastname, Email, Role, Language, Status, Companies_idCompanies) values ('Aí', 'Barizeret', 'abarizeret1@ehow.com', 'lecteur', 'Anglais', 'en attendant', 2);

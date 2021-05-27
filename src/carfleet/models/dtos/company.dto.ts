@@ -156,7 +156,8 @@ export class CompanyDto extends AbstractSerializableDto {
    * @return The hex color code converted.
    */
   static convertBufferToHexColor(buffer: Buffer): string {
-    return `#${buffer.toString('hex')}`;
+    const str = buffer.toString('hex');
+    return str.indexOf('#') === -1 ? `#${str}` : str;
   }
   //endregion
 }

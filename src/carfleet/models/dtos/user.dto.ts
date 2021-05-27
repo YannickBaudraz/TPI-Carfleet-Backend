@@ -10,6 +10,7 @@
  * Created with WebStorm.
  */
 
+import { Exclude, Expose, Type } from 'class-transformer';
 import { UserRole, UserStatus } from '../enums';
 import { AbstractSerializableDto } from './abstract-serializable.dto';
 import { CompanyDto } from './company.dto';
@@ -17,6 +18,7 @@ import { CompanyDto } from './company.dto';
 /**
  * This class represent a data transfer object user.
  */
+@Exclude()
 export class UserDto extends AbstractSerializableDto {
   //region Fields
   private _firstname!: string;
@@ -28,9 +30,11 @@ export class UserDto extends AbstractSerializableDto {
   private _company!: CompanyDto;
   //endregion
 
+  //region Accessors
   /**
    * Firstname.
    */
+  @Expose()
   get firstname(): string {
     return this._firstname;
   }
@@ -41,6 +45,7 @@ export class UserDto extends AbstractSerializableDto {
   /**
    * Lastname.
    */
+  @Expose()
   get lastname(): string {
     return this._lastname;
   }
@@ -51,6 +56,7 @@ export class UserDto extends AbstractSerializableDto {
   /**
    * Email address.
    */
+  @Expose()
   get email(): string {
     return this._email;
   }
@@ -61,6 +67,7 @@ export class UserDto extends AbstractSerializableDto {
   /**
    * User role.
    */
+  @Expose()
   get role(): UserRole {
     return this._role;
   }
@@ -71,6 +78,7 @@ export class UserDto extends AbstractSerializableDto {
   /**
    * Language.
    */
+  @Expose()
   get language(): string {
     return this._language;
   }
@@ -81,6 +89,7 @@ export class UserDto extends AbstractSerializableDto {
   /**
    * User status.
    */
+  @Expose()
   get status(): UserStatus {
     return this._status;
   }
@@ -91,10 +100,13 @@ export class UserDto extends AbstractSerializableDto {
   /**
    * Company data transfer object.
    */
+  @Type(() => CompanyDto)
+  @Expose()
   get company(): CompanyDto {
     return this._company;
   }
   set company(value: CompanyDto) {
     this._company = value;
   }
+  //endregion
 }

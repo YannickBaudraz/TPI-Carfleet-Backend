@@ -17,7 +17,7 @@ export enum UserRole {
   /**
    * Admin.
    */
-  Admin = 'admin',
+  Admin = 'administrateur',
 
   /**
    * Editor.
@@ -27,10 +27,10 @@ export enum UserRole {
   /**
    * Donator.
    */
-  Donator = 'donator',
+  Donator = 'donateur',
 
   /**
    * Reader.
    */
-  Reader = 'reader',
+  Reader = 'lecteur',
 }

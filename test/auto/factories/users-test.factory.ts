@@ -32,7 +32,7 @@ export class UsersTestFactory extends AbstractSerializableTestFactory {
     userDto.lastname = 'Zambon';
     userDto.email = 'azambon0@chron.com';
     userDto.role = UserRole.Admin;
-    userDto.language = 'Georgian';
+    userDto.language = 'Français';
     userDto.status = UserStatus.Active;
     userDto.company = CompaniesTestFactory.createFullCompanyDto();
 

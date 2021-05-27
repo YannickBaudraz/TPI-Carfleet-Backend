@@ -20,6 +20,7 @@ Run `yarn install`
     1. _insertCompanies.sql_
     1. _insertDrivers.sql_
     1. _insertVehicles.sql_
+    1. _insertUsers.sql_
     1. _createUser.sql_
 
 _In linux environment you will always need to re-create users after creating the database, or they will not have

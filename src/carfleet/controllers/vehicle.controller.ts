@@ -57,7 +57,7 @@ export class VehicleController extends AbstractController {
   }
 
   /**
-   * Get one vehicle
+   * Get one vehicle.
    *
    * @param res - The HTTP response
    * @param id - The unique identifier
@@ -89,7 +89,7 @@ export class VehicleController extends AbstractController {
   }
 
   /**
-   * Update a vehicle
+   * Update a vehicle.
    *
    * @param res - The HTTP response
    * @param vehicleDto - The vehicle to update
@@ -106,7 +106,7 @@ export class VehicleController extends AbstractController {
   }
 
   /**
-   * Delete a vehicle
+   * Delete a vehicle.
    *
    * @param res - The HTTP response
    * @param id - The unique identifier

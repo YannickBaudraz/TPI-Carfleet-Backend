@@ -83,7 +83,7 @@ export class VehicleService {
   }
 
   /**
-   * Insert a vehicle to the database.
+   * Insert a vehicle in the database.
    *
    * @param vehicleDto - The dto object
    *
@@ -102,7 +102,7 @@ export class VehicleService {
   }
 
   /**
-   * Update a vehicle to the database.
+   * Update a vehicle in the database.
    *
    * @param vehicleDto - The dto vehicle
    *
