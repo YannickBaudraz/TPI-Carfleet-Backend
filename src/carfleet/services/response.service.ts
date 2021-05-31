@@ -57,10 +57,11 @@ export class ResponseService {
    * @return The response with custom JSON body
    */
   sendCreated(data?: BackendResponseData, message?: string): Response<BackendResponse> {
+    const ok = data;
     return this._res.status(HttpStatusCode.CREATED).json({
-      code: HttpStatusCode.OK,
+      code: HttpStatusCode.CREATED,
       message: message || 'Success',
-      data: data,
+      data: ok,
     });
   }
   //endregion

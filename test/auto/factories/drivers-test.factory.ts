@@ -13,12 +13,12 @@
  * Created with WebStorm.
  */
 
-import { DriverDto } from '../../../src/carfleet/models/dtos/driver.dto';
+import { DriverDto } from '../../../src/carfleet/models/dtos';
 import { AbstractSerializableTestFactory } from './abstract-serializable-test.factory';
 import { CompaniesTestFactory } from './companies-test.factory';
 
 /**
- * This class create driver dto for test.
+ * This class creates driver dto for test.
  */
 export class DriversTestFactory extends AbstractSerializableTestFactory {
   /**

@@ -19,7 +19,7 @@ import { Application } from 'express';
 import 'reflect-metadata';
 import { createExpressServer, useContainer } from 'routing-controllers';
 import { Container } from 'typedi';
-import { CompanyController, DriverController, VehicleController } from '../controllers';
+import { CompanyController, DriverController, UserController, VehicleController } from '../controllers';
 import { CarFleetConstants } from './car-fleet.constants';
 
 /**
@@ -44,7 +44,7 @@ export class CarFleetApplication {
         allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
       },
       routePrefix: CarFleetConstants.PREFIX_API_PATH,
-      controllers: [CompanyController, DriverController, VehicleController],
+      controllers: [CompanyController, DriverController, VehicleController, UserController],
       development: process.env.NODE_ENV === 'development',
     });
   }

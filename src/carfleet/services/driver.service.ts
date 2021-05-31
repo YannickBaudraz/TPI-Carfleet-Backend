@@ -17,8 +17,8 @@ import { Service } from 'typedi';
 import { getConnectionManager } from 'typeorm';
 import { DatabaseConnector } from '../models/database';
 import { DriverEntity } from '../models/database/entities';
-import { DriverRepository } from '../models/database/repositories/driver.repository';
-import { DriverDto } from '../models/dtos/driver.dto';
+import { DriverRepository } from '../models/database/repositories';
+import { DriverDto } from '../models/dtos';
 import { TransformationService } from './transformation.service';
 
 /**

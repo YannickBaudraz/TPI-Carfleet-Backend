@@ -17,7 +17,7 @@ import { Response } from 'express';
 import { Get, JsonController, Param, Res } from 'routing-controllers';
 import { Service } from 'typedi';
 import { CarFleetConstants } from '../application/car-fleet.constants';
-import { DriverDto } from '../models/dtos/driver.dto';
+import { DriverDto } from '../models/dtos';
 import { BackendResponse } from '../models/interfaces';
 import { DriverService, ResponseService } from '../services';
 import { AbstractController } from './abstract.controller';
@@ -63,6 +63,6 @@ export class DriverController extends AbstractController {
 
     return driverDto
       ? new ResponseService(res).sendOk(driverDto)
-      : new ResponseService(res).sendOk(driverDto, 'No drivers found with the id requested.');
+      : new ResponseService(res).sendOk(null, 'No drivers found with the id requested.');
   }
 }

@@ -40,6 +40,7 @@ export class TestDatabaseHelper {
     await this.runSqlFile('insertTestCompanies.sql', conn);
     await this.runSqlFile('insertTestDrivers.sql', conn);
     await this.runSqlFile('insertTestVehicles.sql', conn);
+    await this.runSqlFile('insertTestUsers.sql', conn);
 
     await conn.end();
   }

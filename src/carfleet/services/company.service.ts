@@ -14,8 +14,8 @@ import { Service } from 'typedi';
 import { getConnectionManager } from 'typeorm';
 import { DatabaseConnector } from '../models/database';
 import { CompanyEntity } from '../models/database/entities';
-import { CompanyRepository } from '../models/database/repositories/company.repository';
-import { CompanyDto } from '../models/dtos/company.dto';
+import { CompanyRepository } from '../models/database/repositories';
+import { CompanyDto } from '../models/dtos';
 import { TransformationService } from './transformation.service';
 
 /**

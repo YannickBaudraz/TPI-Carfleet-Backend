@@ -32,7 +32,7 @@ export class BooleanUtils {
    *
    * @example
    * // return true
-   * 'tRue', 'TRUE', 'True', 'true'
+   * tRue, TRUE, True, true
    */
   static stringToBoolean(str: string): boolean {
     return str.toLowerCase() === 'true';

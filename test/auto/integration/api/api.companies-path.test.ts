@@ -15,7 +15,7 @@
 
 import { suite, test } from '@testdeck/jest';
 import request from 'supertest';
-import { CompanyDto } from '../../../../src/carfleet/models/dtos/company.dto';
+import { CompanyDto } from '../../../../src/carfleet/models/dtos';
 import { BackendResponse } from '../../../../src/carfleet/models/interfaces';
 import { HttpStatusCode } from '../../../../src/lib/enums/http-status-code';
 import { CompaniesTestFactory } from '../../factories/companies-test.factory';

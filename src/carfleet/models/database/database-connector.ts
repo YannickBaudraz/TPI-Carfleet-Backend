@@ -21,6 +21,7 @@
 import { Connection, ConnectionManager, ConnectionOptions, createConnection, getConnection } from 'typeorm';
 import { BooleanUtils } from '../../../lib/utils';
 import { CompanyEntity, DriverEntity, VehicleEntity } from './entities';
+import { UserEntity } from './entities/user.entity';
 
 /**
  * This class helps to manage database connection.
@@ -74,7 +75,7 @@ export class DatabaseConnector {
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [CompanyEntity, DriverEntity, VehicleEntity],
+      entities: [CompanyEntity, DriverEntity, VehicleEntity, UserEntity],
       logging: BooleanUtils.stringToBoolean(process.env.DB_LOGGING as string),
     };
   }

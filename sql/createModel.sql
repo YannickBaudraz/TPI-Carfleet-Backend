@@ -183,6 +183,30 @@ CREATE TABLE IF NOT EXISTS `car_fleet`.`InvoiceItems`
 ) ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `car_fleet`.`Users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `car_fleet`.`Users`
+(
+    `idUsers`               INT                                                       NOT NULL AUTO_INCREMENT,
+    `Firstname`             VARCHAR(45)                                               NULL,
+    `Lastname`              VARCHAR(45)                                               NULL,
+    `Email`                 VARCHAR(256)                                              NOT NULL,
+    `Role`                  ENUM ('administrateur', 'éditeur', 'donateur', 'lecteur') NULL,
+    `Language`              VARCHAR(45)                                               NULL,
+    `Status`                ENUM ('en attendant', 'actif', 'suspendu')                NULL,
+    `Companies_idCompanies` INT                                                       NOT NULL,
+    PRIMARY KEY (`idUsers`),
+    INDEX `fk_Users_Companies1_idx` (`Companies_idCompanies` ASC),
+    UNIQUE INDEX `Email_UNIQUE` (`Email` ASC),
+    CONSTRAINT `fk_Users_Companies1`
+        FOREIGN KEY (`Companies_idCompanies`)
+            REFERENCES `car_fleet`.`Companies` (`idCompanies`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION
+) ENGINE = InnoDB;
+
+
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;

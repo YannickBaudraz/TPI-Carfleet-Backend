@@ -12,6 +12,7 @@
 
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { DriverEntity } from './driver.entity';
+import { UserEntity } from './user.entity';
 
 /**
  * Entity companies
@@ -53,4 +54,7 @@ export class CompanyEntity {
 
   @OneToMany(() => DriverEntity, (driversEntity) => driversEntity.company, { lazy: true })
   drivers!: Promise<DriverEntity[]>;
+
+  @OneToMany(() => UserEntity, (userEntity) => userEntity.company, { lazy: true })
+  users!: Promise<UserEntity[]>;
 }

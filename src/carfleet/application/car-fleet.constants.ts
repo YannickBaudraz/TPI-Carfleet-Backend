@@ -37,6 +37,11 @@ export class CarFleetConstants {
    * Api path for companies.
    */
   static readonly COMPANIES_API_PATH = '/companies';
+
+  /**
+   * Api path for users.
+   */
+  static readonly USERS_API_PATH = '/users';
   //endregion
 
   //region Constructor

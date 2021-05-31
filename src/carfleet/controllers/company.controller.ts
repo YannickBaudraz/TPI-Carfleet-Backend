@@ -17,7 +17,7 @@ import { Response } from 'express';
 import { Get, JsonController, Param, Res } from 'routing-controllers';
 import { Service } from 'typedi';
 import { CarFleetConstants } from '../application/car-fleet.constants';
-import { CompanyDto } from '../models/dtos/company.dto';
+import { CompanyDto } from '../models/dtos';
 import { BackendResponse } from '../models/interfaces';
 import { CompanyService, ResponseService } from '../services';
 import { AbstractController } from './abstract.controller';
