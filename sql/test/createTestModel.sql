@@ -21,7 +21,7 @@ CREATE SCHEMA IF NOT EXISTS `car_fleet_test` DEFAULT CHARACTER SET utf8;
 CREATE TABLE IF NOT EXISTS `car_fleet_test`.`Companies`
 (
     `idCompanies`  INT          NOT NULL AUTO_INCREMENT,
-    `Name`         VARCHAR(45)  NULL,
+    `Name`         VARCHAR(45)  NOT NULL,
     `Address`      VARCHAR(45)  NULL,
     `Zip`          VARCHAR(45)  NULL,
     `City`         VARCHAR(45)  NULL,
@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS `car_fleet_test`.`Companies`
     `WebSiteUrl`   VARCHAR(256) NULL,
     `Color`        BINARY(3)    NULL,
     `Companiescol` VARCHAR(45)  NULL,
-    PRIMARY KEY (`idCompanies`)
+    PRIMARY KEY (`idCompanies`),
+    UNIQUE INDEX `Name_UNIQUE` (`Name` ASC)
 ) ENGINE = InnoDB;
 
 
