@@ -13,8 +13,10 @@
  * Created with WebStorm.
  */
 
-import { Exclude, Expose, Transform } from 'class-transformer';
+import { Exclude, Expose, Transform, Type } from 'class-transformer';
 import { AbstractSerializableDto } from './abstract-serializable.dto';
+import { DriverDto } from './driver.dto';
+import { UserDto } from './user.dto';
 
 /**
  * This class represent a data transfer object company.
@@ -32,6 +34,8 @@ export class CompanyDto extends AbstractSerializableDto {
   private _websiteUrl!: string;
   private _color!: string;
   private _companiescol!: string;
+  private _drivers!: DriverDto[];
+  private _users!: UserDto[];
   //endregion
 
   //region Accessors
@@ -144,6 +148,30 @@ export class CompanyDto extends AbstractSerializableDto {
   }
   set companiescol(value: string) {
     this._companiescol = value;
+  }
+
+  /**
+   * Array of driver data transfer object.
+   */
+  @Type(() => DriverDto)
+  @Expose({ name: '__drivers__' })
+  get drivers(): DriverDto[] {
+    return this._drivers;
+  }
+  set drivers(value: DriverDto[]) {
+    this._drivers = value;
+  }
+
+  /**
+   * Array of user data transfer object.
+   */
+  @Type(() => UserDto)
+  @Expose({ name: '__users__' })
+  get users(): UserDto[] {
+    return this._users;
+  }
+  set users(value: UserDto[]) {
+    this._users = value;
   }
   //endregion
 
