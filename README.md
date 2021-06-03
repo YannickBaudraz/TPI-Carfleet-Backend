@@ -12,6 +12,16 @@ This is the backend application of CarFleet.
 
 Run `yarn install`
 
+## Push in a production server
+
+Once you have access to your server, do this tasks in this order :
+
+1. Install the prerequisites
+1. Run `yarn install`.
+1. Run `yarn build`.
+1. Move manually the _dist_ folder your server.
+1. Follow the part Usage and Usage->Integration of this page.
+
 ## Usage
 
 - Starts MariaDb Service
